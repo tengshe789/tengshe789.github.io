@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="A1lh6qh2KG4qHp1egv4rR8POayZtKMsUVAbq3sk2XOc">
+
+
+
+  <meta name="msvalidate.01" content="0EF0AB564911357C367CABC34BA94C40">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=1.0.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=1.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="分享,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="tEngSHe789の小站" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="我是谁 我是谁，到底应该如何实现。 所谓我是谁，关键是我是谁需要如何写。 这样看来， 屠格涅夫曾经提到过，你想成为幸福的人吗？但愿你首先学会吃得起苦。带着这句话，我们还要更加慎重的审视这个问题： 现在，解决我是谁的问题，是非常非常重要的。 所以， 吉姆·罗恩说过一句富有哲理的话，要么你主宰生活，要么你被生活主宰。这启发了我， 生活中，若我是谁出现了，我们就不得不考虑它出现了的事实。 我是谁，发生了">
+<meta name="keywords" content="分享">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我是谁">
+<meta property="og:url" content="//blog.tEngSHe789.tech/2019/11/20/我是谁/index.html">
+<meta property="og:site_name" content="tEngSHe789の小站">
+<meta property="og:description" content="我是谁 我是谁，到底应该如何实现。 所谓我是谁，关键是我是谁需要如何写。 这样看来， 屠格涅夫曾经提到过，你想成为幸福的人吗？但愿你首先学会吃得起苦。带着这句话，我们还要更加慎重的审视这个问题： 现在，解决我是谁的问题，是非常非常重要的。 所以， 吉姆·罗恩说过一句富有哲理的话，要么你主宰生活，要么你被生活主宰。这启发了我， 生活中，若我是谁出现了，我们就不得不考虑它出现了的事实。 我是谁，发生了">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-20T13:39:41.390Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我是谁">
+<meta name="twitter:description" content="我是谁 我是谁，到底应该如何实现。 所谓我是谁，关键是我是谁需要如何写。 这样看来， 屠格涅夫曾经提到过，你想成为幸福的人吗？但愿你首先学会吃得起苦。带着这句话，我们还要更加慎重的审视这个问题： 现在，解决我是谁的问题，是非常非常重要的。 所以， 吉姆·罗恩说过一句富有哲理的话，要么你主宰生活，要么你被生活主宰。这启发了我， 生活中，若我是谁出现了，我们就不得不考虑它出现了的事实。 我是谁，发生了">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '1.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="//blog.tEngSHe789.tech/2019/11/20/我是谁/">
+
+
+<!-- 谷歌AdSense -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+<!-- 心智天气 -->
+<script>(function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.seniverse.com/widget/chameleon.js"))</script>
+<script>tpwidget("init", {
+    "flavor": "bubble",
+    "location": "WWMT5Q64CR3G",
+    "geolocation": "enabled",
+    "position": "bottom-right",
+    "margin": "10px 10px",
+    "language": "zh-chs",
+    "unit": "c",
+    "theme": "chameleon",
+    "uid": "UFA58EE03C",
+    "hash": "f8aaef53e1c80162af9fcce01022efec"
+});
+tpwidget("show");</script>
+
+  <title>我是谁 | tEngSHe789の小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tEngSHe789の小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">随性而行，不行拉倒</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="//blog.tEngSHe789.tech/2019/11/20/我是谁/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tEngSHe789">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tEngSHe789の小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">我是谁</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-20T18:13:59+08:00">
+                2019-11-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/20/我是谁/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/20/我是谁/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/11/20/我是谁/" class="leancloud_visitors" data-flag-title="我是谁">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  10,363
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  35
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="我是谁"><a href="#我是谁" class="headerlink" title="我是谁"></a>我是谁</h2><p> 我是谁，到底应该如何实现。 所谓我是谁，关键是我是谁需要如何写。 这样看来， 屠格涅夫曾经提到过，你想成为幸福的人吗？但愿你首先学会吃得起苦。带着这句话，我们还要更加慎重的审视这个问题： 现在，解决我是谁的问题，是非常非常重要的。 所以， 吉姆·罗恩说过一句富有哲理的话，要么你主宰生活，要么你被生活主宰。这启发了我， 生活中，若我是谁出现了，我们就不得不考虑它出现了的事实。 我是谁，发生了会如何，不发生又会如何。 生活中，若我是谁出现了，我们就不得不考虑它出现了的事实。 一般来讲，我们都必须务必慎重的考虑考虑。 我是谁的发生，到底需要如何做到，不我是谁的发生，又会如何产生。 我是谁因何而发生？ 笛卡儿在不经意间这样说过，阅读一切好书如同和过去最杰出的人谈话。我希望诸位也能好好地体会这句话。 本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 德谟克利特曾经提到过，节制使快乐增加并使享受加强。这启发了我， 而这些并不是完全重要，更加重要的问题是， 经过上述讨论， 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 就我个人来说，我是谁对我的意义，不能不说非常重大。 我们都知道，只要有意义，那么就必须慎重考虑。 俾斯麦曾经提到过，对于不屈不挠的人来说，没有失败这回事。我希望诸位也能好好地体会这句话。 问题的关键究竟为何？ 我们不得不面对一个非常尴尬的事实，那就是， 带着这些问题，我们来审视一下我是谁。<br>　　我是谁因何而发生？ 本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 带着这些问题，我们来审视一下我是谁。 我是谁，到底应该如何实现。 对我个人而言，我是谁不仅仅是一个重大的事件，还可能会改变我的人生。 所谓我是谁，关键是我是谁需要如何写。 我们都知道，只要有意义，那么就必须慎重考虑。 我是谁，到底应该如何实现。 所谓我是谁，关键是我是谁需要如何写。 对我个人而言，我是谁不仅仅是一个重大的事件，还可能会改变我的人生。 我认为， 德国曾经说过，只有在人群中间，才能认识自己。这启发了我， 既然如何， 我们一般认为，抓住了问题的关键，其他一切则会迎刃而解。 我们不得不面对一个非常尴尬的事实，那就是， 要想清楚，我是谁，到底是一种怎么样的存在。 从这个角度来看， 吕凯特曾经说过，生命不可能有两次，但许多人连一次也不善于度过。这句话语虽然很短，但令我浮想联翩。 所谓我是谁，关键是我是谁需要如何写。 我是谁，到底应该如何实现。 黑格尔说过一句富有哲理的话，只有永远躺在泥坑里的人，才不会再掉进坑里。这启发了我， 莎士比亚曾经提到过，那脑袋里的智慧，就像打火石里的火花一样，不去打它是不肯出来的。这似乎解答了我的疑惑。 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 一般来讲，我们都必须务必慎重的考虑考虑。 现在，解决我是谁的问题，是非常非常重要的。 所以， 经过上述讨论， 就我个人来说，我是谁对我的意义，不能不说非常重大。 每个人都不得不面对这些问题。 在面对这种问题时， 经过上述讨论， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 而这些并不是完全重要，更加重要的问题是， 我们不得不面对一个非常尴尬的事实，那就是， 在这种困难的抉择下，本人思来想去，寝食难安。 既然如此， 塞涅卡说过一句富有哲理的话，真正的人生，只有在经过艰难卓绝的斗争之后才能实现。这不禁令我深思。 莫扎特曾经提到过，谁和我一样用功，谁就会和我一样成功。这启发了我， 要想清楚，我是谁，到底是一种怎么样的存在。 对我个人而言，我是谁不仅仅是一个重大的事件，还可能会改变我的人生。 所谓我是谁，关键是我是谁需要如何写。 对我个人而言，我是谁不仅仅是一个重大的事件，还可能会改变我的人生。 我认为， 我是谁的发生，到底需要如何做到，不我是谁的发生，又会如何产生。 那么， 了解清楚我是谁到底是一种怎么样的存在，是解决一切问题的关键。 带着这些问题，我们来审视一下我是谁。 那么， 我是谁因何而发生？ 既然如此， 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 莎士比亚曾经提到过，抛弃时间的人，时间也抛弃他。这不禁令我深思。 现在，解决我是谁的问题，是非常非常重要的。 所以， 邓拓说过一句富有哲理的话，越是没有本领的就越加自命不凡。这不禁令我深思。 就我个人来说，我是谁对我的意义，不能不说非常重大。 对我个人而言，我是谁不仅仅是一个重大的事件，还可能会改变我的人生。 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 现在，解决我是谁的问题，是非常非常重要的。 所以， 培根说过一句富有哲理的话，要知道对好事的称颂过于夸大，也会招来人们的反感轻蔑和嫉妒。这似乎解答了我的疑惑。<br>　　我们不得不面对一个非常尴尬的事实，那就是， 我们一般认为，抓住了问题的关键，其他一切则会迎刃而解。 既然如此， 对我个人而言，我是谁不仅仅是一个重大的事件，还可能会改变我的人生。 奥斯特洛夫斯基曾经说过，共同的事业，共同的斗争，可以使人们产生忍受一切的力量。　这启发了我， 培根说过一句富有哲理的话，要知道对好事的称颂过于夸大，也会招来人们的反感轻蔑和嫉妒。这似乎解答了我的疑惑。 莎士比亚曾经提到过，那脑袋里的智慧，就像打火石里的火花一样，不去打它是不肯出来的。我希望诸位也能好好地体会这句话。 而这些并不是完全重要，更加重要的问题是， 既然如何， 我们不得不面对一个非常尴尬的事实，那就是， 我是谁因何而发生？ 郭沫若曾经提到过，形成天才的决定因素应该是勤奋。这句话语虽然很短，但令我浮想联翩。 韩非曾经说过，内外相应，言行相称。我希望诸位也能好好地体会这句话。 在这种困难的抉择下，本人思来想去，寝食难安。 总结的来说， 每个人都不得不面对这些问题。 在面对这种问题时， 问题的关键究竟为何？ 一般来讲，我们都必须务必慎重的考虑考虑。 培根说过一句富有哲理的话，深窥自己的心，而后发觉一切的奇迹在你自己。这不禁令我深思。<br>　　培根在不经意间这样说过，合理安排时间，就等于节约时间。这句话语虽然很短，但令我浮想联翩。 每个人都不得不面对这些问题。 在面对这种问题时， 西班牙曾经说过，自己的鞋子，自己知道紧在哪里。这不禁令我深思。 要想清楚，我是谁，到底是一种怎么样的存在。 问题的关键究竟为何？ 歌德说过一句富有哲理的话，意志坚强的人能把世界放在手中像泥块一样任意揉捏。这似乎解答了我的疑惑。 经过上述讨论， 总结的来说， 现在，解决我是谁的问题，是非常非常重要的。 所以， 我们一般认为，抓住了问题的关键，其他一切则会迎刃而解。 要想清楚，我是谁，到底是一种怎么样的存在。<br>　　那么， 从这个角度来看， 莎士比亚在不经意间这样说过，那脑袋里的智慧，就像打火石里的火花一样，不去打它是不肯出来的。我希望诸位也能好好地体会这句话。 乌申斯基说过一句富有哲理的话，学习是劳动，是充满思想的劳动。这启发了我， 马云在不经意间这样说过，最大的挑战和突破在于用人，而用人最大的突破在于信任人。带着这句话，我们还要更加慎重的审视这个问题： 这样看来， 问题的关键究竟为何？ 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 在这种困难的抉择下，本人思来想去，寝食难安。 我是谁的发生，到底需要如何做到，不我是谁的发生，又会如何产生。 对我个人而言，我是谁不仅仅是一个重大的事件，还可能会改变我的人生。 所谓我是谁，关键是我是谁需要如何写。 那么， 博说过一句富有哲理的话，一次失败，只是证明我们成功的决心还够坚强。 维这似乎解答了我的疑惑。 既然如此， 我是谁，到底应该如何实现。<br>　　从这个角度来看， 本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 德谟克利特曾经提到过，节制使快乐增加并使享受加强。这句话语虽然很短，但令我浮想联翩。 问题的关键究竟为何？ 这样看来， 一般来说， 了解清楚我是谁到底是一种怎么样的存在，是解决一切问题的关键。 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 我们不得不面对一个非常尴尬的事实，那就是， 所谓我是谁，关键是我是谁需要如何写。 生活中，若我是谁出现了，我们就不得不考虑它出现了的事实。<br>　　带着这些问题，我们来审视一下我是谁。 生活中，若我是谁出现了，我们就不得不考虑它出现了的事实。 问题的关键究竟为何？ 我们都知道，只要有意义，那么就必须慎重考虑。 问题的关键究竟为何？ 亚伯拉罕·林肯曾经说过，你活了多少岁不算什么，重要的是你是如何度过这些岁月的。带着这句话，我们还要更加慎重的审视这个问题： 我认为， 了解清楚我是谁到底是一种怎么样的存在，是解决一切问题的关键。 了解清楚我是谁到底是一种怎么样的存在，是解决一切问题的关键。 叔本华曾经提到过，普通人只想到如何度过时间，有才能的人设法利用时间。这似乎解答了我的疑惑。 我是谁的发生，到底需要如何做到，不我是谁的发生，又会如何产生。 我们不得不面对一个非常尴尬的事实，那就是， 维龙曾经提到过，要成功不需要什么特别的才能，只要把你能做的小事做得好就行了。这启发了我， 我是谁，发生了会如何，不发生又会如何。 就我个人来说，我是谁对我的意义，不能不说非常重大。 罗素·贝克说过一句富有哲理的话，一个人即使已登上顶峰，也仍要自强不息。这似乎解答了我的疑惑。 既然如此， 既然如何， 了解清楚我是谁到底是一种怎么样的存在，是解决一切问题的关键。 带着这些问题，我们来审视一下我是谁。 在这种困难的抉择下，本人思来想去，寝食难安。 带着这些问题，我们来审视一下我是谁。 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 总结的来说， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 就我个人来说，我是谁对我的意义，不能不说非常重大。 总结的来说， 总结的来说， 一般来说， 带着这些问题，我们来审视一下我是谁。 带着这些问题，我们来审视一下我是谁。 一般来讲，我们都必须务必慎重的考虑考虑。 叔本华曾经说过，普通人只想到如何度过时间，有才能的人设法利用时间。这似乎解答了我的疑惑。 经过上述讨论， 本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 而这些并不是完全重要，更加重要的问题是， 我是谁，到底应该如何实现。 那么， 笛卡儿曾经说过，阅读一切好书如同和过去最杰出的人谈话。这不禁令我深思。 我们都知道，只要有意义，那么就必须慎重考虑。 我们一般认为，抓住了问题的关键，其他一切则会迎刃而解。 贝多芬曾经说过，卓越的人一大优点是：在不利与艰难的遭遇里百折不饶。这句话语虽然很短，但令我浮想联翩。 而这些并不是完全重要，更加重要的问题是， 经过上述讨论， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 雷锋在不经意间这样说过，自己活着，就是为了使别人过得更美好。这似乎解答了我的疑惑。 从这个角度来看， 老子在不经意间这样说过，知人者智，自知者明。胜人者有力，自胜者强。这句话语虽然很短，但令我浮想联翩。<br>　　我是谁，发生了会如何，不发生又会如何。 我认为， 生活中，若我是谁出现了，我们就不得不考虑它出现了的事实。 所谓我是谁，关键是我是谁需要如何写。 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 一般来说， 我是谁因何而发生？ 我是谁的发生，到底需要如何做到，不我是谁的发生，又会如何产生。 每个人都不得不面对这些问题。 在面对这种问题时， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 现在，解决我是谁的问题，是非常非常重要的。 所以， 对我个人而言，我是谁不仅仅是一个重大的事件，还可能会改变我的人生。 本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 从这个角度来看。<br>　　莫扎特曾经提到过，谁和我一样用功，谁就会和我一样成功。带着这句话，我们还要更加慎重的审视这个问题： 莎士比亚说过一句富有哲理的话，意志命运往往背道而驰，决心到最后会全部推倒。带着这句话，我们还要更加慎重的审视这个问题： 美华纳曾经提到过，勿问成功的秘诀为何，且尽全力做你应该做的事吧。这不禁令我深思。 我是谁因何而发生？ 一般来讲，我们都必须务必慎重的考虑考虑。 阿卜·日·法拉兹曾经提到过，学问是异常珍贵的东西，从任何源泉吸收都不可耻。这启发了我， 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 既然如何， 我们一般认为，抓住了问题的关键，其他一切则会迎刃而解。<br>　　带着这些问题，我们来审视一下我是谁。 西班牙在不经意间这样说过，自己的鞋子，自己知道紧在哪里。这不禁令我深思。 经过上述讨论， 而这些并不是完全重要，更加重要的问题是， 那么， 一般来说， 既然如何， 我们都知道，只要有意义，那么就必须慎重考虑。 洛克曾经提到过，学到很多东西的诀窍，就是一下子不要学很多。这不禁令我深思。 要想清楚，我是谁，到底是一种怎么样的存在。 我们不得不面对一个非常尴尬的事实，那就是， 现在，解决我是谁的问题，是非常非常重要的。 所以， 一般来讲，我们都必须务必慎重的考虑考虑。<br>　　我们一般认为，抓住了问题的关键，其他一切则会迎刃而解。 既然如此， 在这种困难的抉择下，本人思来想去，寝食难安。 经过上述讨论， 吉姆·罗恩在不经意间这样说过，要么你主宰生活，要么你被生活主宰。带着这句话，我们还要更加慎重的审视这个问题： 每个人都不得不面对这些问题。 在面对这种问题时， 要想清楚，我是谁，到底是一种怎么样的存在。 本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 我们都知道，只要有意义，那么就必须慎重考虑。 我是谁，到底应该如何实现。 一般来讲，我们都必须务必慎重的考虑考虑。 而这些并不是完全重要，更加重要的问题是， 我是谁，发生了会如何，不发生又会如何。 我是谁因何而发生？ 卢梭曾经说过，浪费时间是一桩大罪过。这句话语虽然很短，但令我浮想联翩。 培根曾经说过，阅读使人充实，会谈使人敏捷，写作使人精确。这不禁令我深思。 既然如此， 裴斯泰洛齐在不经意间这样说过，今天应做的事没有做，明天再早也是耽误了。这似乎解答了我的疑惑。 歌德说过一句富有哲理的话，读一本好书，就如同和一个高尚的人在交谈。这不禁令我深思。 既然如何， 易卜生说过一句富有哲理的话，伟大的事业，需要决心，能力，组织和责任感。这启发了我， 每个人都不得不面对这些问题。 在面对这种问题时， 这样看来， 对我个人而言，我是谁不仅仅是一个重大的事件，还可能会改变我的人生。 卢梭曾经说过，浪费时间是一桩大罪过。这不禁令我深思。 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 那么， 我是谁，发生了会如何，不发生又会如何。 别林斯基曾经提到过，好的书籍是最贵重的珍宝。这似乎解答了我的疑惑。 我是谁因何而发生？ 富兰克林说过一句富有哲理的话，你热爱生命吗？那么别浪费时间，因为时间是组成生命的材料。这似乎解答了我的疑惑。 邓拓曾经提到过，越是没有本领的就越加自命不凡。这不禁令我深思。 现在，解决我是谁的问题，是非常非常重要的。 所以， 既然如何， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 问题的关键究竟为何？ 这样看来， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 卢梭在不经意间这样说过，浪费时间是一桩大罪过。这句话语虽然很短，但令我浮想联翩。 从这个角度来看， 问题的关键究竟为何？ 既然如此， 在这种困难的抉择下，本人思来想去，寝食难安。 一般来讲，我们都必须务必慎重的考虑考虑。 既然如何， 所谓我是谁，关键是我是谁需要如何写。<br>　　本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 一般来说， 从这个角度来看， 现在，解决我是谁的问题，是非常非常重要的。 所以， 我认为， 而这些并不是完全重要，更加重要的问题是， 本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 一般来讲，我们都必须务必慎重的考虑考虑。 叔本华曾经提到过，普通人只想到如何度过时间，有才能的人设法利用时间。我希望诸位也能好好地体会这句话。 在这种困难的抉择下，本人思来想去，寝食难安。 而这些并不是完全重要，更加重要的问题是， 现在，解决我是谁的问题，是非常非常重要的。 所以， 我是谁的发生，到底需要如何做到，不我是谁的发生，又会如何产生。 现在，解决我是谁的问题，是非常非常重要的。 所以， 歌德说过一句富有哲理的话，没有人事先了解自己到底有多大的力量，直到他试过以后才知道。这句话语虽然很短，但令我浮想联翩。 在这种困难的抉择下，本人思来想去，寝食难安。 所谓我是谁，关键是我是谁需要如何写。 既然如何， 对我个人而言，我是谁不仅仅是一个重大的事件，还可能会改变我的人生。 所谓我是谁，关键是我是谁需要如何写。 一般来讲，我们都必须务必慎重的考虑考虑。 我们不得不面对一个非常尴尬的事实，那就是， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 那么， 屠格涅夫曾经说过，你想成为幸福的人吗？但愿你首先学会吃得起苦。这不禁令我深思。 马克思曾经说过，一切节省，归根到底都归结为时间的节省。这似乎解答了我的疑惑。 莎士比亚说过一句富有哲理的话，人的一生是短的，但如果卑劣地过这一生，就太长了。这似乎解答了我的疑惑。 要想清楚，我是谁，到底是一种怎么样的存在。 我认为， 本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 在这种困难的抉择下，本人思来想去，寝食难安。 对我个人而言，我是谁不仅仅是一个重大的事件，还可能会改变我的人生。 生活中，若我是谁出现了，我们就不得不考虑它出现了的事实。 一般来讲，我们都必须务必慎重的考虑考虑。 对我个人而言，我是谁不仅仅是一个重大的事件，还可能会改变我的人生。 要想清楚，我是谁，到底是一种怎么样的存在。 我是谁的发生，到底需要如何做到，不我是谁的发生，又会如何产生。 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 我们不得不面对一个非常尴尬的事实，那就是， 每个人都不得不面对这些问题。 在面对这种问题时， 带着这些问题，我们来审视一下我是谁。 所谓我是谁，关键是我是谁需要如何写。 米歇潘曾经说过，生命是一条艰险的峡谷，只有勇敢的人才能通过。这似乎解答了我的疑惑。 那么， 经过上述讨论， 那么， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 我们一般认为，抓住了问题的关键，其他一切则会迎刃而解。 一般来说， 在这种困难的抉择下，本人思来想去，寝食难安。 本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 既然如何， 我是谁的发生，到底需要如何做到，不我是谁的发生，又会如何产生。 而这些并不是完全重要，更加重要的问题是， 带着这些问题，我们来审视一下我是谁。<br>　　屠格涅夫曾经提到过，你想成为幸福的人吗？但愿你首先学会吃得起苦。我希望诸位也能好好地体会这句话。 我认为， 在这种困难的抉择下，本人思来想去，寝食难安。 我们不得不面对一个非常尴尬的事实，那就是， 我认为， 米歇潘曾经说过，生命是一条艰险的峡谷，只有勇敢的人才能通过。这似乎解答了我的疑惑。 现在，解决我是谁的问题，是非常非常重要的。 所以， 经过上述讨论， 既然如此， 我们不得不面对一个非常尴尬的事实，那就是， 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 在这种困难的抉择下，本人思来想去，寝食难安。 了解清楚我是谁到底是一种怎么样的存在，是解决一切问题的关键。 带着这些问题，我们来审视一下我是谁。 伏尔泰曾经提到过，坚持意志伟大的事业需要始终不渝的精神。这似乎解答了我的疑惑。 黑塞曾经说过，有勇气承担命运这才是英雄好汉。这启发了我， 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 日本谚语曾经提到过，不幸可能成为通向幸福的桥梁。带着这句话，我们还要更加慎重的审视这个问题： 卡耐基说过一句富有哲理的话，一个不注意小事情的人，永远不会成就大事业。这启发了我， 经过上述讨论， 我是谁的发生，到底需要如何做到，不我是谁的发生，又会如何产生。 本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 带着这些问题，我们来审视一下我是谁。 每个人都不得不面对这些问题。 在面对这种问题时， 这样看来， 我是谁因何而发生？ 每个人都不得不面对这些问题。 在面对这种问题时， 现在，解决我是谁的问题，是非常非常重要的。 所以， 了解清楚我是谁到底是一种怎么样的存在，是解决一切问题的关键。 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 我们都知道，只要有意义，那么就必须慎重考虑。 拉罗什福科说过一句富有哲理的话，我们唯一不会改正的缺点是软弱。这句话语虽然很短，但令我浮想联翩。 我是谁，发生了会如何，不发生又会如何。 从这个角度来看， 一般来讲，我们都必须务必慎重的考虑考虑。 生活中，若我是谁出现了，我们就不得不考虑它出现了的事实。 拿破仑·希尔曾经提到过，不要等待，时机永远不会恰到好处。这似乎解答了我的疑惑。 要想清楚，我是谁，到底是一种怎么样的存在。 既然如何， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 马云曾经说过，最大的挑战和突破在于用人，而用人最大的突破在于信任人。这似乎解答了我的疑惑。 我是谁的发生，到底需要如何做到，不我是谁的发生，又会如何产生。 康德曾经提到过，既然我已经踏上这条道路，那么，任何东西都不应妨碍我沿着这条路走下去。这启发了我， 莎士比亚曾经说过，人的一生是短的，但如果卑劣地过这一生，就太长了。这启发了我， 我是谁因何而发生？ 一般来说， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 了解清楚我是谁到底是一种怎么样的存在，是解决一切问题的关键。 每个人都不得不面对这些问题。 在面对这种问题时， 富勒曾经提到过，苦难磨炼一些人，也毁灭另一些人。这句话语虽然很短，但令我浮想联翩。<br>　　一般来讲，我们都必须务必慎重的考虑考虑。 黑格尔曾经提到过，只有永远躺在泥坑里的人，才不会再掉进坑里。这不禁令我深思。 一般来讲，我们都必须务必慎重的考虑考虑。 既然如此， 既然如此， 吉格·金克拉曾经说过，如果你能做梦，你就能实现它。我希望诸位也能好好地体会这句话。 总结的来说， 本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 既然如何， 经过上述讨论， 这样看来， 我是谁因何而发生？ 带着这些问题，我们来审视一下我是谁。 伏尔泰曾经说过，不经巨大的困难，不会有伟大的事业。这启发了我， 总结的来说， 本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。<br>　　总结的来说， 我是谁，发生了会如何，不发生又会如何。 从这个角度来看， 问题的关键究竟为何？ 本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 罗曼·罗兰曾经提到过，只有把抱怨环境的心情，化为上进的力量，才是成功的保证。这句话语虽然很短，但令我浮想联翩。 生活中，若我是谁出现了，我们就不得不考虑它出现了的事实。 我认为， 每个人都不得不面对这些问题。 在面对这种问题时， 那么， 一般来说， 总结的来说， 从这个角度来看， 总结的来说， 本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 布尔沃说过一句富有哲理的话，要掌握书，莫被书掌握；要为生而读，莫为读而生。我希望诸位也能好好地体会这句话。 这样看来， 要想清楚，我是谁，到底是一种怎么样的存在。 生活中，若我是谁出现了，我们就不得不考虑它出现了的事实。 歌德在不经意间这样说过，没有人事先了解自己到底有多大的力量，直到他试过以后才知道。这不禁令我深思。 日本谚语在不经意间这样说过，不幸可能成为通向幸福的桥梁。带着这句话，我们还要更加慎重的审视这个问题： 从这个角度来看， 我认为， 每个人都不得不面对这些问题。 在面对这种问题时， 我们不得不面对一个非常尴尬的事实，那就是， 要想清楚，我是谁，到底是一种怎么样的存在。 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 亚伯拉罕·林肯曾经说过，你活了多少岁不算什么，重要的是你是如何度过这些岁月的。这不禁令我深思。 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 查尔斯·史考伯曾经提到过，一个人几乎可以在任何他怀有无限热忱的事情上成功。 带着这句话，我们还要更加慎重的审视这个问题： 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 现在，解决我是谁的问题，是非常非常重要的。 所以， 我是谁的发生，到底需要如何做到，不我是谁的发生，又会如何产生。 米歇潘说过一句富有哲理的话，生命是一条艰险的峡谷，只有勇敢的人才能通过。带着这句话，我们还要更加慎重的审视这个问题。<br>　　文森特·皮尔曾经说过，改变你的想法，你就改变了自己的世界。这启发了我， 所谓我是谁，关键是我是谁需要如何写。 对我个人而言，我是谁不仅仅是一个重大的事件，还可能会改变我的人生。 要想清楚，我是谁，到底是一种怎么样的存在。 我们都知道，只要有意义，那么就必须慎重考虑。 就我个人来说，我是谁对我的意义，不能不说非常重大。 这样看来， 所谓我是谁，关键是我是谁需要如何写。 我是谁，发生了会如何，不发生又会如何。 布尔沃在不经意间这样说过，要掌握书，莫被书掌握；要为生而读，莫为读而生。带着这句话，我们还要更加慎重的审视这个问题： 对我个人而言，我是谁不仅仅是一个重大的事件，还可能会改变我的人生。 了解清楚我是谁到底是一种怎么样的存在，是解决一切问题的关键。 阿卜·日·法拉兹在不经意间这样说过，学问是异常珍贵的东西，从任何源泉吸收都不可耻。这不禁令我深思。 就我个人来说，我是谁对我的意义，不能不说非常重大。 我是谁因何而发生？ 一般来说， 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 贝多芬曾经提到过，卓越的人一大优点是：在不利与艰难的遭遇里百折不饶。这不禁令我深思。 我是谁的发生，到底需要如何做到，不我是谁的发生，又会如何产生。 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。<br>　　我认为， 问题的关键究竟为何？ 问题的关键究竟为何？ 那么， 我是谁，发生了会如何，不发生又会如何。 既然如何， 所谓我是谁，关键是我是谁需要如何写。 克劳斯·莫瑟爵士曾经说过，教育需要花费钱，而无知也是一样。这句话语虽然很短，但令我浮想联翩。 非洲说过一句富有哲理的话，最灵繁的人也看不见自己的背脊。这启发了我， 生活中，若我是谁出现了，我们就不得不考虑它出现了的事实。 经过上述讨论， 既然如此， 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 我是谁，到底应该如何实现。<br>　　本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 黑塞在不经意间这样说过，有勇气承担命运这才是英雄好汉。这句话语虽然很短，但令我浮想联翩。 塞内加曾经提到过，勇气通往天堂，怯懦通往地狱。这启发了我， 培根说过一句富有哲理的话，深窥自己的心，而后发觉一切的奇迹在你自己。这似乎解答了我的疑惑。 而这些并不是完全重要，更加重要的问题是， 莎士比亚曾经提到过，那脑袋里的智慧，就像打火石里的火花一样，不去打它是不肯出来的。这启发了我， 卡莱尔曾经提到过，过去一切时代的精华尽在书中。这句话语虽然很短，但令我浮想联翩。 就我个人来说，我是谁对我的意义，不能不说非常重大。 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 我是谁因何而发生？ 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 克劳斯·莫瑟爵士曾经提到过，教育需要花费钱，而无知也是一样。我希望诸位也能好好地体会这句话。 每个人都不得不面对这些问题。 在面对这种问题时， 对我个人而言，我是谁不仅仅是一个重大的事件，还可能会改变我的人生。 问题的关键究竟为何？ 可是，即使是这样，我是谁的出现仍然代表了一定的意义。 我认为， 我是谁的发生，到底需要如何做到，不我是谁的发生，又会如何产生。 从这个角度来看， 希腊曾经说过，最困难的事情就是认识自己。带着这句话，我们还要更加慎重的审视这个问题： 总结的来说， 那么， 所谓我是谁，关键是我是谁需要如何写。 罗素·贝克在不经意间这样说过，一个人即使已登上顶峰，也仍要自强不息。这句话语虽然很短，但令我浮想联翩。 迈克尔·F·斯特利曾经提到过，最具挑战性的挑战莫过于提升自我。这句话语虽然很短，但令我浮想联翩。 我是谁因何而发生？ 西班牙在不经意间这样说过，自知之明是最难得的知识。这似乎解答了我的疑惑。 我是谁，发生了会如何，不发生又会如何。 对我个人而言，我是谁不仅仅是一个重大的事件，还可能会改变我的人生。 一般来讲，我们都必须务必慎重的考虑考虑。 我们一般认为，抓住了问题的关键，其他一切则会迎刃而解。 了解清楚我是谁到底是一种怎么样的存在，是解决一切问题的关键。 一般来讲，我们都必须务必慎重的考虑考虑。 本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 老子说过一句富有哲理的话，知人者智，自知者明。胜人者有力，自胜者强。这启发了我， 就我个人来说，我是谁对我的意义，不能不说非常重大。<br>　　经过上述讨论， 那么， 既然如此， 带着这些问题，我们来审视一下我是谁。 本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。</p>
+<h2 id="分享软件"><a href="#分享软件" class="headerlink" title="分享软件"></a>分享软件</h2><p>哈哈，相信在坐的你已经无语了吧，这么无聊的文章怎么写的那么长的。今天中午在GitHub看到一个仓库，<a href="https://github.com/menzi11/BullshitGenerator，名叫狗屁不通文章生成器。看的我真是大开眼界，小时候写报告文件，总是不知道怎么写，这个需求埋在在我心里数十年有余，现在的今天，终于有一个配套的技术方案解决这个问题了。果断分享一下。" target="_blank" rel="noopener">https://github.com/menzi11/BullshitGenerator，名叫狗屁不通文章生成器。看的我真是大开眼界，小时候写报告文件，总是不知道怎么写，这个需求埋在在我心里数十年有余，现在的今天，终于有一个配套的技术方案解决这个问题了。果断分享一下。</a></p>
+
+      
+    </div>
+    
+    
+    
+      <div>
+        
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本稿が終わる<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="tEngSHe789 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    tEngSHe789
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="//blog.tEngSHe789.tech/2019/11/20/我是谁/" title="我是谁">//blog.tEngSHe789.tech/2019/11/20/我是谁/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/分享/" rel="tag"><i class="fa fa-tag"></i> 分享</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/17/快速git-pull所有项目文件/" rel="next" title="快速git pull更新所有项目文件">
+                <i class="fa fa-chevron-left"></i> 快速git pull更新所有项目文件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="tEngSHe789">
+            
+              <p class="site-author-name" itemprop="name">tEngSHe789</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/tengshe789" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:randyvan007@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/101453729765094892757" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/tengshe789" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/tengshe789" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://steamcommunity.com/id/tengshe789" target="_blank" title="Steam">
+                      
+                        <i class="fa fa-fw fa-steam"></i>Steam</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/9930788/tengshe-789" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://dribbble.com/tengshe789" target="_blank" title="dribbble">
+                      
+                        <i class="fa fa-fw fa-dribbble"></i>dribbble</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/ha.7787" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/5649075808" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/970176296" target="_blank" title="QQZone">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQZone</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://music.163.com/#/user/home?id=73274594" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b4c1dd0e51d45194558166b" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://segmentfault.com/u/tengshe789" target="_blank" title="思否">
+                      
+                        <i class="fa fa-fw fa-scribd"></i>思否</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#我是谁"><span class="nav-number">1.</span> <span class="nav-text">我是谁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分享软件"><span class="nav-number">2.</span> <span class="nav-text">分享软件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+      
+            <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+            <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+            <div class="widget-wrap">
+            <h3 class="widget-title">Tag Cloud</h3>
+            <div id="myCanvasContainer" class="widget tagcloud">
+                <canvas width="250" height="250" id="resCanvas" style="width=100%">
+                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows10/">Windows10</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/">k8s</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/军事/">军事</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分享/">分享</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/初/">初</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/吐槽/">吐槽</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学好分布式架构/">学好分布式架构</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a><span class="tag-list-count">27</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构与算法/">数据结构与算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/硬件/">硬件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/窍门/">窍门</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件教学/">软件教学</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/错题/">错题</a><span class="tag-list-count">1</span></li></ul>
+                </canvas>
+            </div>
+            </div>
+      
+
+      
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-7659349864173199",
+            enable_page_level_ads: true
+            });
+            </script>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tEngSHe789</span>
+
+  
+</div>
+
+
+  <!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div> -->
+
+
+
+
+
+
+
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("01/1/2018 0:00:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-nipsilon"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"tagMode":true,"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=1.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=1.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=1.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=1.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=1.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=1.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=1.0.0"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = '//blog.tEngSHe789.tech/2019/11/20/我是谁/';
+          this.page.identifier = '2019/11/20/我是谁/';
+          this.page.title = '我是谁';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'LNoutjtqdzTwP7Ui74LV5Dw1-gzGzoHsz',
+        appKey: 'rO9bQ0F0wlhqulsUoNy80KPb',
+        placeholder: '来说两句吧~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("LNoutjtqdzTwP7Ui74LV5Dw1-gzGzoHsz", "rO9bQ0F0wlhqulsUoNy80KPb");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=1.0.0"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=1.0.0"></script>
+
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-nipsilon"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"tagMode":true,"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script>
+</body>
+</html>
+<!-- 页面点击小红心 --> 
+<script type="text/javascript" src="/js/src/love.js"></script>

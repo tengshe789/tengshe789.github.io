@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="A1lh6qh2KG4qHp1egv4rR8POayZtKMsUVAbq3sk2XOc">
+
+
+
+  <meta name="msvalidate.01" content="0EF0AB564911357C367CABC34BA94C40">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=1.0.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=1.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="分享,软件教学,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="tEngSHe789の小站" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="最近在寻找有利的监控软件为我的微服务献身，于是乎整理文档，试验，花了很长时间。今天分享一下整理的部分工具，有时间会继续在此post中更新的！🙃 想要解锁更多新姿势？请访问我的博客。 influxDB什么是influxDBinfluxDB是一个分布式时间序列数据库。cAdvisor仅仅显示实时信息，但是不存储监视数据。因此，我们需要提供时序数据库用于存储cAdvisor组件所提供的监控信息，以便显">
+<meta name="keywords" content="分享,软件教学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分享一下微服务监控软件以及其部署">
+<meta property="og:url" content="//blog.tEngSHe789.tech/2019/02/15/分享一下微服务监控软件以及其部署/index.html">
+<meta property="og:site_name" content="tEngSHe789の小站">
+<meta property="og:description" content="最近在寻找有利的监控软件为我的微服务献身，于是乎整理文档，试验，花了很长时间。今天分享一下整理的部分工具，有时间会继续在此post中更新的！🙃 想要解锁更多新姿势？请访问我的博客。 influxDB什么是influxDBinfluxDB是一个分布式时间序列数据库。cAdvisor仅仅显示实时信息，但是不存储监视数据。因此，我们需要提供时序数据库用于存储cAdvisor组件所提供的监控信息，以便显">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-20T13:39:41.189Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分享一下微服务监控软件以及其部署">
+<meta name="twitter:description" content="最近在寻找有利的监控软件为我的微服务献身，于是乎整理文档，试验，花了很长时间。今天分享一下整理的部分工具，有时间会继续在此post中更新的！🙃 想要解锁更多新姿势？请访问我的博客。 influxDB什么是influxDBinfluxDB是一个分布式时间序列数据库。cAdvisor仅仅显示实时信息，但是不存储监视数据。因此，我们需要提供时序数据库用于存储cAdvisor组件所提供的监控信息，以便显">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '1.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="//blog.tEngSHe789.tech/2019/02/15/分享一下微服务监控软件以及其部署/">
+
+
+<!-- 谷歌AdSense -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+<!-- 心智天气 -->
+<script>(function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.seniverse.com/widget/chameleon.js"))</script>
+<script>tpwidget("init", {
+    "flavor": "bubble",
+    "location": "WWMT5Q64CR3G",
+    "geolocation": "enabled",
+    "position": "bottom-right",
+    "margin": "10px 10px",
+    "language": "zh-chs",
+    "unit": "c",
+    "theme": "chameleon",
+    "uid": "UFA58EE03C",
+    "hash": "f8aaef53e1c80162af9fcce01022efec"
+});
+tpwidget("show");</script>
+
+  <title>分享一下微服务监控软件以及其部署 | tEngSHe789の小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tEngSHe789の小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">随性而行，不行拉倒</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="//blog.tEngSHe789.tech/2019/02/15/分享一下微服务监控软件以及其部署/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tEngSHe789">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tEngSHe789の小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">分享一下微服务监控软件以及其部署</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-15T17:58:03+08:00">
+                2019-02-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/15/分享一下微服务监控软件以及其部署/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/15/分享一下微服务监控软件以及其部署/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/02/15/分享一下微服务监控软件以及其部署/" class="leancloud_visitors" data-flag-title="分享一下微服务监控软件以及其部署">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  8,171
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  37
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在寻找有利的监控软件为我的微服务献身，于是乎整理文档，试验，花了很长时间。今天分享一下整理的部分工具，有时间会继续在此post中更新的！🙃</p>
+<p>想要解锁更多新姿势？请访问<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">我的博客</a>。</p>
+<h1 id="influxDB"><a href="#influxDB" class="headerlink" title="influxDB"></a>influxDB</h1><h3 id="什么是influxDB"><a href="#什么是influxDB" class="headerlink" title="什么是influxDB"></a>什么是influxDB</h3><p>influxDB是一个分布式时间序列数据库。cAdvisor仅仅显示实时信息，但是不存储监视数据。因此，我们需要提供时序数据库用于存储cAdvisor组件所提供的监控信息，以便显示除实时信息之外的时序数据。</p>
+<h3 id="influxDB安装"><a href="#influxDB安装" class="headerlink" title="influxDB安装"></a>influxDB安装</h3><p>（1）下载镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull tutum/influxdb</span><br></pre></td></tr></table></figure></p>
+<p>（2）创建容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run ‐di \</span><br><span class="line">‐p 8083:8083 \</span><br><span class="line">‐p 8086:8086 \</span><br><span class="line">‐‐expose 8090 \</span><br><span class="line">‐‐expose 8099 \</span><br><span class="line">‐‐name influxsrv \</span><br><span class="line">tutum/influxdb</span><br></pre></td></tr></table></figure></p>
+<p>端口概述： 8083端口:web访问端口 8086:数据写入端口<br>打开浏览器 <a href="http://192.168.184.135:8083/" target="_blank" rel="noopener">http://192.168.184.135:8083/</a> (ip自觉替换)</p>
+<h3 id="influxDB常用操作"><a href="#influxDB常用操作" class="headerlink" title="influxDB常用操作"></a>influxDB常用操作</h3><h4 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE &quot;cadvisor&quot;</span><br></pre></td></tr></table></figure>
+<p>回车创建数据库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW DATABASES</span><br></pre></td></tr></table></figure></p>
+<p>查看数据库</p>
+<h4 id="创建用户并授权"><a href="#创建用户并授权" class="headerlink" title="创建用户并授权"></a>创建用户并授权</h4><p>创建用户<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &quot;cadvisor&quot; WITH PASSWORD &apos;cadvisor&apos; WITH ALL PRIVILEGES</span><br></pre></td></tr></table></figure></p>
+<p>查看用户<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW USRES</span><br></pre></td></tr></table></figure></p>
+<p>用户授权<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grant all privileges on cadvisor to cadvisor</span><br><span class="line">grant WRITE on cadvisor to cadvisor</span><br><span class="line">grant READ on cadvisor to cadvisor</span><br></pre></td></tr></table></figure></p>
+<h4 id="查看采集的数据"><a href="#查看采集的数据" class="headerlink" title="查看采集的数据"></a>查看采集的数据</h4><p>切换到cadvisor数据库，使用以下命令查看采集的数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW MEASUREMENTS</span><br></pre></td></tr></table></figure></p>
+<p>如果想采集系统的数据，我们需要使用Cadvisor软件来实现</p>
+<h3 id="More"><a href="#More" class="headerlink" title="More"></a>More</h3><p>官方文档 ： <a href="https://github.com/influxdata/docs.influxdata.com" target="_blank" rel="noopener">https://github.com/influxdata/docs.influxdata.com</a></p>
+<h1 id="cAdvisor"><a href="#cAdvisor" class="headerlink" title="cAdvisor"></a>cAdvisor</h1><h3 id="啥么是cAdvisor"><a href="#啥么是cAdvisor" class="headerlink" title="啥么是cAdvisor"></a>啥么是cAdvisor</h3><p>Google开源的用于监控基础设施应用的工具，它是一个强大的监控工具，不需要任何配置就可以通过运行在Docker主机上的容器来监控Docker容器，而且可以监控Docker主机。</p>
+<h3 id="cAdvisor安装"><a href="#cAdvisor安装" class="headerlink" title="cAdvisor安装"></a>cAdvisor安装</h3><p>（1）下载镜像<br><code>docker pull google/cadvisor</code><br>（2）创建容器</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="bash"> ‐‐volume=/:/rootfs:ro ‐‐volume=/var/run:/var/run:rw ‐‐</span></span><br><span class="line"><span class="bash">volume=/sys:/sys:ro ‐‐volume=/var/lib/docker/:/var/lib/docker:ro ‐‐</span></span><br><span class="line"><span class="bash">publish=8080:8080 ‐‐detach=<span class="literal">true</span> ‐‐link influxsrv:influxsrv ‐‐name=cadvisor</span></span><br><span class="line"><span class="bash">google/cadvisor ‐storage_driver=influxdb ‐storage_driver_db=cadvisor ‐</span></span><br><span class="line"><span class="bash">storage_driver_host=influxsrv:8086</span></span><br></pre></td></tr></table></figure>
+<p>WEB前端访问地址<br><a href="http://192.168.184.135:8080/containers/" target="_blank" rel="noopener">http://192.168.184.135:8080/containers/</a>  (请自觉替换实际ip)<br>性能指标含义参照如下地址<br><a href="https://blog.csdn.net/ZHANG_H_A/article/details/53097084" target="_blank" rel="noopener">https://blog.csdn.net/ZHANG_H_A/article/details/53097084</a><br>再次查看influxDB，发现已经有很多数据被采集进去了。</p>
+<h1 id="Grafana"><a href="#Grafana" class="headerlink" title="Grafana"></a>Grafana</h1><p>Grafana是一个可视化面板（Dashboard），有着非常漂亮的图表和布局展示，功能齐全的度量仪表盘和图形编辑器。支持Graphite、zabbix、InfluxDB、Prometheus和OpenTSDB作为数据源。</p>
+<p>Grafana主要特性：灵活丰富的图形化选项；可以混合多种风格；支持白天和夜间模式；多个数据源。</p>
+<h3 id="Grafana安装"><a href="#Grafana安装" class="headerlink" title="Grafana安装"></a>Grafana安装</h3><p>（1）下载镜像<br><code>docker pull grafana/grafana</code><br>（2）创建容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run ‐d ‐p 3001:3000 ‐e INFLUXDB_HOST=influxsrv ‐e</span><br><span class="line">INFLUXDB_PORT=8086 ‐e INFLUXDB_NAME=cadvisor ‐e INFLUXDB_USER=cadvisor ‐e</span><br><span class="line">INFLUXDB_PASS=cadvisor ‐‐link influxsrv:influxsrv ‐‐name grafana</span><br><span class="line">grafana/grafana</span><br></pre></td></tr></table></figure></p>
+<p>注意，<code>INFLUXDB</code>配置请与上文我的写的配置相同。<br>（3）访问<br><a href="http://192.168.184.135:3001" target="_blank" rel="noopener">http://192.168.184.135:3001</a> （自觉更换ip）<br>用户名密码均为<code>admin</code></p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>//TODO</p>
+<h1 id="pinpoint"><a href="#pinpoint" class="headerlink" title="pinpoint"></a>pinpoint</h1><h3 id="是啥"><a href="#是啥" class="headerlink" title="是啥"></a>是啥</h3><p>pinpoint是开源在github上的一款APM监控工具，它是用Java编写的，用于大规模分布式系统监控。它对性能的影响最小（只增加约3％资源利用率），安装agent是无侵入式的，只需要在被测试的Tomcat中加上3句话，打下探针，就可以监控整套程序了。</p>
+<h3 id="所需软件"><a href="#所需软件" class="headerlink" title="所需软件"></a>所需软件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hbase-1.2.6-bin.tar.gz</span><br><span class="line">pinpoint-1.6.2.zip pinpoint源码，使用hbase-create.hbase脚本初始化</span><br><span class="line">hbase</span><br><span class="line">pinpoint-collector-1.6.2.war collector模块，使用tomcat进行部署</span><br><span class="line">pinpoint-web-1.6.2.war web管控台，使用tomcat进行部署</span><br><span class="line">pinpoint-agent-1.6.2.tar.gz 不需要部署，在被监控应用一端</span><br><span class="line">apache-tomcat-8.5.15.zip</span><br></pre></td></tr></table></figure>
+<p>准备两个tomcat环境，一个部署pinpoint-collector-1.6.2.war，另一个部署pinpoint-web-1.6.2.war</p>
+<h3 id="安装hbase"><a href="#安装hbase" class="headerlink" title="安装hbase"></a>安装hbase</h3><h4 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h4><p>解压hbase-1.2.6-bin.tar.gz，修改hbase/conf/hbase-site.xml文件内容如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;hbase.rootdir&lt;/name&gt;</span><br><span class="line">&lt;value&gt;file:///pinpoint/data/hbase&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;hbase.zookeeper.property.dataDir&lt;/name&gt;</span><br><span class="line">&lt;value&gt;/pinpoint/data/zookeeper&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;hbase.master.port&lt;/name&gt;</span><br><span class="line">&lt;value&gt;60000&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;hbase.regionserver.port&lt;/name&gt;</span><br><span class="line">&lt;value&gt;60020&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<p>修改<code>hbase/conf/hbase-env.sh</code>文件，设置<code>JAVA_HOME</code>环境变量<br><code>export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home</code></p>
+<h4 id="启动hbase"><a href="#启动hbase" class="headerlink" title="启动hbase"></a>启动hbase</h4><p><code>hbase/bin/start-hbase.sh</code></p>
+<h4 id="执行jps查看是否有HMaster进程"><a href="#执行jps查看是否有HMaster进程" class="headerlink" title="执行jps查看是否有HMaster进程"></a>执行jps查看是否有HMaster进程</h4><p>访问 <a href="http://127.0.0.1:16010/master-status" target="_blank" rel="noopener">http://127.0.0.1:16010/master-status</a> 查看hbase web管控台<br>导入hbase初始化脚步<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">hbase/bin/hbase shell /pinpoint-1.6.2/hbase/scripts/hbase-create.hbase</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">0 row(s) in 1.4160 seconds</span><br><span class="line">0 row(s) in 1.2420 seconds</span><br><span class="line">0 row(s) in 2.2410 seconds</span><br><span class="line">0 row(s) in 1.2400 seconds</span><br><span class="line">0 row(s) in 1.2450 seconds</span><br><span class="line">0 row(s) in 1.2420 seconds</span><br><span class="line">0 row(s) in 1.2360 seconds</span><br><span class="line">0 row(s) in 1.2400 seconds</span><br><span class="line">0 row(s) in 1.2370 seconds</span><br><span class="line">0 row(s) in 2.2450 seconds</span><br><span class="line">0 row(s) in 4.2480 seconds</span><br><span class="line">0 row(s) in 1.2310 seconds</span><br><span class="line">0 row(s) in 1.2430 seconds</span><br><span class="line">0 row(s) in 1.2390 seconds</span><br><span class="line">0 row(s) in 1.2440 seconds</span><br><span class="line">0 row(s) in 1.2440 seconds</span><br><span class="line">TABLE</span><br><span class="line">AgentEvent</span><br><span class="line">AgentInfo</span><br><span class="line">AgentLifeCycle</span><br><span class="line">AgentStat</span><br><span class="line">AgentStatV2</span><br><span class="line">ApiMetaData</span><br><span class="line">ApplicationIndex</span><br><span class="line">ApplicationMapStatisticsCallee_Ver2</span><br><span class="line">ApplicationMapStatisticsCaller_Ver2</span><br><span class="line">ApplicationMapStatisticsSelf_Ver2</span><br><span class="line">ApplicationTraceIndex</span><br><span class="line">HostApplicationMap_Ver2</span><br><span class="line">SqlMetaData_Ver2</span><br><span class="line">StringMetaData</span><br><span class="line">TraceV2</span><br><span class="line">Traces</span><br><span class="line">16 row(s) in 0.0190 seconds</span><br></pre></td></tr></table></figure></p>
+<h4 id="进入hbase-shell"><a href="#进入hbase-shell" class="headerlink" title="进入hbase shell"></a>进入hbase shell</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hbase/bin/hbase shell</span><br><span class="line">HBase Shell; enter &apos;help&lt;RETURN&gt;&apos; for list of supported commands.</span><br><span class="line">Type &quot;exit&lt;RETURN&gt;&quot; to leave the HBase Shell</span><br><span class="line">Version 1.2.6, rUnknown, Mon May 29 02:25:32 CDT 2017</span><br><span class="line">hbase(main):001:0&gt;</span><br></pre></td></tr></table></figure>
+<p>输入status ‘detailed’查看刚才初始化的表，是否存在<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):001:0&gt; status &apos;detailed&apos;</span><br></pre></td></tr></table></figure></p>
+<p>访问 <a href="http://127.0.0.1:16010/master-status" target="_blank" rel="noopener">http://127.0.0.1:16010/master-status</a> 查看hbase web管控台</p>
+<h4 id="部署collector"><a href="#部署collector" class="headerlink" title="部署collector"></a>部署collector</h4><p>解压apache-tomcat-8.5.15.zip并重命名为collector<br>拷贝pinpoint-collector-1.6.2.war到collector\webapps\目录下并重命名为ROOT.war<br>涉及到两个配置文件</p>
+<ul>
+<li>hbase.properties<br>由于使用的为hbase自带的zookeeper即hbase和zookeeper在同一台机器上，则不需要修改collector/webapps/ROOT/WEB-INF/classes/hbase.properties文件</li>
+<li>pinpoint-collector.properties<br>注意观察该配置文件中中的三个端口9994、9995、9996 默认不需要修改，其中9994为collector监听的tcp端口，9995为collector监听的udp端口</li>
+</ul>
+<p>执行collector/bin/startup.sh启动collector<br>部署web管控台<br>解压apache-tomcat-8.5.15.zip并重命名为web<br>拷贝pinpoint-web-1.6.2.war到web\webapps\目录下并重命名为ROOT.war<br>同样留意web/webapps/ROOT/WEB-INF/classes/hbase.properties中的配置，若与hbase在同一台机器则不需要修改<br>执行web/bin/startup.sh启动web管控台(注意修改tomcat端口号，防止冲突，这里修改端口为8088)<br>浏览器访问 <a href="http://127.0.0.1:8088/" target="_blank" rel="noopener">http://127.0.0.1:8088/</a> 查看pinpoint管控台</p>
+<h3 id="监控spring-boot应用"><a href="#监控spring-boot应用" class="headerlink" title="监控spring boot应用"></a>监控spring boot应用</h3><p>这里有一个spring-boot-example.jar的应用，现在要使用pinpoint来对其监控跟踪。操作很简单，分两步<br>解压pinpoint-agent-1.6.2.tar.gz并对其进行配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf pinpoint-agent-1.6.2.tar.gz -C pinpoint-agent</span><br></pre></td></tr></table></figure></p>
+<p>修改pinpoint-agent/pinpoint.config中的配置与collector服务一致。此处因为pinpoint-agent与collector在同<br>一台机器，因此默认配置即可不需要修改。<br>为spring-boot应用配置pinpoint-agent<br>启动spring-boot应用时添加如下参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-javaagent:$AGENT_PATH/pinpoint-bootstrap-$VERSION.jar</span><br><span class="line">-Dpinpoint.agentId</span><br><span class="line">-Dpinpoint.applicationName</span><br></pre></td></tr></table></figure></p>
+<p>本例中的启动参数为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -javaagent:/pinpoint-agent/pinpoint-bootstrap-1.6.2.jar -Dpinpoint.agentId=spring-boot-app -Dpinpoint.applicationName=spring-boot-app -jar spring-boot-docker-example-1.0.jar</span><br></pre></td></tr></table></figure></p>
+<p>访问 <a href="http://127.0.0.1:8088/" target="_blank" rel="noopener">http://127.0.0.1:8088/</a> ，第一次访问可能没有数据，可以先访问下应用，然后在刷新pinpoint管控台即可</p>
+<h3 id="more"><a href="#more" class="headerlink" title="more"></a>more</h3><p><a href="https://www.cnblogs.com/yyhh/p/6106472.html" target="_blank" rel="noopener">https://www.cnblogs.com/yyhh/p/6106472.html</a></p>
+<h1 id="Open-Falcon"><a href="#Open-Falcon" class="headerlink" title="Open-Falcon"></a>Open-Falcon</h1><p>Open-Falcon，小米家的开源监控系统。</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>1、强大灵活的数据采集：自动发现，支持falcon-agent、snmp、支持用户主动push、用户自定义插件支持、opentsdb data model like（timestamp、endpoint、metric、key-value tags）</p>
+<p>2、水平扩展能力：支持每个周期上亿次的数据采集、告警判定、历史数据存储和查询</p>
+<p>3、高效率的告警策略管理：高效的portal、支持策略模板、模板继承和覆盖、多种告警方式、支持callback调用</p>
+<p>4、人性化的告警设置：最大告警次数、告警级别、告警恢复通知、告警暂停、不同时段不同阈值、支持维护周期</p>
+<p>5、高效率的graph组件：单机支撑200万metric的上报、归档、存储（周期为1分钟）</p>
+<p>6、高效的历史数据query组件：采用rrdtool的数据归档策略，秒级返回上百个metric一年的历史数据</p>
+<p>7、dashboard：多维度的数据展示，用户自定义Screen</p>
+<p>8、高可用：整个系统无核心单点，易运维，易部署，可水平扩展</p>
+<p>9、开发语言： 整个系统的后端，全部golang编写，portal和dashboard使用python编写。</p>
+<h3 id="社区和文档支持"><a href="#社区和文档支持" class="headerlink" title="社区和文档支持"></a>社区和文档支持</h3><p><a href="http://book.open-falcon.org/zh/index.html" target="_blank" rel="noopener">http://book.open-falcon.org/zh/index.html</a></p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="安装redis"><a href="#安装redis" class="headerlink" title="安装redis"></a>安装redis</h3><p>yum安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y redis</span><br></pre></td></tr></table></figure></p>
+<p>修改配置redis.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/redis.conf</span><br></pre></td></tr></table></figure></p>
+<p>启动redis：<code>redis-server &amp;</code></p>
+<h3 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y mysql-server</span><br></pre></td></tr></table></figure>
+<p>启动mysql：<code>service mysqld start</code><br>查看mysql状态：<code>service mysqld status</code></p>
+<h3 id="初始化mysql数据库表"><a href="#初始化mysql数据库表" class="headerlink" title="初始化mysql数据库表"></a>初始化mysql数据库表</h3><p>数据默认没有设置密码，执行的时候出现输入密码，直接回车。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp/ &amp;&amp; git clone https://github.com/open-falcon/falcon-plus.git </span><br><span class="line">cd /tmp/falcon-plus/scripts/mysql/db_schema/</span><br><span class="line">mysql -h 127.0.0.1 -u root -p &lt; 1_uic-db-schema.sql</span><br><span class="line">mysql -h 127.0.0.1 -u root -p &lt; 2_portal-db-schema.sql</span><br><span class="line">mysql -h 127.0.0.1 -u root -p &lt; 3_dashboard-db-schema.sql</span><br><span class="line">mysql -h 127.0.0.1 -u root -p &lt; 4_graph-db-schema.sql</span><br><span class="line">mysql -h 127.0.0.1 -u root -p &lt; 5_alarms-db-schema.sql</span><br><span class="line">rm -rf /tmp/falcon-plus/</span><br></pre></td></tr></table></figure></p>
+<p>设置mysql的root用户密码：<br><code>mysql –u root</code><br>查看mysql用户和密码<br><code>select user,host,password from mysql.user;</code></p>
+<p>发现查询密码都是空，然后开始设置root的密码为bigdata<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set password for root@localhost=password(&apos;bigdata&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>退出：<code>mysql&gt;exit</code></p>
+<h3 id="下载编译后的二进制包"><a href="#下载编译后的二进制包" class="headerlink" title="下载编译后的二进制包"></a>下载编译后的二进制包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /data/program/software</span><br><span class="line">wget https://github.com/open-falcon/falcon-plus/releases/download/v0.2.1/open-falcon-v0.2.1.tar.gz</span><br></pre></td></tr></table></figure>
+<h2 id="后端安装"><a href="#后端安装" class="headerlink" title="后端安装"></a>后端安装</h2><h3 id="创建工作目录"><a href="#创建工作目录" class="headerlink" title="创建工作目录"></a>创建工作目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export FALCON_HOME=/home/work</span><br><span class="line">export WORKSPACE=$FALCON_HOME/open-falcon</span><br><span class="line">mkdir -p $WORKSPACE</span><br></pre></td></tr></table></figure>
+<h3 id="解压二进制包"><a href="#解压二进制包" class="headerlink" title="解压二进制包"></a>解压二进制包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /data/program/software</span><br><span class="line">tar -xzvf open-falcon-v0.2.1.tar.gz -C $WORKSPACE</span><br></pre></td></tr></table></figure>
+<h3 id="配置数据库账号和密码"><a href="#配置数据库账号和密码" class="headerlink" title="配置数据库账号和密码"></a>配置数据库账号和密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd $WORKSPACE</span><br><span class="line">grep -Ilr 3306  ./ | xargs -n1 -- sed -i &apos;s/root:/root:bigdata/g&apos;</span><br></pre></td></tr></table></figure>
+<p>注意root:后面默认密码为空.</p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>查看目录下包括Open-Falcon的所有组件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd $WORKSPACE</span><br><span class="line">./open-falcon start</span><br></pre></td></tr></table></figure></p>
+<p>检查所有模块的启动状况<br><code>./open-falcon check</code></p>
+<h3 id="更多命令行工具"><a href="#更多命令行工具" class="headerlink" title="更多命令行工具"></a>更多命令行工具</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">./open-falcon [start|stop|restart|check|monitor|reload] module</span><br><span class="line">./open-falcon start agent</span><br><span class="line"></span><br><span class="line">./open-falcon check</span><br><span class="line">  falcon-graph         UP           53007</span><br><span class="line">  falcon-hbs         UP           53014</span><br><span class="line">  falcon-judge         UP           53020</span><br><span class="line">  falcon-transfer         UP           53026</span><br><span class="line">  falcon-nodata         UP           53032</span><br><span class="line">  falcon-aggregator         UP           53038</span><br><span class="line">  falcon-agent         UP           53044</span><br><span class="line">  falcon-gateway         UP           53050</span><br><span class="line">  falcon-api         UP           53056</span><br><span class="line">  falcon-alarm         UP           53063</span><br><span class="line"></span><br><span class="line">For debugging , You can check $WorkDir/$moduleName/log/logs/xxx.log</span><br></pre></td></tr></table></figure>
+<h2 id="前端安装"><a href="#前端安装" class="headerlink" title="前端安装"></a>前端安装</h2><h3 id="创建工作目录-1"><a href="#创建工作目录-1" class="headerlink" title="创建工作目录"></a>创建工作目录</h3><p>这一步在创建后端服务的时候已经建立好，所以不需要再进行操作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export HOME=/home/work</span><br><span class="line">export WORKSPACE=$HOME/open-falcon</span><br><span class="line">mkdir -p $WORKSPACE</span><br><span class="line">cd $WORKSPACE</span><br></pre></td></tr></table></figure></p>
+<h3 id="克隆前端组件代码"><a href="#克隆前端组件代码" class="headerlink" title="克隆前端组件代码"></a>克隆前端组件代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd $WORKSPACE</span><br><span class="line">git clone https://github.com/open-falcon/dashboard.git</span><br></pre></td></tr></table></figure>
+<h3 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install -y python-virtualenv</span><br><span class="line">yum install -y python-devel</span><br><span class="line">yum install -y openldap-devel</span><br><span class="line">yum install -y mysql-devel</span><br><span class="line">yum groupinstall &quot;Development tools&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd $WORKSPACE/dashboard/</span><br><span class="line">virtualenv ./env</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./env/bin/pip install -r pip_requirements.txt -i https://pypi.douban.com/simple</span><br></pre></td></tr></table></figure>
+<p>注意：如果执行上面有问题，就直接执行<code>./env/bin/pip install -r pip_requirements.txt</code></p>
+<h3 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h3><p>dashboard的配置文件为：<strong> ‘rrd/config.py’</strong>，请根据实际情况修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">## API_ADDR 表示后端api组件的地址</span><br><span class="line">API_ADDR = &quot;http://127.0.0.1:8080/api/v1&quot; </span><br><span class="line">## 根据实际情况，修改PORTAL_DB_*, 默认用户名为root，默认密码为&quot;&quot;</span><br><span class="line">## 根据实际情况，修改ALARM_DB_*, 默认用户名为root，默认密码为&quot;&quot;</span><br></pre></td></tr></table></figure></p>
+<h3 id="启动-1"><a href="#启动-1" class="headerlink" title="启动"></a>启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash control start</span><br></pre></td></tr></table></figure>
+<p>open <a href="http://127.0.0.1:8081" target="_blank" rel="noopener">http://127.0.0.1:8081</a> in your browser.</p>
+<p>停止<code>bash control stop</code></p>
+<h2 id="安装-Agent"><a href="#安装-Agent" class="headerlink" title="安装-Agent"></a>安装-Agent</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>agent用于采集机器负载监控指标，比如cpu.idle、load.1min、disk.io.util等等，每隔60秒push给Transfer。agent与Transfer建立了长连接，数据发送速度比较快，agent提供了一个http接口/v1/push用于接收用户手工push的一些数据，然后通过长连接迅速转发给Transfer。</p>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>agent需要部署到所有要被监控的机器上，比如公司有10万台机器，那就要部署10万个agent。agent本身资源消耗很少，不用担心。<br>首先找到之前后端服务的解压目录：<br><code>/home/work/open-falcon/</code><br>拷贝agent到需要监控的服务器上面<br><code>scp -r agent/ root@dst1:/home/work/open-falcon</code><br>拷贝open-falcon到需要监控的服务器上面<br><code>scp -r open-falcon root@dst1:/home/work/open-falcon</code><br>修改配置文件：<br>配置文件必须叫cfg.json，如下参照修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;debug&quot;: true,  # 控制一些debug信息的输出，生产环境通常设置为false</span><br><span class="line">    &quot;hostname&quot;: &quot;&quot;, # agent采集了数据发给transfer，endpoint就设置为了hostname，默认通过`hostname`获取，如果配置中配置了hostname，就用配置中的</span><br><span class="line">    &quot;ip&quot;: &quot;&quot;, # agent与hbs心跳的时候会把自己的ip地址发给hbs，agent会自动探测本机ip，如果不想让agent自动探测，可以手工修改该配置</span><br><span class="line">    &quot;plugin&quot;: &#123;</span><br><span class="line">        &quot;enabled&quot;: false, # 默认不开启插件机制</span><br><span class="line">        &quot;dir&quot;: &quot;./plugin&quot;,  # 把放置插件脚本的git repo clone到这个目录</span><br><span class="line">        &quot;git&quot;: &quot;https://github.com/open-falcon/plugin.git&quot;, # 放置插件脚本的git repo地址</span><br><span class="line">        &quot;logs&quot;: &quot;./logs&quot; # 插件执行的log，如果插件执行有问题，可以去这个目录看log</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;heartbeat&quot;: &#123;</span><br><span class="line">        &quot;enabled&quot;: true,  # 此处enabled要设置为true</span><br><span class="line">        &quot;addr&quot;: &quot;127.0.0.1:6030&quot;, # hbs的地址，端口是hbs的rpc端口</span><br><span class="line">        &quot;interval&quot;: 60, # 心跳周期，单位是秒</span><br><span class="line">        &quot;timeout&quot;: 1000 # 连接hbs的超时时间，单位是毫秒</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;transfer&quot;: &#123;</span><br><span class="line">        &quot;enabled&quot;: true, </span><br><span class="line">        &quot;addrs&quot;: [</span><br><span class="line">            &quot;127.0.0.1:18433&quot;</span><br><span class="line">        ],  # transfer的地址，端口是transfer的rpc端口, 可以支持写多个transfer的地址，agent会保证HA</span><br><span class="line">        &quot;interval&quot;: 60, # 采集周期，单位是秒，即agent一分钟采集一次数据发给transfer</span><br><span class="line">        &quot;timeout&quot;: 1000 # 连接transfer的超时时间，单位是毫秒</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;http&quot;: &#123;</span><br><span class="line">        &quot;enabled&quot;: true,  # 是否要监听http端口</span><br><span class="line">        &quot;listen&quot;: &quot;:1988&quot;,</span><br><span class="line">        &quot;backdoor&quot;: false</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;collector&quot;: &#123;</span><br><span class="line">        &quot;ifacePrefix&quot;: [&quot;eth&quot;, &quot;em&quot;], # 默认配置只会采集网卡名称前缀是eth、em的网卡流量，配置为空就会采集所有的，lo的也会采集。可以从/proc/net/dev看到各个网卡的流量信息</span><br><span class="line">        &quot;mountPoint&quot;: []</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;default_tags&quot;: &#123;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;ignore&quot;: &#123;  # 默认采集了200多个metric，可以通过ignore设置为不采集</span><br><span class="line">        &quot;cpu.busy&quot;: true,</span><br><span class="line">        &quot;df.bytes.free&quot;: true,</span><br><span class="line">        &quot;df.bytes.total&quot;: true,</span><br><span class="line">        &quot;df.bytes.used&quot;: true,</span><br><span class="line">        &quot;df.bytes.used.percent&quot;: true,</span><br><span class="line">        &quot;df.inodes.total&quot;: true,</span><br><span class="line">        &quot;df.inodes.free&quot;: true,</span><br><span class="line">        &quot;df.inodes.used&quot;: true,</span><br><span class="line">        &quot;df.inodes.used.percent&quot;: true,</span><br><span class="line">        &quot;mem.memtotal&quot;: true,</span><br><span class="line">        &quot;mem.memused&quot;: true,</span><br><span class="line">        &quot;mem.memused.percent&quot;: true,</span><br><span class="line">        &quot;mem.memfree&quot;: true,</span><br><span class="line">        &quot;mem.swaptotal&quot;: true,</span><br><span class="line">        &quot;mem.swapused&quot;: true,</span><br><span class="line">        &quot;mem.swapfree&quot;: true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="启动-2"><a href="#启动-2" class="headerlink" title="启动"></a>启动</h3><p><code>./open-falcon start agent</code>  启动进程<br><code>./open-falcon stop agent</code>  停止进程<br><code>./open-falcon monitor agent</code>  查看日志<br>看var目录下的log是否正常，或者浏览器访问其1988端口。另外agent提供了一个–check参数，可以检查agent是否可以正常跑在当前机器上<br><code>./falcon-agent --check</code>可进入监控界面查看</p>
+<h2 id="安装数据转发服务-Transfer"><a href="#安装数据转发服务-Transfer" class="headerlink" title="安装数据转发服务-Transfer"></a>安装数据转发服务-Transfer</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>transfer是数据转发服务。它接收agent上报的数据，然后按照哈希规则进行数据分片、并将分片后的数据分别push给graph&amp;judge等组件。</p>
+<h3 id="服务部署"><a href="#服务部署" class="headerlink" title="服务部署"></a>服务部署</h3><p>服务部署，包括配置修改、启动服务、检验服务、停止服务等。这之前，需要将安装包解压到服务的部署目录下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 修改配置, 配置项含义见下文</span><br><span class="line">vim cfg.json</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 启动服务</span><br><span class="line">./open-falcon start transfer</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 校验服务,这里假定服务开启了6060的http监听端口。检验结果为ok表明服务正常启动。</span><br><span class="line">curl -s &quot;127.0.0.1:6060/health&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 停止服务</span><br><span class="line">./open-falcon stop transfer</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 查看日志</span><br><span class="line">./open-falcon monitor transfer</span><br></pre></td></tr></table></figure>
+<h3 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h3><p>配置文件默认为<code>./cfg.json</code><br>debug: true/false, 如果为true，日志中会打印debug信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">minStep: 30, 允许上报的数据最小间隔，默认为30秒</span><br><span class="line"></span><br><span class="line">http</span><br><span class="line">    - enabled: true/false, 表示是否开启该http端口，该端口为控制端口，主要用来对transfer发送控制命令、统计命令、debug命令等</span><br><span class="line">    - listen: 表示监听的http端口</span><br><span class="line"></span><br><span class="line">rpc</span><br><span class="line">    - enabled: true/false, 表示是否开启该jsonrpc数据接收端口, Agent发送数据使用的就是该端口</span><br><span class="line">    - listen: 表示监听的http端口</span><br><span class="line"></span><br><span class="line">socket #即将被废弃,请避免使用</span><br><span class="line">    - enabled: true/false, 表示是否开启该telnet方式的数据接收端口，这是为了方便用户一行行的发送数据给transfer</span><br><span class="line">    - listen: 表示监听的http端口</span><br><span class="line"></span><br><span class="line">judge</span><br><span class="line">    - enabled: true/false, 表示是否开启向judge发送数据</span><br><span class="line">    - batch: 数据转发的批量大小，可以加快发送速度，建议保持默认值</span><br><span class="line">    - connTimeout: 单位是毫秒，与后端建立连接的超时时间，可以根据网络质量微调，建议保持默认</span><br><span class="line">    - callTimeout: 单位是毫秒，发送数据给后端的超时时间，可以根据网络质量微调，建议保持默认</span><br><span class="line">    - pingMethod: 后端提供的ping接口，用来探测连接是否可用，必须保持默认</span><br><span class="line">    - maxConns: 连接池相关配置，最大连接数，建议保持默认</span><br><span class="line">    - maxIdle: 连接池相关配置，最大空闲连接数，建议保持默认</span><br><span class="line">    - replicas: 这是一致性hash算法需要的节点副本数量，建议不要变更，保持默认即可</span><br><span class="line">    - cluster: key-value形式的字典，表示后端的judge列表，其中key代表后端judge名字，value代表的是具体的ip:port</span><br><span class="line"></span><br><span class="line">graph</span><br><span class="line">    - enabled: true/false, 表示是否开启向graph发送数据</span><br><span class="line">    - batch: 数据转发的批量大小，可以加快发送速度，建议保持默认值</span><br><span class="line">    - connTimeout: 单位是毫秒，与后端建立连接的超时时间，可以根据网络质量微调，建议保持默认</span><br><span class="line">    - callTimeout: 单位是毫秒，发送数据给后端的超时时间，可以根据网络质量微调，建议保持默认</span><br><span class="line">    - pingMethod: 后端提供的ping接口，用来探测连接是否可用，必须保持默认</span><br><span class="line">    - maxConns: 连接池相关配置，最大连接数，建议保持默认</span><br><span class="line">    - maxIdle: 连接池相关配置，最大空闲连接数，建议保持默认</span><br><span class="line">    - replicas: 这是一致性hash算法需要的节点副本数量，建议不要变更，保持默认即可</span><br><span class="line">    - cluster: key-value形式的字典，表示后端的graph列表，其中key代表后端graph名字，value代表的是具体的ip:port(多个地址用逗号隔开, transfer会将同一份数据发送至各个地址，利用这个特性可以实现数据的多重备份)</span><br><span class="line"></span><br><span class="line">tsdb</span><br><span class="line">    - enabled: true/false, 表示是否开启向open tsdb发送数据</span><br><span class="line">    - batch: 数据转发的批量大小，可以加快发送速度</span><br><span class="line">    - connTimeout: 单位是毫秒，与后端建立连接的超时时间，可以根据网络质量微调，建议保持默认</span><br><span class="line">    - callTimeout: 单位是毫秒，发送数据给后端的超时时间，可以根据网络质量微调，建议保持默认</span><br><span class="line">    - maxConns: 连接池相关配置，最大连接数，建议保持默认</span><br><span class="line">    - maxIdle: 连接池相关配置，最大空闲连接数，建议保持默认</span><br><span class="line">    - retry: 连接后端的重试次数和发送数据的重试次数</span><br><span class="line">    - address: tsdb地址或者tsdb集群vip地址, 通过tcp连接tsdb.</span><br></pre></td></tr></table></figure></p>
+<p>部署完成transfer组件后，请修改agent的配置，使其指向正确的transfer地址。在安装完graph和judge后，请修改transfer的相应配置、使其能够正确寻址到这两个组件。</p>
+<h2 id="安装查询组件-API"><a href="#安装查询组件-API" class="headerlink" title="安装查询组件-API"></a>安装查询组件-API</h2><h3 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h3><p>api组件，提供统一的restAPI操作接口。比如：api组件接收查询请求，根据一致性哈希算法去相应的graph实例查询不同metric的数据，然后汇总拿到的数据，最后统一返回给用户。</p>
+<h3 id="服务部署-1"><a href="#服务部署-1" class="headerlink" title="服务部署"></a>服务部署</h3><p>服务部署，包括配置修改、启动服务、检验服务、停止服务等。这之前，需要将安装包解压到服务的部署目录下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 修改配置, 配置项含义见下文, 注意graph集群的配置</span><br><span class="line">vim cfg.json</span><br><span class="line"></span><br><span class="line"># 启动服务</span><br><span class="line">./open-falcon start api</span><br><span class="line"></span><br><span class="line"># 停止服务</span><br><span class="line">./open-falcon stop api</span><br><span class="line"></span><br><span class="line"># 查看日志</span><br><span class="line">./open-falcon monitor api</span><br></pre></td></tr></table></figure></p>
+<h3 id="服务说明"><a href="#服务说明" class="headerlink" title="服务说明"></a>服务说明</h3><p>注意: 请确保 graphs的内容与transfer的配置完全一致<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;log_level&quot;: &quot;debug&quot;,</span><br><span class="line">    &quot;db&quot;: &#123;  //数据库相关的连接配置信息</span><br><span class="line">        &quot;faclon_portal&quot;: &quot;root:@tcp(127.0.0.1:3306)/falcon_portal?charset=utf8&amp;parseTime=True&amp;loc=Local&quot;,</span><br><span class="line">        &quot;graph&quot;: &quot;root:@tcp(127.0.0.1:3306)/graph?charset=utf8&amp;parseTime=True&amp;loc=Local&quot;,</span><br><span class="line">        &quot;uic&quot;: &quot;root:@tcp(127.0.0.1:3306)/uic?charset=utf8&amp;parseTime=True&amp;loc=Local&quot;,</span><br><span class="line">        &quot;dashboard&quot;: &quot;root:@tcp(127.0.0.1:3306)/dashboard?charset=utf8&amp;parseTime=True&amp;loc=Local&quot;,</span><br><span class="line">        &quot;alarms&quot;: &quot;root:@tcp(127.0.0.1:3306)/alarms?charset=utf8&amp;parseTime=True&amp;loc=Local&quot;,</span><br><span class="line">        &quot;db_bug&quot;: true</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;graphs&quot;: &#123;  // graph模块的部署列表信息</span><br><span class="line">        &quot;cluster&quot;: &#123;</span><br><span class="line">            &quot;graph-00&quot;: &quot;127.0.0.1:6070&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;max_conns&quot;: 100,</span><br><span class="line">        &quot;max_idle&quot;: 100,</span><br><span class="line">        &quot;conn_timeout&quot;: 1000,</span><br><span class="line">        &quot;call_timeout&quot;: 5000,</span><br><span class="line">        &quot;numberOfReplicas&quot;: 500</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;metric_list_file&quot;: &quot;./api/data/metric&quot;,</span><br><span class="line">    &quot;web_port&quot;: &quot;:8080&quot;,  // http监听端口</span><br><span class="line">    &quot;access_control&quot;: true, // 如果设置为false，那么任何用户都可以具备管理员权限</span><br><span class="line">    &quot;salt&quot;: &quot;pleaseinputwhichyouareusingnow&quot;,  //数据库加密密码的时候的salt</span><br><span class="line">    &quot;skip_auth&quot;: false, //如果设置为true，那么访问api就不需要经过认证</span><br><span class="line">    &quot;default_token&quot;: &quot;default-token-used-in-server-side&quot;,  //用于服务端各模块间的访问授权</span><br><span class="line">    &quot;gen_doc&quot;: false,</span><br><span class="line">    &quot;gen_doc_path&quot;: &quot;doc/module.html&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>备注：<br>   部署完成api组件后，请修改dashboard组件的配置、使其能够正确寻址到api组件。<br>请确保api组件的graph列表 与 transfer的配置 一致。</p>
+<h2 id="安装绘图数据的组件-Graph"><a href="#安装绘图数据的组件-Graph" class="headerlink" title="安装绘图数据的组件- Graph"></a>安装绘图数据的组件- Graph</h2><h3 id="介绍-2"><a href="#介绍-2" class="headerlink" title="介绍"></a>介绍</h3><p>graph是存储绘图数据的组件。graph组件 接收transfer组件推送上来的监控数据，同时处理api组件的查询请求、返回绘图数据。</p>
+<h3 id="服务部署-2"><a href="#服务部署-2" class="headerlink" title="服务部署"></a>服务部署</h3><p>服务部署，包括配置修改、启动服务、检验服务、停止服务等。这之前，需要将安装包解压到服务的部署目录下。（通知之前的一样，拷贝需要的包到指定的服务器）</p>
+<h1 id="修改配置-配置项含义见下文"><a href="#修改配置-配置项含义见下文" class="headerlink" title="修改配置, 配置项含义见下文"></a>修改配置, 配置项含义见下文</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vim cfg.json</span><br><span class="line"></span><br><span class="line"># 启动服务</span><br><span class="line">./open-falcon start graph</span><br><span class="line"></span><br><span class="line"># 停止服务</span><br><span class="line">./open-falcon stop graph</span><br><span class="line"></span><br><span class="line"># 查看日志</span><br><span class="line">    ./open-falcon monitor graph</span><br></pre></td></tr></table></figure>
+<p>三、    配置说明<br>配置文件默认为<code>./cfg.json</code>，配置如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;debug&quot;: false, //true or false, 是否开启debug日志</span><br><span class="line">    &quot;http&quot;: &#123;</span><br><span class="line">        &quot;enabled&quot;: true, //true or false, 表示是否开启该http端口，该端口为控制端口，主要用来对graph发送控制命令、统计命令、debug命令</span><br><span class="line">        &quot;listen&quot;: &quot;0.0.0.0:6071&quot; //表示监听的http端口</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;rpc&quot;: &#123;</span><br><span class="line">        &quot;enabled&quot;: true, //true or false, 表示是否开启该rpc端口，该端口为数据接收端口</span><br><span class="line">        &quot;listen&quot;: &quot;0.0.0.0:6070&quot; //表示监听的rpc端口</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;rrd&quot;: &#123;</span><br><span class="line">        &quot;storage&quot;: &quot;./data/6070&quot; // 历史数据的文件存储路径（如有必要，请修改为合适的路径）</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;db&quot;: &#123;</span><br><span class="line">        &quot;dsn&quot;: &quot;root:@tcp(127.0.0.1:3306)/graph?loc=Local&amp;parseTime=true&quot;, //MySQL的连接信息，默认用户名是root，密码为空，host为127.0.0.1，database为graph（如有必要，请修改)</span><br><span class="line">        &quot;maxIdle&quot;: 4  //MySQL连接池配置，连接池允许的最大连接数，保持默认即可</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;callTimeout&quot;: 5000,  //RPC调用超时时间，单位ms</span><br><span class="line">    &quot;migrate&quot;: &#123;  //扩容graph时历史数据自动迁移</span><br><span class="line">        &quot;enabled&quot;: false,  //true or false, 表示graph是否处于数据迁移状态</span><br><span class="line">        &quot;concurrency&quot;: 2, //数据迁移时的并发连接数，建议保持默认</span><br><span class="line">        &quot;replicas&quot;: 500, //这是一致性hash算法需要的节点副本数量，建议不要变更，保持默认即可（必须和transfer的配置中保持一致）</span><br><span class="line">        &quot;cluster&quot;: &#123; //未扩容前老的graph实例列表</span><br><span class="line">            &quot;graph-00&quot; : &quot;127.0.0.1:6070&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><p>如果上图红框中出现同一台服务器的不同名字的配置，则进入数据库，进行如下操作：<br>进入数据库：<code>mysql –u root –p</code><br>查看所有数据库：<code>show databses;</code><br>选择数据库：<code>use graph;</code><br>查看表：<code>show tables;</code><br>查询表：<code>select * from endpoint;</code><br>删除不需要的数据：<code>delete from endpoint where id=153;</code><br>如下可以不操作：<br>可以一起删除falcon_portal库中的host表中的无用数据。</p>
+<h2 id="Mysql监控"><a href="#Mysql监控" class="headerlink" title="Mysql监控"></a>Mysql监控</h2><h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><p>在数据采集一节中我们介绍了常见的监控数据源。open-falcon作为一个监控框架，可以去采集任何系统的监控指标数据，只要将监控数据组织为open-falcon规范的格式就OK了。<br>MySQL的数据采集可以通过mymon来做。<br>mymon是一个cron，每分钟跑一次，配置文件中配置了数据库连接地址，mymon连到该数据库，采集一些监控指标，比如global status, global variables, slave status等等，然后组装为open-falcon规定的格式的数据，post给本机的falcon-agent。falcon-agent提供了一个http接口，使用方法可以参考数据采集中的例子。比如我们有1000台机器都部署了MySQL实例，可以在这1000台机器上分别部署1000个cron，即：与数据库实例一一对应。</p>
+<h3 id="配置安装"><a href="#配置安装" class="headerlink" title="配置安装"></a>配置安装</h3><p>下载地址：<a href="https://github.com/open-falcon/mymon" target="_blank" rel="noopener">https://github.com/open-falcon/mymon</a><br>安装：<br>设置$GOPATH：export $GOPATH =/src/<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p $GOPATH/src/github.com/open-falcon</span><br><span class="line">cd $GOPATH/src/github.com/open-falcon</span><br><span class="line">git clone https://github.com/open-falcon/mymon.git</span><br><span class="line"></span><br><span class="line">cd mymon</span><br><span class="line">go get ./...</span><br><span class="line">go build -o mymon</span><br><span class="line"></span><br><span class="line">echo &apos;* * * * * cd $GOPATH/src/github.com/open-falcon/mymon &amp;&amp; ./mymon -c etc/mon.cfg&apos; &gt; /etc/cron.d/mymon</span><br></pre></td></tr></table></figure></p>
+<p>执行go get ./…的时候出现如下错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">package golang.org/x/crypto/ssh/terminal: unrecognized import path &quot;golang.org/x/crypto/ssh/terminal&quot; (https fetch: Get https://golang.org/x/crypto/ssh/terminal?go-get=1: dial tcp 216.239.37.1:443: i/o timeout)</span><br><span class="line">package golang.org/x/sys/unix: unrecognized import path &quot;golang.org/x/sys/unix&quot; (https fetch: Get https://golang.org/x/sys/unix?go-get=1: dial tcp 216.239.37.1:443: i/o timeout)</span><br></pre></td></tr></table></figure></p>
+<p>解决办法：<br>方法一：直接下载文件，然后把解压出来的文件夹放在src里。<br>下载地址：<a href="https://pan.baidu.com/s/1boVAtJp" target="_blank" rel="noopener">https://pan.baidu.com/s/1boVAtJp</a></p>
+<p>方法二：直接从git上下载对应文件放到src下面。<br>mkdir -p $GOPATH/src/golang.org/x<br>cd $GOPATH/src/golang.org/x<br>git clone <a href="https://github.com/golang/crypto.git" target="_blank" rel="noopener">https://github.com/golang/crypto.git</a><br>git clone <a href="https://github.com/golang/sys.git" target="_blank" rel="noopener">https://github.com/golang/sys.git</a></p>
+<p>修改配置文件：<br>/src/github.com/open-falcon/mymon/etc<br><code>vi mon.cfg</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[default]</span><br><span class="line"> log_file=mymon.log # 日志路径和文件名</span><br><span class="line"> # Panic 0</span><br><span class="line"> # Fatal 1</span><br><span class="line"> # Error 2</span><br><span class="line"> # Warn 3</span><br><span class="line"> # Info 4</span><br><span class="line"> # Debug 5</span><br><span class="line"> log_level=4 # 日志级别</span><br><span class="line"></span><br><span class="line"> falcon_client=http://127.0.0.1:1988/v1/push # falcon agent连接地址</span><br><span class="line"></span><br><span class="line"> #自定义endpoint</span><br><span class="line"> endpoint=127.0.0.1 #若不设置则使用OS的hostname</span><br><span class="line"></span><br><span class="line"> [mysql]</span><br><span class="line"> user=root # 数据库用户名</span><br><span class="line"> password= # 数据库密码</span><br><span class="line"> host=127.0.0.1 # 数据库连接地址</span><br><span class="line"> port=3306 # 数据库端口</span><br></pre></td></tr></table></figure></p>
+<p>采集成功!</p>
+<h2 id="Redis监控"><a href="#Redis监控" class="headerlink" title="Redis监控"></a>Redis监控</h2><h3 id="介绍-3"><a href="#介绍-3" class="headerlink" title="介绍~"></a>介绍~</h3><p>Redis的数据采集可以通过采集脚本<a href="https://github.com/iambocai/falcon-monit-scripts/tree/master/redis" target="_blank" rel="noopener">redis-monitor</a> 或者 <a href="https://github.com/ZhuoRoger/redismon" target="_blank" rel="noopener">redismon</a>来做。</p>
+<p>redis-monitor是一个cron，每分钟跑一次采集脚本redis-monitor.py，其中配置了redis服务的地址，redis-monitor连到redis实例，采集一些监控指标，比如connected_clients、used_memory等等，然后组装为open-falcon规定的格式的数据，post给本机的falcon-agent。falcon-agent提供了一个http接口，使用方法可以参考数据采集中的例子。</p>
+<p>比如，我们有1000台机器都部署了Redis实例，可以在这1000台机器上分别部署1000个cron，即：与Redis实例一一对应。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>下载地址：<a href="https://github.com/iambocai/falcon-monit-scripts" target="_blank" rel="noopener">https://github.com/iambocai/falcon-monit-scripts</a></p>
+<p>进入目录：/data/program/software/falcon-monit-scripts-master/redis</p>
+<p>修改配置文件：<code>vi redis-monitor.py</code><br>修改对应连接到agent的地址：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/env python</span></span><br><span class="line"><span class="comment">#-*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line">__author__ = <span class="string">'iambocai'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> commands</span><br><span class="line"><span class="keyword">import</span> urllib2, base64</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RedisStats</span>:</span></span><br><span class="line">    <span class="comment"># ĺýÍý?ăŔíťĐů??ÝťßţÓđredisŁŹ??ůťŘüîÜ?ôđ???Óđredis-cliÖŘ?</span></span><br><span class="line">    _redis_cli = <span class="string">'/usr/local/redis/redis-cli'</span></span><br><span class="line">    _stat_regex = re.compile(<span class="string">ur'(\w+):([0-9]+\.?[0-9]*)\r'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,  port=<span class="string">'6379'</span>, passwd=None, host=<span class="string">'127.0.0.1'</span>)</span>:</span></span><br><span class="line">        self._cmd = <span class="string">'%s -h %s -p %s info'</span> % (self._redis_cli, host, port)</span><br><span class="line">        <span class="keyword">if</span> passwd <span class="keyword">not</span> <span class="keyword">in</span> [<span class="string">''</span>, <span class="keyword">None</span>]:</span><br><span class="line">            self._cmd = <span class="string">'%s -h %s -p %s -a %s info'</span> % (self._redis_cli, host, port, passwd)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">stats</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">' Return a dict containing redis stats '</span></span><br><span class="line">        info = commands.getoutput(self._cmd)</span><br><span class="line">        <span class="keyword">return</span> dict(self._stat_regex.findall(info))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    ip = <span class="string">"dst6-redis"</span></span><br><span class="line">    timestamp = int(time.time())</span><br><span class="line">    step = <span class="number">60</span></span><br><span class="line">    <span class="comment"># inst_listńéÜÁđíÖőredisŰŐöÇŮţËěÖŞřúŁŹďďßí???ŢÁŰŐöÇńé?ö˘portűúpasswordŁŹËď?ŢĹéÄ????îÜŰ°Űö?ÔđŁŹĺýŁş</span></span><br><span class="line">    <span class="comment"># inst_list = [ i for i in commands.getoutput("find  /etc/ -name 'redis*.conf'" ).split('\n') ]</span></span><br><span class="line">    insts_list = [ <span class="string">'/usr/local/redis/redis.conf'</span> ]</span><br><span class="line">    p = []</span><br><span class="line">    </span><br><span class="line">    monit_keys = [</span><br><span class="line">        (<span class="string">'connected_clients'</span>,<span class="string">'GAUGE'</span>), </span><br><span class="line">        (<span class="string">'blocked_clients'</span>,<span class="string">'GAUGE'</span>), </span><br><span class="line">        (<span class="string">'used_memory'</span>,<span class="string">'GAUGE'</span>),</span><br><span class="line">        (<span class="string">'used_memory_rss'</span>,<span class="string">'GAUGE'</span>),</span><br><span class="line">        (<span class="string">'mem_fragmentation_ratio'</span>,<span class="string">'GAUGE'</span>),</span><br><span class="line">        (<span class="string">'total_commands_processed'</span>,<span class="string">'COUNTER'</span>),</span><br><span class="line">        (<span class="string">'rejected_connections'</span>,<span class="string">'COUNTER'</span>),</span><br><span class="line">        (<span class="string">'expired_keys'</span>,<span class="string">'COUNTER'</span>),</span><br><span class="line">        (<span class="string">'evicted_keys'</span>,<span class="string">'COUNTER'</span>),</span><br><span class="line">        (<span class="string">'keyspace_hits'</span>,<span class="string">'COUNTER'</span>),</span><br><span class="line">        (<span class="string">'keyspace_misses'</span>,<span class="string">'COUNTER'</span>),</span><br><span class="line">        (<span class="string">'keyspace_hit_ratio'</span>,<span class="string">'GAUGE'</span>),</span><br><span class="line">    ]</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">for</span> inst <span class="keyword">in</span> insts_list:</span><br><span class="line">        port = commands.getoutput(<span class="string">"sed -n 's/^port *\([0-9]\&#123;4,5\&#125;\)/\\1/p' %s"</span> % inst)</span><br><span class="line">        passwd = commands.getoutput(<span class="string">"sed -n 's/^requirepass *\([^ ]*\)/\\1/p' %s"</span> % inst)</span><br><span class="line">        metric = <span class="string">"redis"</span></span><br><span class="line">        endpoint = ip</span><br><span class="line">        tags = <span class="string">'port=%s'</span> % port</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            conn = RedisStats(port, passwd)</span><br><span class="line">            stats = conn.stats()</span><br><span class="line">        <span class="keyword">except</span> Exception,e:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> key,vtype <span class="keyword">in</span> monit_keys:</span><br><span class="line">            <span class="comment">#ěéŢÁÖŐ÷úÜâîÜredisńéinfo?őóîÜăáăÓ?á´ŁŹĺýÍýĚŔá´ěéŢÁä˛?âÍéŠóúó˘îÜkeyöŚÔŻ?</span></span><br><span class="line">            <span class="keyword">if</span> key <span class="keyword">not</span> <span class="keyword">in</span> stats.keys():</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="comment">#?ßŠŮ¤ńéáă</span></span><br><span class="line">            <span class="keyword">if</span> key == <span class="string">'keyspace_hit_ratio'</span>:</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    value = float(stats[<span class="string">'keyspace_hits'</span>])/(int(stats[<span class="string">'keyspace_hits'</span>]) + int(stats[<span class="string">'keyspace_misses'</span>]))</span><br><span class="line">                <span class="keyword">except</span> ZeroDivisionError:</span><br><span class="line">                    value = <span class="number">0</span></span><br><span class="line">            <span class="comment">#áďř¸áăăŔÝŠďĂ?</span></span><br><span class="line">            <span class="keyword">elif</span> key == <span class="string">'mem_fragmentation_ratio'</span>:</span><br><span class="line">                value = float(stats[key])</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment">#ĐěöâîÜÔ´óúó˘ŕ÷counterŁŹint</span></span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    value = int(stats[key])</span><br><span class="line">                <span class="keyword">except</span>:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">            </span><br><span class="line">            i = &#123;</span><br><span class="line">                <span class="string">'Metric'</span>: <span class="string">'%s.%s'</span> % (metric, key),</span><br><span class="line">                <span class="string">'Endpoint'</span>: endpoint,</span><br><span class="line">                <span class="string">'Timestamp'</span>: timestamp,</span><br><span class="line">                <span class="string">'Step'</span>: step,</span><br><span class="line">                <span class="string">'Value'</span>: value,</span><br><span class="line">                <span class="string">'CounterType'</span>: vtype,</span><br><span class="line">                <span class="string">'TAGS'</span>: tags</span><br><span class="line">            &#125;</span><br><span class="line">            p.append(i)</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> json.dumps(p, sort_keys=<span class="keyword">True</span>,indent=<span class="number">4</span>)</span><br><span class="line">    method = <span class="string">"POST"</span></span><br><span class="line">    handler = urllib2.HTTPHandler()</span><br><span class="line">    opener = urllib2.build_opener(handler)</span><br><span class="line">    url = <span class="string">'http://127.0.0.1:1988/v1/push'</span></span><br><span class="line">    request = urllib2.Request(url, data=json.dumps(p) )</span><br><span class="line">    request.add_header(<span class="string">"Content-Type"</span>,<span class="string">'application/json'</span>)</span><br><span class="line">    request.get_method = <span class="keyword">lambda</span>: method</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        connection = opener.open(request)</span><br><span class="line">    <span class="keyword">except</span> urllib2.HTTPError,e:</span><br><span class="line">        connection = e</span><br><span class="line"></span><br><span class="line">    <span class="comment"># check. Substitute with appropriate HTTP code.</span></span><br><span class="line">    <span class="keyword">if</span> connection.code == <span class="number">200</span>:</span><br><span class="line">        <span class="keyword">print</span> connection.read()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'&#123;"err":1,"msg":"%s"&#125;'</span> % connection</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    proc = commands.getoutput(<span class="string">' ps -ef|grep %s|grep -v grep|wc -l '</span> % os.path.basename(sys.argv[<span class="number">0</span>]))</span><br><span class="line">    sys.stdout.flush()</span><br><span class="line">    <span class="keyword">if</span> int(proc) &lt; <span class="number">5</span>:</span><br><span class="line">        main()</span><br></pre></td></tr></table></figure>
+<p>启动测试<code>python redis-monitor.py</code></p>
+<p>将脚本加入crontab执行即可</p>
+<p>查看服务状态：<code>service crond status</code></p>
+<p>编辑：<code>crontab –e</code></p>
+<p>加入命令，一分钟执行一次，然后保存。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/1 * * * * python /data/program/software/falcon-monit-scripts-master/redis/redis-monitor.py</span><br></pre></td></tr></table></figure>
+<p>重启服务<code>service crond restart</code></p>
+<h3 id="汇报字段"><a href="#汇报字段" class="headerlink" title="汇报字段"></a>汇报字段</h3><table>
+<thead>
+<tr>
+<th><strong>key</strong></th>
+<th><strong>tag</strong></th>
+<th><strong>type</strong></th>
+<th><strong>note</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>redis.connected_clients</td>
+<td>port</td>
+<td>GAUGE</td>
+<td>已连接客户端的数量</td>
+</tr>
+<tr>
+<td>redis.blocked_clients</td>
+<td>port</td>
+<td>GAUGE</td>
+<td>正在等待阻塞命令（BLPOP、BRPOP、BRPOPLPUSH）的客户端的数量</td>
+</tr>
+<tr>
+<td>redis.used_memory</td>
+<td>port</td>
+<td>GAUGE</td>
+<td>由   Redis 分配器分配的内存总量，以字节（byte）为单位</td>
+</tr>
+<tr>
+<td>redis.used_memory_rss</td>
+<td>port</td>
+<td>GAUGE</td>
+<td>从操作系统的角度，返回   Redis 已分配的内存总量（俗称常驻集大小）</td>
+</tr>
+<tr>
+<td>redis.mem_fragmentation_ratio</td>
+<td>port</td>
+<td>GAUGE</td>
+<td>used_memory_rss 和 used_memory 之间的比率</td>
+</tr>
+<tr>
+<td>redis.total_commands_processed</td>
+<td>port</td>
+<td>COUNTER</td>
+<td>采集周期内执行命令总数</td>
+</tr>
+<tr>
+<td>redis.rejected_connections</td>
+<td>port</td>
+<td>COUNTER</td>
+<td>采集周期内拒绝连接总数</td>
+</tr>
+<tr>
+<td>redis.expired_keys</td>
+<td>port</td>
+<td>COUNTER</td>
+<td>采集周期内过期key总数</td>
+</tr>
+<tr>
+<td>redis.evicted_keys</td>
+<td>port</td>
+<td>COUNTER</td>
+<td>采集周期内踢出key总数</td>
+</tr>
+<tr>
+<td>redis.keyspace_hits</td>
+<td>port</td>
+<td>COUNTER</td>
+<td>采集周期内key命中总数</td>
+</tr>
+<tr>
+<td>redis.keyspace_misses</td>
+<td>port</td>
+<td>COUNTER</td>
+<td>采集周期内key拒绝总数</td>
+</tr>
+<tr>
+<td>redis.keyspace_hit_ratio</td>
+<td>port</td>
+<td>GAUGE</td>
+<td>访问命中率</td>
+</tr>
+</tbody>
+</table>
+<p>如需增减字段，请修改monit_keys变量</p>
+<h2 id="Rabbitmq监控"><a href="#Rabbitmq监控" class="headerlink" title="Rabbitmq监控"></a>Rabbitmq监控</h2><h3 id="介绍-4"><a href="#介绍-4" class="headerlink" title="介绍"></a>介绍</h3><p>在数据采集一节中我们介绍了常见的监控数据源。open-falcon作为一个监控框架，可以去采集任何系统的监控指标数据，只要将监控数据组织为open-falcon规范的格式就OK了。</p>
+<p>RMQ的数据采集可以通过脚本rabbitmq-monitor来做。</p>
+<p>   rabbitmq-monitor是一个cron，每分钟跑一次脚本rabbitmq-monitor.py，其中配置了RMQ的用户名&amp;密码等，脚本连到该RMQ实例，采集一些监控指标，比如messages_ready、messages_total、deliver_rate、publish_rate等等，然后组装为open-falcon规定的格式的数据，post给本机的falcon-agent。falcon-agent提供了一个http接口，使用方法可以参考<a href="http://book.open-falcon.org/zh_0_2/philosophy/data-collect.html" target="_blank" rel="noopener">数据采集</a>中的例子。</p>
+<h3 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h3><p>下载地址：<a href="https://github.com/iambocai/falcon-monit-scripts/tree/master/rabbitmq" target="_blank" rel="noopener">https://github.com/iambocai/falcon-monit-scripts/tree/master/rabbitmq</a><br>修改配置：<code>vi rabbitmq-monitor.py</code><br> 1、根据实际部署情况，修改15,16行的rabbitmq-server管理端口和登录用户名密码<br> 2、确认1中配置的rabbitmq用户有你想监控的queue/vhosts的权限<br>3、将脚本加入crontab即可<br>新建脚本 : <code>vi rabbitmq_cron</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* * * * * root (cd /data/program/software/falcon-monit-scripts-master/rabbitmq &amp;&amp; python  rabbitmq-monitor.py  &gt; /dev/null)</span><br><span class="line">cp rabbitmq_cron /etc/cron.d/</span><br></pre></td></tr></table></figure></p>
+<h3 id="汇报字段-1"><a href="#汇报字段-1" class="headerlink" title="汇报字段"></a>汇报字段</h3><table>
+<thead>
+<tr>
+<th><strong>key</strong></th>
+<th><strong>tag</strong></th>
+<th><strong>type</strong></th>
+<th><strong>note</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rabbitmq.messages_ready</td>
+<td>name(Queue名字)</td>
+<td>GAUGE</td>
+<td>队列中处于等待被消费状态消息数</td>
+</tr>
+<tr>
+<td>rabbitmq.messages_unacknowledged</td>
+<td>name(Queue名字)</td>
+<td>GAUGE</td>
+<td>队列中处于消费中状态的消息数</td>
+</tr>
+<tr>
+<td>rabbitmq.messages_total</td>
+<td>name(Queue名字)</td>
+<td>GAUGE</td>
+<td>队列中所有未完成消费的消息数，等于messages_ready+messages_unacknowledged</td>
+</tr>
+<tr>
+<td>rabbitmq.ack_rate</td>
+<td>name(Queue名字)</td>
+<td>GAUGE</td>
+<td>消费者ack的速率</td>
+</tr>
+<tr>
+<td>rabbitmq.deliver_rate</td>
+<td>name(Queue名字)</td>
+<td>GAUGE</td>
+<td>deliver的速率</td>
+</tr>
+<tr>
+<td>rabbitmq.deliver_get_rate</td>
+<td>name(Queue名字)</td>
+<td>GAUGE</td>
+<td>deliver_get的速率</td>
+</tr>
+<tr>
+<td>rabbitmq.publish_rate</td>
+<td>name(Queue名字)</td>
+<td>GAUGE</td>
+<td>publish的速率</td>
+</tr>
+</tbody>
+</table>
+<h1 id="完"><a href="#完" class="headerlink" title="完"></a>完</h1><p>全片结束，觉得我写的不错？想要了解更多精彩新姿势？赶快打开我的👉个人<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">博客</a> 👈吧！</p>
+<p>谢谢你那么可爱，还一直关注着我~❤😝</p>
+
+      
+    </div>
+    
+    
+    
+      <div>
+        
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本稿が終わる<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="tEngSHe789 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    tEngSHe789
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="//blog.tEngSHe789.tech/2019/02/15/分享一下微服务监控软件以及其部署/" title="分享一下微服务监控软件以及其部署">//blog.tEngSHe789.tech/2019/02/15/分享一下微服务监控软件以及其部署/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/分享/" rel="tag"><i class="fa fa-tag"></i> 分享</a>
+          
+            <a href="/tags/软件教学/" rel="tag"><i class="fa fa-tag"></i> 软件教学</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/25/记录一次Gitlab安装并与Gitbook集成的经历/" rel="next" title="记录一次Gitlab安装并与Gitbook集成的经历">
+                <i class="fa fa-chevron-left"></i> 记录一次Gitlab安装并与Gitbook集成的经历
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/17/快速git-pull所有项目文件/" rel="prev" title="快速git pull更新所有项目文件">
+                快速git pull更新所有项目文件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="tEngSHe789">
+            
+              <p class="site-author-name" itemprop="name">tEngSHe789</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/tengshe789" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:randyvan007@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/101453729765094892757" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/tengshe789" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/tengshe789" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://steamcommunity.com/id/tengshe789" target="_blank" title="Steam">
+                      
+                        <i class="fa fa-fw fa-steam"></i>Steam</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/9930788/tengshe-789" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://dribbble.com/tengshe789" target="_blank" title="dribbble">
+                      
+                        <i class="fa fa-fw fa-dribbble"></i>dribbble</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/ha.7787" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/5649075808" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/970176296" target="_blank" title="QQZone">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQZone</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://music.163.com/#/user/home?id=73274594" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b4c1dd0e51d45194558166b" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://segmentfault.com/u/tengshe789" target="_blank" title="思否">
+                      
+                        <i class="fa fa-fw fa-scribd"></i>思否</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#influxDB"><span class="nav-number">1.</span> <span class="nav-text">influxDB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是influxDB"><span class="nav-number">1.0.1.</span> <span class="nav-text">什么是influxDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#influxDB安装"><span class="nav-number">1.0.2.</span> <span class="nav-text">influxDB安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#influxDB常用操作"><span class="nav-number">1.0.3.</span> <span class="nav-text">influxDB常用操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建数据库"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建用户并授权"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">创建用户并授权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看采集的数据"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">查看采集的数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#More"><span class="nav-number">1.0.4.</span> <span class="nav-text">More</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#cAdvisor"><span class="nav-number">2.</span> <span class="nav-text">cAdvisor</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#啥么是cAdvisor"><span class="nav-number">2.0.1.</span> <span class="nav-text">啥么是cAdvisor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cAdvisor安装"><span class="nav-number">2.0.2.</span> <span class="nav-text">cAdvisor安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Grafana"><span class="nav-number">3.</span> <span class="nav-text">Grafana</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Grafana安装"><span class="nav-number">3.0.1.</span> <span class="nav-text">Grafana安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">3.0.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pinpoint"><span class="nav-number">4.</span> <span class="nav-text">pinpoint</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#是啥"><span class="nav-number">4.0.1.</span> <span class="nav-text">是啥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#所需软件"><span class="nav-number">4.0.2.</span> <span class="nav-text">所需软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装hbase"><span class="nav-number">4.0.3.</span> <span class="nav-text">安装hbase</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#环境配置"><span class="nav-number">4.0.3.1.</span> <span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动hbase"><span class="nav-number">4.0.3.2.</span> <span class="nav-text">启动hbase</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行jps查看是否有HMaster进程"><span class="nav-number">4.0.3.3.</span> <span class="nav-text">执行jps查看是否有HMaster进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进入hbase-shell"><span class="nav-number">4.0.3.4.</span> <span class="nav-text">进入hbase shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#部署collector"><span class="nav-number">4.0.3.5.</span> <span class="nav-text">部署collector</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监控spring-boot应用"><span class="nav-number">4.0.4.</span> <span class="nav-text">监控spring boot应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#more"><span class="nav-number">4.0.5.</span> <span class="nav-text">more</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Open-Falcon"><span class="nav-number">5.</span> <span class="nav-text">Open-Falcon</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">5.0.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#社区和文档支持"><span class="nav-number">5.0.2.</span> <span class="nav-text">社区和文档支持</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境准备"><span class="nav-number">5.1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装redis"><span class="nav-number">5.1.1.</span> <span class="nav-text">安装redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装mysql"><span class="nav-number">5.1.2.</span> <span class="nav-text">安装mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化mysql数据库表"><span class="nav-number">5.1.3.</span> <span class="nav-text">初始化mysql数据库表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载编译后的二进制包"><span class="nav-number">5.1.4.</span> <span class="nav-text">下载编译后的二进制包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后端安装"><span class="nav-number">5.2.</span> <span class="nav-text">后端安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建工作目录"><span class="nav-number">5.2.1.</span> <span class="nav-text">创建工作目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解压二进制包"><span class="nav-number">5.2.2.</span> <span class="nav-text">解压二进制包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置数据库账号和密码"><span class="nav-number">5.2.3.</span> <span class="nav-text">配置数据库账号和密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动"><span class="nav-number">5.2.4.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更多命令行工具"><span class="nav-number">5.2.5.</span> <span class="nav-text">更多命令行工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端安装"><span class="nav-number">5.3.</span> <span class="nav-text">前端安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建工作目录-1"><span class="nav-number">5.3.1.</span> <span class="nav-text">创建工作目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#克隆前端组件代码"><span class="nav-number">5.3.2.</span> <span class="nav-text">克隆前端组件代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖包"><span class="nav-number">5.3.3.</span> <span class="nav-text">安装依赖包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改配置"><span class="nav-number">5.3.4.</span> <span class="nav-text">修改配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-1"><span class="nav-number">5.3.5.</span> <span class="nav-text">启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Agent"><span class="nav-number">5.4.</span> <span class="nav-text">安装-Agent</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">5.4.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署"><span class="nav-number">5.4.2.</span> <span class="nav-text">部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-2"><span class="nav-number">5.4.3.</span> <span class="nav-text">启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装数据转发服务-Transfer"><span class="nav-number">5.5.</span> <span class="nav-text">安装数据转发服务-Transfer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">5.5.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务部署"><span class="nav-number">5.5.2.</span> <span class="nav-text">服务部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置说明"><span class="nav-number">5.5.3.</span> <span class="nav-text">配置说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装查询组件-API"><span class="nav-number">5.6.</span> <span class="nav-text">安装查询组件-API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-1"><span class="nav-number">5.6.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务部署-1"><span class="nav-number">5.6.2.</span> <span class="nav-text">服务部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务说明"><span class="nav-number">5.6.3.</span> <span class="nav-text">服务说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装绘图数据的组件-Graph"><span class="nav-number">5.7.</span> <span class="nav-text">安装绘图数据的组件- Graph</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-2"><span class="nav-number">5.7.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务部署-2"><span class="nav-number">5.7.2.</span> <span class="nav-text">服务部署</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改配置-配置项含义见下文"><span class="nav-number">6.</span> <span class="nav-text">修改配置, 配置项含义见下文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#备注"><span class="nav-number">6.0.1.</span> <span class="nav-text">备注</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql监控"><span class="nav-number">6.1.</span> <span class="nav-text">Mysql监控</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工作原理"><span class="nav-number">6.1.1.</span> <span class="nav-text">工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置安装"><span class="nav-number">6.1.2.</span> <span class="nav-text">配置安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis监控"><span class="nav-number">6.2.</span> <span class="nav-text">Redis监控</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-3"><span class="nav-number">6.2.1.</span> <span class="nav-text">介绍~</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">6.2.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#汇报字段"><span class="nav-number">6.2.3.</span> <span class="nav-text">汇报字段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rabbitmq监控"><span class="nav-number">6.3.</span> <span class="nav-text">Rabbitmq监控</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍-4"><span class="nav-number">6.3.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装配置"><span class="nav-number">6.3.2.</span> <span class="nav-text">安装配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#汇报字段-1"><span class="nav-number">6.3.3.</span> <span class="nav-text">汇报字段</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完"><span class="nav-number">7.</span> <span class="nav-text">完</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+      
+            <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+            <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+            <div class="widget-wrap">
+            <h3 class="widget-title">Tag Cloud</h3>
+            <div id="myCanvasContainer" class="widget tagcloud">
+                <canvas width="250" height="250" id="resCanvas" style="width=100%">
+                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows10/">Windows10</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/">k8s</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/军事/">军事</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分享/">分享</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/初/">初</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/吐槽/">吐槽</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学好分布式架构/">学好分布式架构</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a><span class="tag-list-count">27</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构与算法/">数据结构与算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/硬件/">硬件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/窍门/">窍门</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件教学/">软件教学</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/错题/">错题</a><span class="tag-list-count">1</span></li></ul>
+                </canvas>
+            </div>
+            </div>
+      
+
+      
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-7659349864173199",
+            enable_page_level_ads: true
+            });
+            </script>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tEngSHe789</span>
+
+  
+</div>
+
+
+  <!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div> -->
+
+
+
+
+
+
+
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("01/1/2018 0:00:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-nipsilon"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"tagMode":true,"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=1.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=1.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=1.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=1.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=1.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=1.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=1.0.0"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = '//blog.tEngSHe789.tech/2019/02/15/分享一下微服务监控软件以及其部署/';
+          this.page.identifier = '2019/02/15/分享一下微服务监控软件以及其部署/';
+          this.page.title = '分享一下微服务监控软件以及其部署';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'LNoutjtqdzTwP7Ui74LV5Dw1-gzGzoHsz',
+        appKey: 'rO9bQ0F0wlhqulsUoNy80KPb',
+        placeholder: '来说两句吧~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("LNoutjtqdzTwP7Ui74LV5Dw1-gzGzoHsz", "rO9bQ0F0wlhqulsUoNy80KPb");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=1.0.0"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=1.0.0"></script>
+
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-nipsilon"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"tagMode":true,"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script>
+</body>
+</html>
+<!-- 页面点击小红心 --> 
+<script type="text/javascript" src="/js/src/love.js"></script>
