@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="tEngSHe789の小站">
 <meta property="og:description" content="最近在寻找有利的监控软件为我的微服务献身，于是乎整理文档，试验，花了很长时间。今天分享一下整理的部分工具，有时间会继续在此post中更新的！🙃 想要解锁更多新姿势？请访问我的博客。 influxDB什么是influxDBinfluxDB是一个分布式时间序列数据库。cAdvisor仅仅显示实时信息，但是不存储监视数据。因此，我们需要提供时序数据库用于存储cAdvisor组件所提供的监控信息，以便显">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-20T13:39:41.189Z">
+<meta property="og:updated_time" content="2021-06-06T09:21:39.466Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分享一下微服务监控软件以及其部署">
 <meta name="twitter:description" content="最近在寻找有利的监控软件为我的微服务献身，于是乎整理文档，试验，花了很长时间。今天分享一下整理的部分工具，有时间会继续在此post中更新的！🙃 想要解锁更多新姿势？请访问我的博客。 influxDB什么是influxDBinfluxDB是一个分布式时间序列数据库。cAdvisor仅仅显示实时信息，但是不存储监视数据。因此，我们需要提供时序数据库用于存储cAdvisor组件所提供的监控信息，以便显">
@@ -459,7 +459,7 @@ tpwidget("show");</script>
 
       
         <p>最近在寻找有利的监控软件为我的微服务献身，于是乎整理文档，试验，花了很长时间。今天分享一下整理的部分工具，有时间会继续在此post中更新的！🙃</p>
-<p>想要解锁更多新姿势？请访问<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">我的博客</a>。</p>
+<p>想要解锁更多新姿势？请访问<a href="https://tengshe789.github.io/">我的博客</a>。</p>
 <h1 id="influxDB"><a href="#influxDB" class="headerlink" title="influxDB"></a>influxDB</h1><h3 id="什么是influxDB"><a href="#什么是influxDB" class="headerlink" title="什么是influxDB"></a>什么是influxDB</h3><p>influxDB是一个分布式时间序列数据库。cAdvisor仅仅显示实时信息，但是不存储监视数据。因此，我们需要提供时序数据库用于存储cAdvisor组件所提供的监控信息，以便显示除实时信息之外的时序数据。</p>
 <h3 id="influxDB安装"><a href="#influxDB安装" class="headerlink" title="influxDB安装"></a>influxDB安装</h3><p>（1）下载镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull tutum/influxdb</span><br></pre></td></tr></table></figure></p>
 <p>（2）创建容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run ‐di \</span><br><span class="line">‐p 8083:8083 \</span><br><span class="line">‐p 8086:8086 \</span><br><span class="line">‐‐expose 8090 \</span><br><span class="line">‐‐expose 8099 \</span><br><span class="line">‐‐name influxsrv \</span><br><span class="line">tutum/influxdb</span><br></pre></td></tr></table></figure></p>
@@ -725,7 +725,7 @@ tpwidget("show");</script>
 </tr>
 </tbody>
 </table>
-<h1 id="完"><a href="#完" class="headerlink" title="完"></a>完</h1><p>全片结束，觉得我写的不错？想要了解更多精彩新姿势？赶快打开我的👉个人<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">博客</a> 👈吧！</p>
+<h1 id="完"><a href="#完" class="headerlink" title="完"></a>完</h1><p>全片结束，觉得我写的不错？想要了解更多精彩新姿势？赶快打开我的👉个人<a href="https://tengshe789.github.io/">博客</a> 👈吧！</p>
 <p>谢谢你那么可爱，还一直关注着我~❤😝</p>
 
       

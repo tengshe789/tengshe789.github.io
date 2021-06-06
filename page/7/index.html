@@ -462,7 +462,7 @@ tpwidget("show");</script>
       
         
           
-          大多数情况下，只要不涉及线程安全问题，Map基本都可以使用HashMap，不过HashMap有一个问题，就是迭代HashMap的顺序并不是HashMap放置的顺序。HashMap的这一缺点往往会带来困扰，因为有些场景，我们需要一个有序的Map。LinkedHashMap就可以做到，它虽然增加了时间和空间上的开销，但是通过维护一个运行于所有条目的双向链表，LinkedHashMap保证了元素迭代的顺序。想要解锁更多新姿势？请访问https://blog.tengshe789.tech/
+          大多数情况下，只要不涉及线程安全问题，Map基本都可以使用HashMap，不过HashMap有一个问题，就是迭代HashMap的顺序并不是HashMap放置的顺序。HashMap的这一缺点往往会带来困扰，因为有些场景，我们需要一个有序的Map。LinkedHashMap就可以做到，它虽然增加了时间和空间上的开销，但是通过维护一个运行于所有条目的双向链表，LinkedHashMap保证了元素迭代的顺序。想要解锁更多新姿势？请访问https://tengshe789.github.io/
 数据结构打
           ...
           <!--noindex-->
@@ -645,7 +645,7 @@ tpwidget("show");</script>
           
           ConcurrenHashMap 。下面分享一下我对ConcurrentHashMap 的理解，主要用于个人备忘。如果有不对，请批评。
 HashMap“严重”的勾起了我对HashMap家族的好奇心，下面分享一下我对ConcurrentHashMap 的理解，主要用于个人备忘。如果有不对，请批评。
-想要解锁更多新姿势？请访问https://blog.tengshe789.tech/
+想要解锁更多新姿势？请访问https://tengshe789.github.io/
 总起HashMap是我们平时开发过程中用的比较多的集合，但它是非线程安全的，在涉及到多线程并发的情况，进行get操作
           ...
           <!--noindex-->
@@ -827,7 +827,7 @@ HashMap“严重”的勾起了我对HashMap家族的好奇心，下面分享一
         
           
           HashSetHashSet 是一个不允许存储重复元素的集合。 HashSet实现Set接口，由哈希表（实际上是一个HashMap实例）支持。它不保证set 的迭代顺序；特别是它不保证该顺序恒久不变。此类允许使用null元素。
-想要解锁更多新姿势？请访问https://blog.tengshe789.tech/
+想要解锁更多新姿势？请访问https://tengshe789.github.io/
 HashSet和HashMap比较HashSet：　　HashSet实现了Set接口，它不允许集合中出现重复元素。当我们提到HashSet时，第一件事就是在将对象存储在
 HashSet之
           ...
@@ -1192,7 +1192,7 @@ HashSet之
       
         
           
-          刚刚看到QQ群有人吹Hashmap，一想我啥都不懂，就赶快补了一波。下面分享一下我对Hashmap的理解，主要用于个人备忘。如果有不对，请批评。想要解锁更多新姿势？请访问https://blog.tengshe789.tech/
+          刚刚看到QQ群有人吹Hashmap，一想我啥都不懂，就赶快补了一波。下面分享一下我对Hashmap的理解，主要用于个人备忘。如果有不对，请批评。想要解锁更多新姿势？请访问https://tengshe789.github.io/
 总起Hashmap是散列表，存储结构是键值对形式。根据健的Hashcode值存储数据，有较快的访问速度。
 它的线程是不安全的，在两个线程同时尝试扩容HashMap时，可能将一个链表形成环形的链表，所有的next都不为空，进入死循环；要想让它安全，可以用 Collecti
           ...

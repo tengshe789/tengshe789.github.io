@@ -96,18 +96,18 @@
 
 
 
-<meta name="description" content="老板今天又来提需求啦d=====(￣▽￣*)b 需要把公司的一些技术文档放到一个平台上，员工阅读，同时文档要有较好的维护性，成本尽可能低。 所以，就有今天博客的内容了！ 想要解锁更多新姿势？请访问我的个人博客https://blog.tengshe789.tech/（😘 安装gitlab1. 安装并配置必要的依赖关系在CentOS 7（和RedHat / Oracle / Scientific">
+<meta name="description" content="老板今天又来提需求啦d=====(￣▽￣*)b 需要把公司的一些技术文档放到一个平台上，员工阅读，同时文档要有较好的维护性，成本尽可能低。 所以，就有今天博客的内容了！ 想要解锁更多新姿势？请访问我的个人博客https://tengshe789.github.io/（😘 安装gitlab1. 安装并配置必要的依赖关系在CentOS 7（和RedHat / Oracle / Scientific">
 <meta name="keywords" content="操作系统,分享,软件教学,git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记录一次Gitlab安装并与Gitbook集成的经历">
 <meta property="og:url" content="https://tengshe789.github.io/2019/01/25/记录一次Gitlab安装并与Gitbook集成的经历/index.html">
 <meta property="og:site_name" content="tEngSHe789の小站">
-<meta property="og:description" content="老板今天又来提需求啦d=====(￣▽￣*)b 需要把公司的一些技术文档放到一个平台上，员工阅读，同时文档要有较好的维护性，成本尽可能低。 所以，就有今天博客的内容了！ 想要解锁更多新姿势？请访问我的个人博客https://blog.tengshe789.tech/（😘 安装gitlab1. 安装并配置必要的依赖关系在CentOS 7（和RedHat / Oracle / Scientific">
+<meta property="og:description" content="老板今天又来提需求啦d=====(￣▽￣*)b 需要把公司的一些技术文档放到一个平台上，员工阅读，同时文档要有较好的维护性，成本尽可能低。 所以，就有今天博客的内容了！ 想要解锁更多新姿势？请访问我的个人博客https://tengshe789.github.io/（😘 安装gitlab1. 安装并配置必要的依赖关系在CentOS 7（和RedHat / Oracle / Scientific">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-20T13:39:41.566Z">
+<meta property="og:updated_time" content="2021-06-06T09:21:39.503Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记录一次Gitlab安装并与Gitbook集成的经历">
-<meta name="twitter:description" content="老板今天又来提需求啦d=====(￣▽￣*)b 需要把公司的一些技术文档放到一个平台上，员工阅读，同时文档要有较好的维护性，成本尽可能低。 所以，就有今天博客的内容了！ 想要解锁更多新姿势？请访问我的个人博客https://blog.tengshe789.tech/（😘 安装gitlab1. 安装并配置必要的依赖关系在CentOS 7（和RedHat / Oracle / Scientific">
+<meta name="twitter:description" content="老板今天又来提需求啦d=====(￣▽￣*)b 需要把公司的一些技术文档放到一个平台上，员工阅读，同时文档要有较好的维护性，成本尽可能低。 所以，就有今天博客的内容了！ 想要解锁更多新姿势？请访问我的个人博客https://tengshe789.github.io/（😘 安装gitlab1. 安装并配置必要的依赖关系在CentOS 7（和RedHat / Oracle / Scientific">
 
 
 
@@ -461,7 +461,7 @@ tpwidget("show");</script>
         <p>老板今天又来提需求啦d=====(￣▽￣*)b</p>
 <p>需要把公司的一些技术文档放到一个平台上，员工阅读，同时文档要有较好的维护性，成本尽可能低。</p>
 <p>所以，就有今天博客的内容了！</p>
-<p>想要解锁更多新姿势？请访问我的个人博客<a href="https://blog.tengshe789.tech/（😘" target="_blank" rel="noopener">https://blog.tengshe789.tech/（😘</a></p>
+<p>想要解锁更多新姿势？请访问我的个人博客<a href="https://tengshe789.github.io/（😘">https://tengshe789.github.io/（😘</a></p>
 <h2 id="安装gitlab"><a href="#安装gitlab" class="headerlink" title="安装gitlab"></a>安装gitlab</h2><h4 id="1-安装并配置必要的依赖关系"><a href="#1-安装并配置必要的依赖关系" class="headerlink" title="1. 安装并配置必要的依赖关系"></a>1. 安装并配置必要的依赖关系</h4><p>在CentOS 7（和RedHat / Oracle / Scientific Linux 7）上，以下命令还将在系统防火墙中打开HTTP和SSH访问。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y curl policycoreutils-python openssh-server</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> sshd</span><br><span class="line">sudo systemctl start sshd</span><br><span class="line">sudo firewall-cmd --permanent --add-service=http</span><br><span class="line">sudo systemctl reload firewalld</span><br></pre></td></tr></table></figure>
 <p>接下来，安装Postfix以发送通知电子邮件。如果您想使用其他解决方案发送电子邮件，请在安装GitLab后跳过此步骤并[配置外部SMTP服务器]（<a href="https://docs.gitlab.com/omnibus/settings/smtp.html）。" target="_blank" rel="noopener">https://docs.gitlab.com/omnibus/settings/smtp.html）。</a></p>
@@ -524,7 +524,7 @@ tpwidget("show");</script>
 <p>解决： 文章内容过长，导致js堆栈溢出。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>gitbook配置实例<a href="https://gitlab.com/pages/gitbook#building-locally" target="_blank" rel="noopener">https://gitlab.com/pages/gitbook#building-locally</a></p>
 <p>其实类似gitbook的软件还有很多，就譬如<a href="https://docsify.js.org/#/" target="_blank" rel="noopener">docsify</a>，大家可以多查阅相关资料使用。</p>
-<h2 id="完"><a href="#完" class="headerlink" title="完"></a>完</h2><p>全片结束，觉得我写的不错？想要了解更多精彩新姿势？赶快打开我的👉个人<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">博客</a> 👈吧！</p>
+<h2 id="完"><a href="#完" class="headerlink" title="完"></a>完</h2><p>全片结束，觉得我写的不错？想要了解更多精彩新姿势？赶快打开我的👉个人<a href="https://tengshe789.github.io/">博客</a> 👈吧！</p>
 <p>谢谢你那么可爱，还一直关注着我~❤😝</p>
 
       

@@ -83,7 +83,7 @@
 
 
 
-  <meta name="keywords" content="技术,源码,java,">
+  <meta name="keywords" content="源码,java,技术,">
 
 
 
@@ -96,20 +96,20 @@
 
 
 
-<meta name="description" content="刚刚看到QQ群有人吹Hashmap，一想我啥都不懂，就赶快补了一波。下面分享一下我对Hashmap的理解，主要用于个人备忘。如果有不对，请批评。想要解锁更多新姿势？请访问https://blog.tengshe789.tech/ 总起Hashmap是散列表，存储结构是键值对形式。根据健的Hashcode值存储数据，有较快的访问速度。 它的线程是不安全的，在两个线程同时尝试扩容HashMap时，可能">
-<meta name="keywords" content="技术,源码,java">
+<meta name="description" content="刚刚看到QQ群有人吹Hashmap，一想我啥都不懂，就赶快补了一波。下面分享一下我对Hashmap的理解，主要用于个人备忘。如果有不对，请批评。想要解锁更多新姿势？请访问https://tengshe789.github.io/ 总起Hashmap是散列表，存储结构是键值对形式。根据健的Hashcode值存储数据，有较快的访问速度。 它的线程是不安全的，在两个线程同时尝试扩容HashMap时，可能">
+<meta name="keywords" content="源码,java,技术">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于Hashmap的个人理解">
 <meta property="og:url" content="https://tengshe789.github.io/2018/07/08/关于Hashmap的个人理解/index.html">
 <meta property="og:site_name" content="tEngSHe789の小站">
-<meta property="og:description" content="刚刚看到QQ群有人吹Hashmap，一想我啥都不懂，就赶快补了一波。下面分享一下我对Hashmap的理解，主要用于个人备忘。如果有不对，请批评。想要解锁更多新姿势？请访问https://blog.tengshe789.tech/ 总起Hashmap是散列表，存储结构是键值对形式。根据健的Hashcode值存储数据，有较快的访问速度。 它的线程是不安全的，在两个线程同时尝试扩容HashMap时，可能">
+<meta property="og:description" content="刚刚看到QQ群有人吹Hashmap，一想我啥都不懂，就赶快补了一波。下面分享一下我对Hashmap的理解，主要用于个人备忘。如果有不对，请批评。想要解锁更多新姿势？请访问https://tengshe789.github.io/ 总起Hashmap是散列表，存储结构是键值对形式。根据健的Hashcode值存储数据，有较快的访问速度。 它的线程是不安全的，在两个线程同时尝试扩容HashMap时，可能">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://images2015.cnblogs.com/blog/938494/201702/938494-20170217113451550-1406894023.png">
 <meta property="og:image" content="https://blog-pictures.oss-cn-shanghai.aliyuncs.com/15159249414047.jpg">
-<meta property="og:updated_time" content="2019-11-20T13:39:41.172Z">
+<meta property="og:updated_time" content="2021-06-06T09:21:39.459Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于Hashmap的个人理解">
-<meta name="twitter:description" content="刚刚看到QQ群有人吹Hashmap，一想我啥都不懂，就赶快补了一波。下面分享一下我对Hashmap的理解，主要用于个人备忘。如果有不对，请批评。想要解锁更多新姿势？请访问https://blog.tengshe789.tech/ 总起Hashmap是散列表，存储结构是键值对形式。根据健的Hashcode值存储数据，有较快的访问速度。 它的线程是不安全的，在两个线程同时尝试扩容HashMap时，可能">
+<meta name="twitter:description" content="刚刚看到QQ群有人吹Hashmap，一想我啥都不懂，就赶快补了一波。下面分享一下我对Hashmap的理解，主要用于个人备忘。如果有不对，请批评。想要解锁更多新姿势？请访问https://tengshe789.github.io/ 总起Hashmap是散列表，存储结构是键值对形式。根据健的Hashcode值存储数据，有较快的访问速度。 它的线程是不安全的，在两个线程同时尝试扩容HashMap时，可能">
 <meta name="twitter:image" content="https://images2015.cnblogs.com/blog/938494/201702/938494-20170217113451550-1406894023.png">
 
 
@@ -461,7 +461,7 @@ tpwidget("show");</script>
       
 
       
-        <p>刚刚看到QQ群有人吹<code>Hashmap</code>，一想我啥都不懂，就赶快补了一波。下面分享一下我对<code>Hashmap</code>的理解，主要用于个人备忘。如果有不对，请批评。想要解锁更多新姿势？请访问<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">https://blog.tengshe789.tech/</a></p>
+        <p>刚刚看到QQ群有人吹<code>Hashmap</code>，一想我啥都不懂，就赶快补了一波。下面分享一下我对<code>Hashmap</code>的理解，主要用于个人备忘。如果有不对，请批评。想要解锁更多新姿势？请访问<a href="https://tengshe789.github.io/">https://tengshe789.github.io/</a></p>
 <h3 id="总起"><a href="#总起" class="headerlink" title="总起"></a>总起</h3><p><code>Hashmap</code>是散列表，存储结构是键值对形式。根据健的Hashcode值存储数据，有较快的访问速度。</p>
 <p>它的线程是不安全的，在两个线程同时尝试扩容HashMap时，可能将一个链表形成环形的链表，所有的next都不为空，进入死循环；要想让它安全，可以用 <code>Collections</code>的synchronizedMap 方法使 <code>HashMap</code>具有线程安全的能力，或者使用<code>ConcurrentHashMap</code> 。</p>
 <p>他的键值对都可以为空，映射不是有序的。</p>
@@ -610,11 +610,11 @@ tpwidget("show");</script>
       
         <div class="post-tags">
           
-            <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
-          
             <a href="/tags/源码/" rel="tag"><i class="fa fa-tag"></i> 源码</a>
           
             <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
           
         </div>
       

@@ -96,19 +96,19 @@
 
 
 
-<meta name="description" content="ConcurrenHashMap 。下面分享一下我对ConcurrentHashMap 的理解，主要用于个人备忘。如果有不对，请批评。 HashMap“严重”的勾起了我对HashMap家族的好奇心，下面分享一下我对ConcurrentHashMap 的理解，主要用于个人备忘。如果有不对，请批评。 想要解锁更多新姿势？请访问https://blog.tengshe789.tech/ 总起HashMa">
+<meta name="description" content="ConcurrenHashMap 。下面分享一下我对ConcurrentHashMap 的理解，主要用于个人备忘。如果有不对，请批评。 HashMap“严重”的勾起了我对HashMap家族的好奇心，下面分享一下我对ConcurrentHashMap 的理解，主要用于个人备忘。如果有不对，请批评。 想要解锁更多新姿势？请访问https://tengshe789.github.io/ 总起HashMa">
 <meta name="keywords" content="源码,java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于ConcurrentHashMap1.8的个人理解">
 <meta property="og:url" content="https://tengshe789.github.io/2018/07/17/ConcurrentHashMap1-8/index.html">
 <meta property="og:site_name" content="tEngSHe789の小站">
-<meta property="og:description" content="ConcurrenHashMap 。下面分享一下我对ConcurrentHashMap 的理解，主要用于个人备忘。如果有不对，请批评。 HashMap“严重”的勾起了我对HashMap家族的好奇心，下面分享一下我对ConcurrentHashMap 的理解，主要用于个人备忘。如果有不对，请批评。 想要解锁更多新姿势？请访问https://blog.tengshe789.tech/ 总起HashMa">
+<meta property="og:description" content="ConcurrenHashMap 。下面分享一下我对ConcurrentHashMap 的理解，主要用于个人备忘。如果有不对，请批评。 HashMap“严重”的勾起了我对HashMap家族的好奇心，下面分享一下我对ConcurrentHashMap 的理解，主要用于个人备忘。如果有不对，请批评。 想要解锁更多新姿势？请访问https://tengshe789.github.io/ 总起HashMa">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://tengshe789.github.io/2018/07/17/ConcurrentHashMap1-8/446.png">
-<meta property="og:updated_time" content="2019-11-20T13:39:40.559Z">
+<meta property="og:updated_time" content="2021-06-06T09:21:39.437Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于ConcurrentHashMap1.8的个人理解">
-<meta name="twitter:description" content="ConcurrenHashMap 。下面分享一下我对ConcurrentHashMap 的理解，主要用于个人备忘。如果有不对，请批评。 HashMap“严重”的勾起了我对HashMap家族的好奇心，下面分享一下我对ConcurrentHashMap 的理解，主要用于个人备忘。如果有不对，请批评。 想要解锁更多新姿势？请访问https://blog.tengshe789.tech/ 总起HashMa">
+<meta name="twitter:description" content="ConcurrenHashMap 。下面分享一下我对ConcurrentHashMap 的理解，主要用于个人备忘。如果有不对，请批评。 HashMap“严重”的勾起了我对HashMap家族的好奇心，下面分享一下我对ConcurrentHashMap 的理解，主要用于个人备忘。如果有不对，请批评。 想要解锁更多新姿势？请访问https://tengshe789.github.io/ 总起HashMa">
 <meta name="twitter:image" content="https://tengshe789.github.io/2018/07/17/ConcurrentHashMap1-8/446.png">
 
 
@@ -462,7 +462,7 @@ tpwidget("show");</script>
       
         <p><code>ConcurrenHashMap</code> 。下面分享一下我对<code>ConcurrentHashMap</code> 的理解，主要用于个人备忘。如果有不对，请批评。</p>
 <p><code>HashMap</code>“严重”的勾起了我对<code>HashMap</code>家族的好奇心，下面分享一下我对<code>ConcurrentHashMap</code> 的理解，主要用于个人备忘。如果有不对，请批评。</p>
-<p>想要解锁更多新姿势？请访问<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">https://blog.tengshe789.tech/</a></p>
+<p>想要解锁更多新姿势？请访问<a href="https://tengshe789.github.io/">https://tengshe789.github.io/</a></p>
 <h3 id="总起"><a href="#总起" class="headerlink" title="总起"></a>总起</h3><p><code>HashMap</code>是我们平时开发过程中用的比较多的集合，但它是非线程安全的，在涉及到多线程并发的情况，进行get操作有可能会引起死循环，导致CPU利用率接近100%。 </p>
 <p>因此需要支持线程安全的并发容器 <code>ConcurrentHashMap</code> 。</p>
 <h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p><img src="/2018/07/17/ConcurrentHashMap1-8/446.png" alt="img"> </p>
@@ -505,7 +505,7 @@ tpwidget("show");</script>
 <p>至此，put方法讲完了</p>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料~"></a>参考资料~</h3><p><a href="https://www.cnblogs.com/yangming1996/p/8031199.html" target="_blank" rel="noopener">参考资料</a></p>
 <p>感谢</p>
-<p>结束 <br>此片完了~ 想要了解更多精彩新姿势？<br>请访问我的<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">个人博客</a> 本篇为原创内容，已在个人博客率先发表，随后CSDN，segmentfault，掘金，简书，开源中国同步发出。如有雷同，缘分呢兄弟。赶快加个好友~  </p>
+<p>结束 <br>此片完了~ 想要了解更多精彩新姿势？<br>请访问我的<a href="https://tengshe789.github.io/">个人博客</a> 本篇为原创内容，已在个人博客率先发表，随后CSDN，segmentfault，掘金，简书，开源中国同步发出。如有雷同，缘分呢兄弟。赶快加个好友~  </p>
 
       
     </div>

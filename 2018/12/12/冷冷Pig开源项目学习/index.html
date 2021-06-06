@@ -83,7 +83,7 @@
 
 
 
-  <meta name="keywords" content="技术,源码,java,学好分布式架构,">
+  <meta name="keywords" content="源码,java,技术,学好分布式架构,">
 
 
 
@@ -96,13 +96,13 @@
 
 
 
-<meta name="description" content="最近看到一个有趣的开源项目pig，主要的技术点在认证授权中心，spring security oauth，zuul网关实现，Elastic-Job定时任务，趁着刚刚入门微服务，赶快写个博客分析一下。此篇文章主要用于个人备忘。如果有不对，请批评。😭 由于每个模块篇幅较长，且部分内容和前文有重叠，干货和图片较少，阅读时使用旁边的导航功能体验较佳。😉 想要解锁更多新姿势？请访问https://blo">
-<meta name="keywords" content="技术,源码,java,学好分布式架构">
+<meta name="description" content="最近看到一个有趣的开源项目pig，主要的技术点在认证授权中心，spring security oauth，zuul网关实现，Elastic-Job定时任务，趁着刚刚入门微服务，赶快写个博客分析一下。此篇文章主要用于个人备忘。如果有不对，请批评。😭 由于每个模块篇幅较长，且部分内容和前文有重叠，干货和图片较少，阅读时使用旁边的导航功能体验较佳。😉 想要解锁更多新姿势？请访问https://ten">
+<meta name="keywords" content="源码,java,技术,学好分布式架构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="看Pig开源项目的云踩坑记">
 <meta property="og:url" content="https://tengshe789.github.io/2018/12/12/冷冷Pig开源项目学习/index.html">
 <meta property="og:site_name" content="tEngSHe789の小站">
-<meta property="og:description" content="最近看到一个有趣的开源项目pig，主要的技术点在认证授权中心，spring security oauth，zuul网关实现，Elastic-Job定时任务，趁着刚刚入门微服务，赶快写个博客分析一下。此篇文章主要用于个人备忘。如果有不对，请批评。😭 由于每个模块篇幅较长，且部分内容和前文有重叠，干货和图片较少，阅读时使用旁边的导航功能体验较佳。😉 想要解锁更多新姿势？请访问https://blo">
+<meta property="og:description" content="最近看到一个有趣的开源项目pig，主要的技术点在认证授权中心，spring security oauth，zuul网关实现，Elastic-Job定时任务，趁着刚刚入门微服务，赶快写个博客分析一下。此篇文章主要用于个人备忘。如果有不对，请批评。😭 由于每个模块篇幅较长，且部分内容和前文有重叠，干货和图片较少，阅读时使用旁边的导航功能体验较佳。😉 想要解锁更多新姿势？请访问https://ten">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://tengshe789.github.io/2018/12/12/冷冷Pig开源项目学习/2.png">
 <meta property="og:image" content="https://tengshe789.github.io/2018/12/12/冷冷Pig开源项目学习/1.png">
@@ -113,10 +113,10 @@
 <meta property="og:image" content="https://tengshe789.github.io/2018/12/12/冷冷Pig开源项目学习/8.png">
 <meta property="og:image" content="https://tengshe789.github.io/2018/12/12/冷冷Pig开源项目学习/3.png">
 <meta property="og:image" content="https://tengshe789.github.io/2018/12/12/冷冷Pig开源项目学习/9.png">
-<meta property="og:updated_time" content="2019-11-20T13:39:41.181Z">
+<meta property="og:updated_time" content="2021-06-06T09:21:39.464Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="看Pig开源项目的云踩坑记">
-<meta name="twitter:description" content="最近看到一个有趣的开源项目pig，主要的技术点在认证授权中心，spring security oauth，zuul网关实现，Elastic-Job定时任务，趁着刚刚入门微服务，赶快写个博客分析一下。此篇文章主要用于个人备忘。如果有不对，请批评。😭 由于每个模块篇幅较长，且部分内容和前文有重叠，干货和图片较少，阅读时使用旁边的导航功能体验较佳。😉 想要解锁更多新姿势？请访问https://blo">
+<meta name="twitter:description" content="最近看到一个有趣的开源项目pig，主要的技术点在认证授权中心，spring security oauth，zuul网关实现，Elastic-Job定时任务，趁着刚刚入门微服务，赶快写个博客分析一下。此篇文章主要用于个人备忘。如果有不对，请批评。😭 由于每个模块篇幅较长，且部分内容和前文有重叠，干货和图片较少，阅读时使用旁边的导航功能体验较佳。😉 想要解锁更多新姿势？请访问https://ten">
 <meta name="twitter:image" content="https://tengshe789.github.io/2018/12/12/冷冷Pig开源项目学习/2.png">
 
 
@@ -469,8 +469,8 @@ tpwidget("show");</script>
 
       
         <p>最近看到一个有趣的开源项目pig，主要的技术点在认证授权中心，spring security oauth，zuul网关实现，Elastic-Job定时任务，趁着刚刚入门微服务，赶快写个博客分析一下。此篇文章主要用于个人备忘。如果有不对，请批评。😭</p>
-<p>由于每个模块篇幅较长，且部分内容和<a href="https://blog.tengshe789.tech/2018/12/02/%E6%84%9F%E6%80%A7%E8%AE%A4%E8%AF%86jwt/#more" target="_blank" rel="noopener">前文</a>有重叠，干货和图片较少，阅读时使用旁边的导航功能体验较佳。😉</p>
-<p>想要解锁更多新姿势？请访问<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">https://blog.tengshe789.tech/</a></p>
+<p>由于每个模块篇幅较长，且部分内容和<a href="https://tengshe789.github.io/2018/12/02/%E6%84%9F%E6%80%A7%E8%AE%A4%E8%AF%86jwt/#more">前文</a>有重叠，干货和图片较少，阅读时使用旁边的导航功能体验较佳。😉</p>
+<p>想要解锁更多新姿势？请访问<a href="https://tengshe789.github.io/">https://tengshe789.github.io/</a></p>
 <h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>本篇文章是对基于<code>spring boot</code>1.5的<code>pig 1</code>版本做的分析，不是收费的<code>pigx 2</code>版本。</p>
 <h3 id="开源项目地址"><a href="#开源项目地址" class="headerlink" title="开源项目地址"></a>开源项目地址</h3><p><a href="https://gitee.com/log4j/pig" target="_blank" rel="noopener">https://gitee.com/log4j/pig</a></p>
 <p>配置中心：<a href="https://gitee.com/cqzqxq_lxh/pig-config" target="_blank" rel="noopener">https://gitee.com/cqzqxq_lxh/pig-config</a></p>
@@ -493,7 +493,7 @@ tpwidget("show");</script>
 <p>我们一步一步看，边猜想边来。接口处有<code>&quot;ftl/login&quot;</code>，这大概就是使用freemarker模板，login信息携带的<code>token</code>会传到用户信息校验url<code>&quot;/user&quot;</code>上，可作者直接使用<code>Authentication</code>返回一个<code>getPrincipal()</code>，就没了，根本没看见自定义的代码，这是怎么回事呢？</p>
 <p>原来，作者使用<code>spring security</code>框架，使用框架来实现校验信息。</p>
 <p>打卡<code>config</code>包下的<code>PigAuthorizationConfig</code>，我们来一探究竟。</p>
-<h3 id="使用spring-security-实现-授权服务器"><a href="#使用spring-security-实现-授权服务器" class="headerlink" title="使用spring security 实现 授权服务器"></a>使用spring security 实现 授权服务器</h3><p>注明，阅读此处模块需要OAUTH基础，<a href="https://blog.tengshe789.tech/2018/12/02/%E6%84%9F%E6%80%A7%E8%AE%A4%E8%AF%86jwt/#more" target="_blank" rel="noopener">https://blog.tengshe789.tech/2018/12/02/%E6%84%9F%E6%80%A7%E8%AE%A4%E8%AF%86jwt/#more</a></p>
+<h3 id="使用spring-security-实现-授权服务器"><a href="#使用spring-security-实现-授权服务器" class="headerlink" title="使用spring security 实现 授权服务器"></a>使用spring security 实现 授权服务器</h3><p>注明，阅读此处模块需要OAUTH基础，<a href="https://tengshe789.github.io/2018/12/02/%E6%84%9F%E6%80%A7%E8%AE%A4%E8%AF%86jwt/#more">https://tengshe789.github.io/2018/12/02/%E6%84%9F%E6%80%A7%E8%AE%A4%E8%AF%86jwt/#more</a></p>
 <p>这里简单提一下，<code>spring security oauth</code>里有两个概念，授权服务器和资源服务器。</p>
 <p>授权服务器是根据授权许可给访问的客户端发放<code>access token</code>令牌的，提供认证、授权服务；</p>
 <p>资源服务器需要验证这个<code>access token</code>,客户端才能访问对应服务。</p>
@@ -668,7 +668,7 @@ tpwidget("show");</script>
 <h1 id="zipkin-链路追踪"><a href="#zipkin-链路追踪" class="headerlink" title="zipkin 链路追踪"></a>zipkin 链路追踪</h1><p>由于zipkin是侵入式，因此这部分组件没有代码，只有相关依赖。下面分享一下作者的yaml</p>
 <h2 id="DB"><a href="#DB" class="headerlink" title="DB"></a>DB</h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">  port:</span> <span class="number">5003</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># datasoure默认使用JDBC</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    driver-class-name:</span> <span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">ENC(gc16brBHPNq27HsjaULgKGq00Rz6ZUji)</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:mysql://127.0.0.1:3309/pig?characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;useSSL=false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">zipkin:</span></span><br><span class="line"><span class="attr">  collector:</span></span><br><span class="line"><span class="attr">    rabbitmq:</span></span><br><span class="line"><span class="attr">      addresses:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:5682</span></span><br><span class="line"><span class="attr">      password:</span> <span class="string">lengleng</span></span><br><span class="line"><span class="attr">      username:</span> <span class="string">pig</span></span><br><span class="line"><span class="attr">      queue:</span> <span class="string">zipkin</span></span><br><span class="line"><span class="attr">  storage:</span></span><br><span class="line"><span class="attr">    type:</span> <span class="string">mysql</span></span><br></pre></td></tr></table></figure>
 <h2 id="ELK"><a href="#ELK" class="headerlink" title="ELK"></a>ELK</h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  port:</span> <span class="number">5002</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">zipkin:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  collector:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">    rabbitmq:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">      addresses:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:5682</span></span><br><span class="line"></span><br><span class="line"><span class="attr">      password:</span> <span class="string">lengleng</span></span><br><span class="line"></span><br><span class="line"><span class="attr">      username:</span> <span class="string">pig</span></span><br><span class="line"></span><br><span class="line"><span class="attr">      queue:</span> <span class="string">zipkin</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  storage:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">    type:</span> <span class="string">elasticsearch</span></span><br><span class="line"></span><br><span class="line"><span class="attr">    elasticsearch:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">      hosts:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:9200</span></span><br><span class="line"></span><br><span class="line"><span class="attr">      cluster:</span> <span class="string">elasticsearch</span></span><br><span class="line"></span><br><span class="line"><span class="attr">      index:</span> <span class="string">zipkin</span></span><br><span class="line"></span><br><span class="line"><span class="attr">      max-requests:</span> <span class="number">64</span></span><br><span class="line"></span><br><span class="line"><span class="attr">      index-shards:</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="attr">      index-replicas:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<h1 id="续1s时间"><a href="#续1s时间" class="headerlink" title="续1s时间"></a>续1s时间</h1><p>全片结束，觉得我写的不错？想要了解更多精彩新姿势？赶快打开我的👉个人<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">博客</a> 👈吧！</p>
+<h1 id="续1s时间"><a href="#续1s时间" class="headerlink" title="续1s时间"></a>续1s时间</h1><p>全片结束，觉得我写的不错？想要了解更多精彩新姿势？赶快打开我的👉个人<a href="https://tengshe789.github.io/">博客</a> 👈吧！</p>
 <p>谢谢你那么可爱，还一直关注着我~❤😝</p>
 
       
@@ -737,11 +737,11 @@ tpwidget("show");</script>
       
         <div class="post-tags">
           
-            <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
-          
             <a href="/tags/源码/" rel="tag"><i class="fa fa-tag"></i> 源码</a>
           
             <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
           
             <a href="/tags/学好分布式架构/" rel="tag"><i class="fa fa-tag"></i> 学好分布式架构</a>
           

@@ -83,7 +83,7 @@
 
 
 
-  <meta name="keywords" content="技术,java,并发,">
+  <meta name="keywords" content="java,技术,并发,">
 
 
 
@@ -97,7 +97,7 @@
 
 
 <meta name="description" content="又是一年秋招季，哎呀妈呀我被虐的惨来~这不，前几阵失踪没更新博客，其实是我偷偷把时间用在复习课本了（雾 坚持在社区分享博客也很久了，由于过去的文章有很多疏漏之处，很多大佬都在评论指出我的过错，我很开心也很失望，开心的是有大家帮我指出错误，失望的鄙人学识浅薄总没法做到完美。总之，欢迎评论区各种pr~ 好，回到正题。复习的时候，无意间看到java虚拟机的有关知识点，我产生了非常浓厚的兴趣，今天我来结合">
-<meta name="keywords" content="技术,java,并发">
+<meta name="keywords" content="java,技术,并发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并发基础-缓存、内存与JVM">
 <meta property="og:url" content="https://tengshe789.github.io/2018/09/30/Java与内存/index.html">
@@ -115,7 +115,7 @@
 <meta property="og:image" content="https://tengshe789.github.io/2018/09/30/Java与内存/6.png">
 <meta property="og:image" content="https://tengshe789.github.io/2018/09/30/Java与内存/3.png">
 <meta property="og:image" content="https://tengshe789.github.io/2018/09/30/Java与内存/4.png">
-<meta property="og:updated_time" content="2019-11-20T13:39:40.575Z">
+<meta property="og:updated_time" content="2021-06-06T09:21:39.445Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="并发基础-缓存、内存与JVM">
 <meta name="twitter:description" content="又是一年秋招季，哎呀妈呀我被虐的惨来~这不，前几阵失踪没更新博客，其实是我偷偷把时间用在复习课本了（雾 坚持在社区分享博客也很久了，由于过去的文章有很多疏漏之处，很多大佬都在评论指出我的过错，我很开心也很失望，开心的是有大家帮我指出错误，失望的鄙人学识浅薄总没法做到完美。总之，欢迎评论区各种pr~ 好，回到正题。复习的时候，无意间看到java虚拟机的有关知识点，我产生了非常浓厚的兴趣，今天我来结合">
@@ -473,7 +473,7 @@ tpwidget("show");</script>
         <p>又是一年秋招季，哎呀妈呀我被虐的惨来~这不，前几阵失踪没更新博客，其实是我偷偷把时间用在复习课本了（雾</p>
 <p>坚持在社区分享博客也很久了，由于过去的文章有很多疏漏之处，很多大佬都在评论指出我的过错，我很开心也很失望，开心的是有大家帮我指出错误，失望的鄙人学识浅薄总没法做到完美。总之，欢迎评论区各种pr~</p>
 <p>好，回到正题。复习的时候，无意间看到java虚拟机的有关知识点，我产生了非常浓厚的兴趣，今天我来结合<strong>计算机内存模型</strong>的相关知识，与<strong>Java内存模型</strong>、<strong>Java对象模型</strong>、<strong>JVM内存结构</strong>等相关的知识串联起来，本篇文章共1.5W字，分享给大家，感谢阅读。</p>
-<p>想要解锁更多新姿势？请访问我的个人博客<a href="https://blog.tengshe789.tech/（😘" target="_blank" rel="noopener">https://blog.tengshe789.tech/（😘</a></p>
+<p>想要解锁更多新姿势？请访问我的个人博客<a href="https://tengshe789.github.io/（😘">https://tengshe789.github.io/（😘</a></p>
 <h2 id="计算机内存"><a href="#计算机内存" class="headerlink" title="计算机内存"></a>计算机内存</h2><p>相信每个人都有一台电脑，也有diy电脑的经历。现在一台功能强大的diy电脑大概3k就能组装起来，一个i5-8400 的cpu 869元，DDR4 内存 1200块钱，b360主板300元 散热器50元 机械硬盘200元 350w电源300元 机箱100元 ，没错，只要3k就能拿到一个性能强大的6C6T电脑。</p>
 <p>要说一台PC中最重要的部件是什么？大家看价格也会看明白，是cpu和内存，下面我来介绍一下cpu和内存之间的关系。</p>
 <h3 id="cpu与内存缓存的千丝万缕"><a href="#cpu与内存缓存的千丝万缕" class="headerlink" title="cpu与内存缓存的千丝万缕"></a>cpu与内存缓存的千丝万缕</h3><h4 id="cpu相关术语"><a href="#cpu相关术语" class="headerlink" title="cpu相关术语"></a>cpu相关术语</h4><p>首先说明一下相关的cpu术语：</p>
@@ -750,7 +750,7 @@ tpwidget("show");</script>
 <p><a href="https://medium.com/airbnb-engineering/nebula-as-a-storage-platform-to-build-airbnbs-search-backends-ecc577b05f06" target="_blank" rel="noopener">ZGC原理（请用正确的姿势魔法上网观看）</a></p>
 <p><a href="https://www.youtube.com/watch?v=tShc0dyFtgw" target="_blank" rel="noopener">Stefan Karlsson和PerLiden Jfokus的演讲（请用正确的姿势魔法上网）</a></p>
 <h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><p>【版权申明】此片为原创内容，使用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0</a>授权条款，请遵守对应的义务，即被授权人有义务在所有副本中都必须包含版权声明。谢谢合作~</p>
-<p>想要解锁更多新姿势？请访问我的个人博客<a href="https://blog.tengshe789.tech/（😘" target="_blank" rel="noopener">https://blog.tengshe789.tech/（😘</a></p>
+<p>想要解锁更多新姿势？请访问我的个人博客<a href="https://tengshe789.github.io/（😘">https://tengshe789.github.io/（😘</a></p>
 
       
     </div>
@@ -818,9 +818,9 @@ tpwidget("show");</script>
       
         <div class="post-tags">
           
-            <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
-          
             <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
           
             <a href="/tags/并发/" rel="tag"><i class="fa fa-tag"></i> 并发</a>
           

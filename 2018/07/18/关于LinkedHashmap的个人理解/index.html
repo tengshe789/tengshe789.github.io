@@ -83,7 +83,7 @@
 
 
 
-  <meta name="keywords" content="技术,源码,java,">
+  <meta name="keywords" content="源码,java,技术,">
 
 
 
@@ -97,7 +97,7 @@
 
 
 <meta name="description" content="大多数情况下，只要不涉及线程安全问题，Map基本都可以使用HashMap，不过HashMap有一个问题，就是迭代HashMap的顺序并不是HashMap放置的顺序。HashMap的这一缺点往往会带来困扰，因为有些场景，我们需要一个有序的Map。LinkedHashMap就可以做到，它虽然增加了时间和空间上的开销，但是通过维护一个运行于所有条目的双向链表，LinkedHashMap保证了元素迭代的顺">
-<meta name="keywords" content="技术,源码,java">
+<meta name="keywords" content="源码,java,技术">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于LinkedHashmap的个人理解">
 <meta property="og:url" content="https://tengshe789.github.io/2018/07/18/关于LinkedHashmap的个人理解/index.html">
@@ -106,7 +106,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://tengshe789.github.io/2018/07/18/关于LinkedHashmap的个人理解/1.png">
 <meta property="og:image" content="https://tengshe789.github.io/2018/07/18/关于LinkedHashmap的个人理解/2aa6jef7ac.png">
-<meta property="og:updated_time" content="2019-11-20T13:39:41.172Z">
+<meta property="og:updated_time" content="2021-06-06T09:21:39.460Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于LinkedHashmap的个人理解">
 <meta name="twitter:description" content="大多数情况下，只要不涉及线程安全问题，Map基本都可以使用HashMap，不过HashMap有一个问题，就是迭代HashMap的顺序并不是HashMap放置的顺序。HashMap的这一缺点往往会带来困扰，因为有些场景，我们需要一个有序的Map。LinkedHashMap就可以做到，它虽然增加了时间和空间上的开销，但是通过维护一个运行于所有条目的双向链表，LinkedHashMap保证了元素迭代的顺">
@@ -461,7 +461,7 @@ tpwidget("show");</script>
       
 
       
-        <p>大多数情况下，只要不涉及线程安全问题，Map基本都可以使用<code>HashMap</code>，不过<code>HashMap</code>有一个问题，就是迭代HashMap的顺序并不是<code>HashMap</code>放置的顺序。<code>HashMap</code>的这一缺点往往会带来困扰，因为有些场景，我们需要一个有序的<code>Map</code>。<code>LinkedHashMap</code>就可以做到，它虽然增加了时间和空间上的开销，但是通过维护一个运行于所有条目的双向链表，<code>LinkedHashMap</code>保证了元素迭代的顺序。想要解锁更多新姿势？请访问<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">https://blog.tengshe789.tech/</a></p>
+        <p>大多数情况下，只要不涉及线程安全问题，Map基本都可以使用<code>HashMap</code>，不过<code>HashMap</code>有一个问题，就是迭代HashMap的顺序并不是<code>HashMap</code>放置的顺序。<code>HashMap</code>的这一缺点往往会带来困扰，因为有些场景，我们需要一个有序的<code>Map</code>。<code>LinkedHashMap</code>就可以做到，它虽然增加了时间和空间上的开销，但是通过维护一个运行于所有条目的双向链表，<code>LinkedHashMap</code>保证了元素迭代的顺序。想要解锁更多新姿势？请访问<a href="https://tengshe789.github.io/">https://tengshe789.github.io/</a></p>
 <h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p>打开源码可以看到：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * HashMap.Node subclass for normal LinkedHashMap entries.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">HashMap</span>.<span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">        Entry&lt;K,V&gt; before, after;</span><br><span class="line">        Entry(<span class="keyword">int</span> hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">            <span class="keyword">super</span>(hash, key, value, next);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p><code>LinkedHashMap</code>继承了<code>HashMap</code>的<code>Entry</code>，并新增加了两个指针</p>
@@ -543,11 +543,11 @@ tpwidget("show");</script>
       
         <div class="post-tags">
           
-            <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
-          
             <a href="/tags/源码/" rel="tag"><i class="fa fa-tag"></i> 源码</a>
           
             <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
           
         </div>
       

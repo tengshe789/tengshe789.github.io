@@ -83,7 +83,7 @@
 
 
 
-  <meta name="keywords" content="技术,java,python,操作系统,">
+  <meta name="keywords" content="java,技术,python,操作系统,">
 
 
 
@@ -96,13 +96,13 @@
 
 
 
-<meta name="description" content="最近爷爷生病，我一直在陪床。陪床空隙，偶而研究一会资料。前天刚好看了点《UNIX网络编程》，比较头大。现在我来整理一下所学所得，并用于个人备忘。如果有不对，请批评。 想要解锁更多新姿势？请访问https://blog.tengshe789.tech/ IO模型介绍IO模型是什么？很多书籍或者百度百度百科，都没有给出明确的解释，我也不敢乱下定义。以我愚见，IO模型，是通过根据前人主观意识的思考而构成">
-<meta name="keywords" content="技术,java,python,操作系统">
+<meta name="description" content="最近爷爷生病，我一直在陪床。陪床空隙，偶而研究一会资料。前天刚好看了点《UNIX网络编程》，比较头大。现在我来整理一下所学所得，并用于个人备忘。如果有不对，请批评。 想要解锁更多新姿势？请访问https://tengshe789.github.io/ IO模型介绍IO模型是什么？很多书籍或者百度百度百科，都没有给出明确的解释，我也不敢乱下定义。以我愚见，IO模型，是通过根据前人主观意识的思考而构成">
+<meta name="keywords" content="java,技术,python,操作系统">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何用Java与python代码解释IO模型">
 <meta property="og:url" content="https://tengshe789.github.io/2018/08/25/IO模型/index.html">
 <meta property="og:site_name" content="tEngSHe789の小站">
-<meta property="og:description" content="最近爷爷生病，我一直在陪床。陪床空隙，偶而研究一会资料。前天刚好看了点《UNIX网络编程》，比较头大。现在我来整理一下所学所得，并用于个人备忘。如果有不对，请批评。 想要解锁更多新姿势？请访问https://blog.tengshe789.tech/ IO模型介绍IO模型是什么？很多书籍或者百度百度百科，都没有给出明确的解释，我也不敢乱下定义。以我愚见，IO模型，是通过根据前人主观意识的思考而构成">
+<meta property="og:description" content="最近爷爷生病，我一直在陪床。陪床空隙，偶而研究一会资料。前天刚好看了点《UNIX网络编程》，比较头大。现在我来整理一下所学所得，并用于个人备忘。如果有不对，请批评。 想要解锁更多新姿势？请访问https://tengshe789.github.io/ IO模型介绍IO模型是什么？很多书籍或者百度百度百科，都没有给出明确的解释，我也不敢乱下定义。以我愚见，IO模型，是通过根据前人主观意识的思考而构成">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://tengshe789.github.io/2018/08/25/IO模型/831179-20160814120934953-1360584282.png">
 <meta property="og:image" content="https://tengshe789.github.io/2018/08/25/IO模型/1535200521414.png">
@@ -115,10 +115,10 @@
 <meta property="og:image" content="https://tengshe789.github.io/2018/08/25/IO模型/1535201615305.png">
 <meta property="og:image" content="https://tengshe789.github.io/2018/08/25/IO模型/1535201637209.png">
 <meta property="og:image" content="https://tengshe789.github.io/2018/08/25/IO模型/1535764374640.png">
-<meta property="og:updated_time" content="2019-11-20T13:39:40.564Z">
+<meta property="og:updated_time" content="2021-06-06T09:21:39.443Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何用Java与python代码解释IO模型">
-<meta name="twitter:description" content="最近爷爷生病，我一直在陪床。陪床空隙，偶而研究一会资料。前天刚好看了点《UNIX网络编程》，比较头大。现在我来整理一下所学所得，并用于个人备忘。如果有不对，请批评。 想要解锁更多新姿势？请访问https://blog.tengshe789.tech/ IO模型介绍IO模型是什么？很多书籍或者百度百度百科，都没有给出明确的解释，我也不敢乱下定义。以我愚见，IO模型，是通过根据前人主观意识的思考而构成">
+<meta name="twitter:description" content="最近爷爷生病，我一直在陪床。陪床空隙，偶而研究一会资料。前天刚好看了点《UNIX网络编程》，比较头大。现在我来整理一下所学所得，并用于个人备忘。如果有不对，请批评。 想要解锁更多新姿势？请访问https://tengshe789.github.io/ IO模型介绍IO模型是什么？很多书籍或者百度百度百科，都没有给出明确的解释，我也不敢乱下定义。以我愚见，IO模型，是通过根据前人主观意识的思考而构成">
 <meta name="twitter:image" content="https://tengshe789.github.io/2018/08/25/IO模型/831179-20160814120934953-1360584282.png">
 
 
@@ -471,7 +471,7 @@ tpwidget("show");</script>
 
       
         <p>最近爷爷生病，我一直在陪床。陪床空隙，偶而研究一会资料。前天刚好看了点《UNIX网络编程》，比较头大。现在我来整理一下所学所得，并用于个人备忘。如果有不对，请批评。</p>
-<p>想要解锁更多新姿势？请访问<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">https://blog.tengshe789.tech/</a></p>
+<p>想要解锁更多新姿势？请访问<a href="https://tengshe789.github.io/">https://tengshe789.github.io/</a></p>
 <h1 id="IO模型介绍"><a href="#IO模型介绍" class="headerlink" title="IO模型介绍"></a>IO模型介绍</h1><p>IO模型是什么？很多书籍或者百度百度百科，都没有给出明确的解释，我也不敢乱下定义。以我愚见，IO模型，是通过根据前人主观意识的思考而构成客观阐述IO复杂操作逻辑的物件。</p>
 <p>要知道，应用程序使用系统资源的一个过程，<strong>进程无法直接操作IO设备的</strong>，因为用户进程不能直接访问磁盘，所以要通过内核的系统调用读取，这个内核读取的过程就是用户进程等待的过程，等待内核读取后将数据从内核内存复制到进程内存。因此操作系统设立一个IO模型进行规范，就非常有必要了。</p>
 <p><img src="/2018/08/25/IO模型/831179-20160814120934953-1360584282.png" alt="应用程序使用系统资源"></p>
@@ -654,8 +654,8 @@ tpwidget("show");</script>
 <p><a href="https://blog.csdn.net/qq_33804730/article/details/79171188" target="_blank" rel="noopener">NIO的/分散读取和聚集写入</a></p>
 <p><a href="https://ifeve.com/selectors/" target="_blank" rel="noopener">并发编程网</a></p>
 <p>感谢</p>
-<h3 id="续1s时间"><a href="#续1s时间" class="headerlink" title="续1s时间"></a>续1s时间</h3><p>全片结束，觉得我写的不错？想要了解更多精彩新姿势？赶快打开我的👉个人<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">博客</a> 👈吧！</p>
-<p>本文地址<a href="https://blog.tengshe789.tech/2018/08/25/IO%E6%A8%A1%E5%9E%8B/#more，部分觉得比较用心的会同步到掘金，简书，谢谢你那么可爱，还一直关注着我~❤😝" target="_blank" rel="noopener">https://blog.tengshe789.tech/2018/08/25/IO%E6%A8%A1%E5%9E%8B/#more，部分觉得比较用心的会同步到掘金，简书，谢谢你那么可爱，还一直关注着我~❤😝</a></p>
+<h3 id="续1s时间"><a href="#续1s时间" class="headerlink" title="续1s时间"></a>续1s时间</h3><p>全片结束，觉得我写的不错？想要了解更多精彩新姿势？赶快打开我的👉个人<a href="https://tengshe789.github.io/">博客</a> 👈吧！</p>
+<p>本文地址<a href="https://tengshe789.github.io/2018/08/25/IO%E6%A8%A1%E5%9E%8B/#more，部分觉得比较用心的会同步到掘金，简书，谢谢你那么可爱，还一直关注着我~❤😝">https://tengshe789.github.io/2018/08/25/IO%E6%A8%A1%E5%9E%8B/#more，部分觉得比较用心的会同步到掘金，简书，谢谢你那么可爱，还一直关注着我~❤😝</a></p>
 
       
     </div>
@@ -723,9 +723,9 @@ tpwidget("show");</script>
       
         <div class="post-tags">
           
-            <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
-          
             <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
           
             <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
           

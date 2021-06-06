@@ -83,7 +83,7 @@
 
 
 
-  <meta name="keywords" content="技术,java,数据结构与算法,">
+  <meta name="keywords" content="java,技术,数据结构与算法,">
 
 
 
@@ -97,7 +97,7 @@
 
 
 <meta name="description" content="今天来回顾一下简单的排序思想，留作今后的复习和备份用。本篇是非常非常基础的，甚至都不会讲实际项目真正能用的排序方法，譬如双轴快速排序 。写的不好请多多谅解。 想要解锁更多新姿势？请访问我的博客 准备阶段相关功能函数为了保持代码的整洁，先创造好对数器和相关功能性函数。 交换器两个数组中的元素比较排序过程中，一定会有元素的交换操作。为了保持代码的整洁，先写出交换操作的函数。 12345public s">
-<meta name="keywords" content="技术,java,数据结构与算法">
+<meta name="keywords" content="java,技术,数据结构与算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="那些年数组的排序">
 <meta property="og:url" content="https://tengshe789.github.io/2018/07/24/那些年数组的排序/index.html">
@@ -106,7 +106,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://tengshe789.github.io/2018/07/24/那些年数组的排序/QQ截图20180724205705.jpg">
 <meta property="og:image" content="https://tengshe789.github.io/2018/07/24/那些年数组的排序/QQ截图20180724205757.jpg">
-<meta property="og:updated_time" content="2020-03-21T12:59:30.850Z">
+<meta property="og:updated_time" content="2021-06-06T09:21:39.508Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="那些年数组的排序">
 <meta name="twitter:description" content="今天来回顾一下简单的排序思想，留作今后的复习和备份用。本篇是非常非常基础的，甚至都不会讲实际项目真正能用的排序方法，譬如双轴快速排序 。写的不好请多多谅解。 想要解锁更多新姿势？请访问我的博客 准备阶段相关功能函数为了保持代码的整洁，先创造好对数器和相关功能性函数。 交换器两个数组中的元素比较排序过程中，一定会有元素的交换操作。为了保持代码的整洁，先写出交换操作的函数。 12345public s">
@@ -462,7 +462,7 @@ tpwidget("show");</script>
 
       
         <p>今天来回顾一下简单的排序思想，留作今后的复习和备份用。本篇是非常非常基础的，甚至都不会讲实际项目真正能用的排序方法，譬如双轴快速排序 。写的不好请多多谅解。</p>
-<p>想要解锁更多新姿势？请访问<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">我的博客</a></p>
+<p>想要解锁更多新姿势？请访问<a href="https://tengshe789.github.io/">我的博客</a></p>
 <h1 id="准备阶段"><a href="#准备阶段" class="headerlink" title="准备阶段"></a>准备阶段</h1><h3 id="相关功能函数"><a href="#相关功能函数" class="headerlink" title="相关功能函数"></a>相关功能函数</h3><p>为了保持代码的整洁，先创造好对数器和相关功能性函数。</p>
 <h4 id="交换器"><a href="#交换器" class="headerlink" title="交换器"></a>交换器</h4><p>两个数组中的元素比较排序过程中，一定会有元素的交换操作。为了保持代码的整洁，先写出交换操作的函数。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">		arr[i] = arr[i] ^ arr[j];</span><br><span class="line">		arr[j] = arr[i] ^ arr[j];</span><br><span class="line">		arr[i] = arr[i] ^ arr[j];</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
@@ -547,7 +547,7 @@ tpwidget("show");</script>
 <h4 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// only for 0~200 value</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bucketSort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (arr == <span class="keyword">null</span> || arr.length &lt; <span class="number">2</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span> max = Integer.MIN_VALUE;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">			max = Math.max(max, arr[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span>[] bucket = <span class="keyword">new</span> <span class="keyword">int</span>[max + <span class="number">1</span>];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">			bucket[arr[i]]++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; bucket.length; j++) &#123;</span><br><span class="line">			<span class="keyword">while</span> (bucket[j]-- &gt; <span class="number">0</span>) &#123;</span><br><span class="line">				arr[i++] = j;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="复杂度-6"><a href="#复杂度-6" class="headerlink" title="复杂度"></a>复杂度</h4><p>时间复杂度O(N)</p>
 <p>额外空间复杂度O(N)</p>
-<p>结束 <br>此片完了~ 想要了解更多精彩新姿势？<br>请访问我的<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">个人博客</a> 本篇为原创内容，已在个人博客率先发表，随后CSDN，segmentfault，掘金，简书，开源中国同步发出。如有雷同，缘分呢兄弟。赶快加个好友~  </p>
+<p>结束 <br>此片完了~ 想要了解更多精彩新姿势？<br>请访问我的<a href="https://tengshe789.github.io/">个人博客</a> 本篇为原创内容，已在个人博客率先发表，随后CSDN，segmentfault，掘金，简书，开源中国同步发出。如有雷同，缘分呢兄弟。赶快加个好友~  </p>
 
       
     </div>
@@ -615,9 +615,9 @@ tpwidget("show");</script>
       
         <div class="post-tags">
           
-            <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
-          
             <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
           
             <a href="/tags/数据结构与算法/" rel="tag"><i class="fa fa-tag"></i> 数据结构与算法</a>
           

@@ -105,7 +105,7 @@
 <meta property="og:description" content="今天阅读阿里巴巴Java开发手册(终极版).pdf，偶然发现一条强制规范：  【强制】不要在 foreach 循环里进行元素的 remove/add 操作。remove 元素请使用 Iterator方式，如果并发操作，需要对 Iterator 对象加锁。  这引发了我的注意力。 按照他说的做了一遍，果然有这个问题。下面我们就探索一下，到底为什么会出这个问题吧！ 想要解锁更多新姿势？请访问https">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://tengshe789.github.io/2018/12/06/ConcurrentModificationException异常/1.png">
-<meta property="og:updated_time" content="2019-11-20T13:39:40.560Z">
+<meta property="og:updated_time" content="2021-06-06T09:21:39.438Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="阅读阿里开发手册发现的ConcurrentModificationException异常">
 <meta name="twitter:description" content="今天阅读阿里巴巴Java开发手册(终极版).pdf，偶然发现一条强制规范：  【强制】不要在 foreach 循环里进行元素的 remove/add 操作。remove 元素请使用 Iterator方式，如果并发操作，需要对 Iterator 对象加锁。  这引发了我的注意力。 按照他说的做了一遍，果然有这个问题。下面我们就探索一下，到底为什么会出这个问题吧！ 想要解锁更多新姿势？请访问https">
@@ -466,7 +466,7 @@ tpwidget("show");</script>
 </blockquote>
 <p>这引发了我的注意力。</p>
 <p>按照他说的做了一遍，果然有这个问题。下面我们就探索一下，到底为什么会出这个问题吧！</p>
-<p>想要解锁更多新姿势？请访问<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">https://blog.tengshe789.tech/</a></p>
+<p>想要解锁更多新姿势？请访问<a href="https://tengshe789.github.io/">https://tengshe789.github.io/</a></p>
 <h3 id="实验代码"><a href="#实验代码" class="headerlink" title="实验代码"></a>实验代码</h3><p>下面是推荐使用的<code>Iterator</code>方式来<code>remove/add</code>操作</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;String&gt; <span class="title">test1</span><span class="params">(List&lt;String&gt; list)</span></span>&#123;</span><br><span class="line">       Iterator&lt;String&gt; iterator = list.iterator();</span><br><span class="line">       	<span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">          	 	String item = iterator.next();</span><br><span class="line">           	<span class="keyword">if</span> (item.equals(NUM2)) &#123;</span><br><span class="line">               	iterator.remove();</span><br><span class="line">           	&#125;</span><br><span class="line">       	&#125;</span><br><span class="line">       <span class="keyword">return</span> list;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p>不推荐使用的方法：</p>
@@ -483,7 +483,7 @@ tpwidget("show");</script>
 <p>哦，缘来乳此，<code>list</code>是线程不安全的，因此如果在使用迭代器的过程中有其他线程修改了<code>list</code>，那么将抛出<code>ConcurrentModificationException</code>，这就是所谓<code>fail-fast</code>策略(见jdk注释)。</p>
 <p><code>modCount</code>它代表该List对象被修改的次数，每对<code>List</code>对象修改一次，<code>modCount</code>都会加<code>Iterator</code>类里有一个成员变量<code>expectedModCount</code>，它的值为创建<code>Iterator</code>对象的时候<code>List的modCount</code>值。用此变量来检验在迭代过程中List对象是否被修改了，如果被修改了则抛出<code>java.util.ConcurrentModificationException</code>异常。在每次调用<code>Iterator</code>对象的<code>next()</code>方法的时候都会调用<code>checkForComodification()</code>方法进行一次检验，<code>checkForComodification()</code>方法中做的工作就是比较<code>expectedModCount</code>和<code>modCount</code>的值是否相等，如果不相等，就认为还有其他对象正在对当前的List进行操作，那个就会抛出<code>ConcurrentModificationException</code>异常。</p>
 <p>网上查找的关于<code>Iterator</code>的工作机制。<code>Iterator</code>是工作在一个独立的线程中，并且拥有一个 <code>mutex</code>锁，就是说<code>Iterator</code>在工作的时候，是不允许被迭代的对象被改变的。而<code>List</code>等是动态的，可变对象数量的数据结构，但是<code>Iterator</code>则是单向不可变，只能顺序读取，不能逆序操作的数据结构，当 <code>Iterator</code>指向的原始数据发生变化时，<code>Iterator</code>自己就迷失了方向。</p>
-<h3 id="续1s时间"><a href="#续1s时间" class="headerlink" title="续1s时间"></a>续1s时间</h3><p>全片结束，觉得我写的不错？想要了解更多精彩新姿势？赶快打开我的👉个人<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">博客</a> 👈吧！</p>
+<h3 id="续1s时间"><a href="#续1s时间" class="headerlink" title="续1s时间"></a>续1s时间</h3><p>全片结束，觉得我写的不错？想要了解更多精彩新姿势？赶快打开我的👉个人<a href="https://tengshe789.github.io/">博客</a> 👈吧！</p>
 <p>谢谢你那么可爱，还一直关注着我~❤😝</p>
 
       

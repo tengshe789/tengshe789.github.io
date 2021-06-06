@@ -124,7 +124,7 @@
 <meta property="og:image" content="https://tengshe789.github.io/2018/12/08/微服务核心架构梳理/17.png">
 <meta property="og:image" content="https://tengshe789.github.io/2018/12/08/微服务核心架构梳理/19.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.2/docs/design/architecture.png">
-<meta property="og:updated_time" content="2019-11-20T13:39:41.280Z">
+<meta property="og:updated_time" content="2021-06-06T09:21:39.486Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微服务核心架构梳理">
 <meta name="twitter:description" content="在公司学习了接近一个月。  一个月内，从0开始开始接触分布式微服务架构，给了我不小的收获。今天，我来从头到尾梳理一下，有关微服务架构的核心内容（全是干货）。 下文，你将看到业界主流微服务框架的核心原理，包括服务发现，网关，配置中心，监控等组件，功能和架构原理的简单介绍。感谢阅读！😋 想要解锁更多新姿势？请访问我的博客。😏 Hello，Microservices什么是微服务微服务Microser">
@@ -482,7 +482,7 @@ tpwidget("show");</script>
         <p>在公司学习了接近一个月。 </p>
 <p>一个月内，从0开始开始接触分布式微服务架构，给了我不小的收获。今天，我来从头到尾梳理一下，有关微服务架构的核心内容（全是干货）。</p>
 <p>下文，你将看到业界主流微服务框架的核心原理，包括服务发现，网关，配置中心，监控等组件，功能和架构原理的简单介绍。感谢阅读！😋</p>
-<p>想要解锁更多新姿势？请访问<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">我的博客</a>。😏</p>
+<p>想要解锁更多新姿势？请访问<a href="https://tengshe789.github.io/">我的博客</a>。😏</p>
 <h2 id="Hello，Microservices"><a href="#Hello，Microservices" class="headerlink" title="Hello，Microservices"></a>Hello，Microservices</h2><h3 id="什么是微服务"><a href="#什么是微服务" class="headerlink" title="什么是微服务"></a>什么是微服务</h3><p>微服务Microservices之父，马丁.福勒，对微服务大概的概述如下：</p>
 <blockquote>
 <p>就目前而言，对于微服务业界并没有一个统一的、标准的定义（While there is no precise definition of this architectural style ) 。<br>但通在其常而言，微服务架构是一种架构模式或者说是一种架构风格，它提倡将单一应用程序划分成一组小的服务，每个服务运行独立的自己的进程中，服务之间互相协调、互相配合，为用户提供最终价值。服务之间采用轻量级的通信机制互相沟通（通常是基于 HTTP 的 RESTful API ) 。每个服务都围绕着具体业务进行构建，并且能够被独立地部署到生产环境、类生产环境等。<br>另外，应尽量避免统一的、集中式的服务管理机制，对具体的一个服务而言，应根据业务上下文，选择合适的语言、工具对其进行构建，可以有一个非常轻量级的集中式管理来协调这些服务。可以使用不同的语言来编写服务，也可以使用不同的数据存储。</p>
@@ -666,8 +666,8 @@ tpwidget("show");</script>
 <p><a href="https://yq.aliyun.com/articles/8611" target="_blank" rel="noopener">微服务架构的理论基础 - 康威定律</a></p>
 <p><a href="https://www.jianshu.com/p/0fbbf99a236e" target="_blank" rel="noopener">调用链选型之Zipkin，Pinpoint，SkyWalking，CAT</a></p>
 <h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>此片完了~ 想要了解更多精彩新姿势？</p>
-<p>请访问我的<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">个人博客</a> </p>
-<p>本篇为原创内容，已在<a href="https://blog.tengshe789.tech/2018/12/08/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84%E6%A2%B3%E7%90%86/#more" target="_blank" rel="noopener">个人博客</a>率先发表，随后看心情可能会在CSDN，segmentfault，掘金，简书，开源中国同步发出。如有雷同，<strong>缘分呢</strong>兄弟。赶快加个好友，咱们两个想个号码， 买个彩票，先挣他个几百万😝</p>
+<p>请访问我的<a href="https://tengshe789.github.io/">个人博客</a> </p>
+<p>本篇为原创内容，已在<a href="https://tengshe789.github.io/2018/12/08/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84%E6%A2%B3%E7%90%86/#more">个人博客</a>率先发表，随后看心情可能会在CSDN，segmentfault，掘金，简书，开源中国同步发出。如有雷同，<strong>缘分呢</strong>兄弟。赶快加个好友，咱们两个想个号码， 买个彩票，先挣他个几百万😝</p>
 
       
     </div>
