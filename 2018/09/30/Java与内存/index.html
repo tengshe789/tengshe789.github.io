@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="A1lh6qh2KG4qHp1egv4rR8POayZtKMsUVAbq3sk2XOc">
+
+
+
+  <meta name="msvalidate.01" content="0EF0AB564911357C367CABC34BA94C40">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=1.0.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=1.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="技术,java,并发,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="tEngSHe789の小站" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="又是一年秋招季，哎呀妈呀我被虐的惨来~这不，前几阵失踪没更新博客，其实是我偷偷把时间用在复习课本了（雾 坚持在社区分享博客也很久了，由于过去的文章有很多疏漏之处，很多大佬都在评论指出我的过错，我很开心也很失望，开心的是有大家帮我指出错误，失望的鄙人学识浅薄总没法做到完美。总之，欢迎评论区各种pr~ 好，回到正题。复习的时候，无意间看到java虚拟机的有关知识点，我产生了非常浓厚的兴趣，今天我来结合">
+<meta name="keywords" content="技术,java,并发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发基础-缓存、内存与JVM">
+<meta property="og:url" content="https://tengshe789.github.io/2018/09/30/Java与内存/index.html">
+<meta property="og:site_name" content="tEngSHe789の小站">
+<meta property="og:description" content="又是一年秋招季，哎呀妈呀我被虐的惨来~这不，前几阵失踪没更新博客，其实是我偷偷把时间用在复习课本了（雾 坚持在社区分享博客也很久了，由于过去的文章有很多疏漏之处，很多大佬都在评论指出我的过错，我很开心也很失望，开心的是有大家帮我指出错误，失望的鄙人学识浅薄总没法做到完美。总之，欢迎评论区各种pr~ 好，回到正题。复习的时候，无意间看到java虚拟机的有关知识点，我产生了非常浓厚的兴趣，今天我来结合">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://tengshe789.github.io/2018/09/30/Java与内存/1.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/09/30/Java与内存/2.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/09/30/Java与内存/clip_image001_d7728dc2-e525-4e5b-b84c-6f5a7f4de300.gif">
+<meta property="og:image" content="https://tengshe789.github.io/2018/09/30/Java与内存/clip_image002_thumb.gif">
+<meta property="og:image" content="https://tengshe789.github.io/2018/09/30/Java与内存/clip_image003_thumb.gif">
+<meta property="og:image" content="https://tengshe789.github.io/2018/09/30/Java与内存/7.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/09/30/Java与内存/5.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/09/30/Java与内存/8.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/09/30/Java与内存/6.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/09/30/Java与内存/3.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/09/30/Java与内存/4.png">
+<meta property="og:updated_time" content="2019-11-20T13:39:40.575Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="并发基础-缓存、内存与JVM">
+<meta name="twitter:description" content="又是一年秋招季，哎呀妈呀我被虐的惨来~这不，前几阵失踪没更新博客，其实是我偷偷把时间用在复习课本了（雾 坚持在社区分享博客也很久了，由于过去的文章有很多疏漏之处，很多大佬都在评论指出我的过错，我很开心也很失望，开心的是有大家帮我指出错误，失望的鄙人学识浅薄总没法做到完美。总之，欢迎评论区各种pr~ 好，回到正题。复习的时候，无意间看到java虚拟机的有关知识点，我产生了非常浓厚的兴趣，今天我来结合">
+<meta name="twitter:image" content="https://tengshe789.github.io/2018/09/30/Java与内存/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '1.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://tengshe789.github.io/2018/09/30/Java与内存/">
+
+
+<!-- 谷歌AdSense -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+<!-- 心智天气 -->
+<script>(function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.seniverse.com/widget/chameleon.js"))</script>
+<script>tpwidget("init", {
+    "flavor": "bubble",
+    "location": "WWMT5Q64CR3G",
+    "geolocation": "enabled",
+    "position": "bottom-right",
+    "margin": "10px 10px",
+    "language": "zh-chs",
+    "unit": "c",
+    "theme": "chameleon",
+    "uid": "UFA58EE03C",
+    "hash": "f8aaef53e1c80162af9fcce01022efec"
+});
+tpwidget("show");</script>
+
+  <title>并发基础-缓存、内存与JVM | tEngSHe789の小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tEngSHe789の小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">随性而行，不行拉倒</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tengshe789.github.io/2018/09/30/Java与内存/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tEngSHe789">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tEngSHe789の小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">并发基础-缓存、内存与JVM</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-30T21:10:41+08:00">
+                2018-09-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/30/Java与内存/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/09/30/Java与内存/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/09/30/Java与内存/" class="leancloud_visitors" data-flag-title="并发基础-缓存、内存与JVM">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  14,525
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  51
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>又是一年秋招季，哎呀妈呀我被虐的惨来~这不，前几阵失踪没更新博客，其实是我偷偷把时间用在复习课本了（雾</p>
+<p>坚持在社区分享博客也很久了，由于过去的文章有很多疏漏之处，很多大佬都在评论指出我的过错，我很开心也很失望，开心的是有大家帮我指出错误，失望的鄙人学识浅薄总没法做到完美。总之，欢迎评论区各种pr~</p>
+<p>好，回到正题。复习的时候，无意间看到java虚拟机的有关知识点，我产生了非常浓厚的兴趣，今天我来结合<strong>计算机内存模型</strong>的相关知识，与<strong>Java内存模型</strong>、<strong>Java对象模型</strong>、<strong>JVM内存结构</strong>等相关的知识串联起来，本篇文章共1.5W字，分享给大家，感谢阅读。</p>
+<p>想要解锁更多新姿势？请访问我的个人博客<a href="https://blog.tengshe789.tech/（😘" target="_blank" rel="noopener">https://blog.tengshe789.tech/（😘</a></p>
+<h2 id="计算机内存"><a href="#计算机内存" class="headerlink" title="计算机内存"></a>计算机内存</h2><p>相信每个人都有一台电脑，也有diy电脑的经历。现在一台功能强大的diy电脑大概3k就能组装起来，一个i5-8400 的cpu 869元，DDR4 内存 1200块钱，b360主板300元 散热器50元 机械硬盘200元 350w电源300元 机箱100元 ，没错，只要3k就能拿到一个性能强大的6C6T电脑。</p>
+<p>要说一台PC中最重要的部件是什么？大家看价格也会看明白，是cpu和内存，下面我来介绍一下cpu和内存之间的关系。</p>
+<h3 id="cpu与内存缓存的千丝万缕"><a href="#cpu与内存缓存的千丝万缕" class="headerlink" title="cpu与内存缓存的千丝万缕"></a>cpu与内存缓存的千丝万缕</h3><h4 id="cpu相关术语"><a href="#cpu相关术语" class="headerlink" title="cpu相关术语"></a>cpu相关术语</h4><p>首先说明一下相关的cpu术语：</p>
+<ul>
+<li>socket：cpu插在主板上那个槽与cpu称作一个socket。</li>
+<li>Die：核心（Die）又称为内核，是cpu的物理组成部分之一。cpu也会分为多die cpu与单die cpu，譬如我们现在强大的AMD TR-2990WX就是4die cpu，每个die里面有8个核心（core）</li>
+<li>core：也就是物理核心了。core这个词是英特尔起的，起初是为了与竞争对手AMD区别开，后面用的多了也淡了。</li>
+<li>thread：就是硬件线程数。一个程序执行可能需要多个线程一起进行~而现在也就比较强大的超线程技术，过去的cpu往往一个cpu核心只支持一个线程，现在一些强大的cpu中，就譬如IBM 的POWER 9 ，支持8核心32个线程（平均一个核心4个线程），理论性能非常强大。</li>
+</ul>
+<p>总结一下，以明星cpu AMD TR-2990WX作为栗子，这个cpu使用一个socket，一个socket里面有4个die，总共32个物理核心64个线程</p>
+<h4 id="cpu缓存"><a href="#cpu缓存" class="headerlink" title="cpu缓存"></a>cpu缓存</h4><p>我们都知道，cpu将要处理的数据会放到内存中保存，可是，为什么会这样，将内存缓存硬盘行不行呢？</p>
+<p>答案当然是不行的。cpu的处理速度很强大，内存的速度虽然非常快速但是根本跟不上cpu的步伐，所以，就出现的缓存。与来自DRAM家族的内存不同，缓存SRAM与内存最大的特点是，特别快，容量小，结构复杂，成本也高。</p>
+<p>造成内存和缓存性能差异，主要有以下原因：</p>
+<ol>
+<li>DRAM储存一位数据只需要一个电容加上一个晶体管，而SRAM需要6个晶体管。由于DRAM保存数据其实是在电容里面的，电容需要充放电才能进行读写操作，这就导致其读写数据就有比较大的延迟问题。</li>
+<li>存储可以看错一个二维数组，每个存储单元都有其行地址列地址。SRAM的容量很小，其存储单元比较短（行列短），可以一次性传输到SRAM中；而DRAM，需要分别传送行列地址。</li>
+<li>SRAM的频率和cpu频率比较接近；而DRAM的频率和cpu差距比较大。    </li>
+</ol>
+<p>近代的缓存通常被集成到cpu当中，为了适应性能与成本的需要，现实中的缓存往往使用金字塔型多级缓存架构。也就是<strong>当CPU要读取一个数据时，首先从一级缓存中查找，如果没有找到再从二级缓存中查找，如果还是没有就从三级缓存或内存中查找。</strong></p>
+<p>下面是英特尔最近以来用的初代skylake架构</p>
+<p><img src="/2018/09/30/Java与内存/1.png" alt="skl架构"></p>
+<p>可以看到，每个个核心有专属的L1，L2缓存，他们共享一个L3缓存。如果cpu如果要访问内存中的数据，必须要经过L1,L2,L3,LLC（或者L4）四层缓存。</p>
+<h3 id="缓存一致性问题"><a href="#缓存一致性问题" class="headerlink" title="缓存一致性问题"></a>缓存一致性问题</h3><p>最开始的cpu，其实只是一个核心一个线程的，当时根本不需要考虑缓存一致性问题，<strong>单线程</strong>，也就是cpu核心的缓存只被一个线程访问。缓存独占，不会出现访问冲突等问题。</p>
+<p>后来超线程技术来到我们视野，<strong>‘’单核CPU多线程’’</strong>，也就是进程中的多个线程会同时访问进程中的共享数据，CPU将某块内存加载到缓存后，不同线程在访问相同的物理地址的时候，都会映射到相同的缓存位置，这样即使发生线程的切换，缓存仍然不会失效。但由于任何时刻只能有一个线程在执行，因此不会出现缓存访问冲突。</p>
+<p>时代不断发展，<strong>“多核CPU多线程”</strong>来了，即多个线程访问进程中的某个共享内存，且这多个线程分别在不同的核心上执行，则每个核心都会在各自的caehe中保留一份共享内存的缓冲。由于多核是可以并行的，可能会出现多个线程同时写各自的缓存的情况，而各自的cache之间的数据就有可能不同。</p>
+<p>这就是我们说的<strong>缓存一致性</strong>问题。</p>
+<p>目前公认最好的解决方案是英特尔的<strong>MESI协议</strong>，下面我们着重介绍。</p>
+<h4 id="MESI协议"><a href="#MESI协议" class="headerlink" title="MESI协议"></a>MESI协议</h4><p>首先说说I/O操作的单位问题，大部分人都知道，在内存中操作I/O不是以字节为单位，而是以“块”为单位，这是为什么呢？</p>
+<p>其实这是因为I/O操作的数据访问有空间连续性特征，即需要访问内存空间很多数据，但是I/O操作比较慢，读一个字节和读N个字节的时间基本相同。</p>
+<p>机智的intel就规定了，cpu缓存中最小的存储单元是<strong>缓存行</strong><code>cache line</code>，在x86的cpu中，一个<code>cache line</code>储存64字节，每一级的缓存都会被划分成许多组<code>cache line</code>。</p>
+<p>缓存工作原理请看👉<a href="https://en.wikipedia.org/wiki/CPU_cache" target="_blank" rel="noopener">维基百科</a></p>
+<p>接下来我们看看MESI规范，这其实是用四种缓存行状态命名的，我们定义了CPU中每个缓存行使用4种状态进行标记（使用额外的两位(bit)表示)，分别是:</p>
+<ul>
+<li><p><strong>M: 被修改（Modified)</strong></p>
+<p>该缓存行只被缓存在该CPU的缓存中，并且是被修改过的（dirty),即与主存中的数据不一致，该缓存行中的内存需要在未来的某个时间点（允许其它CPU读取请主存中相应内存之前）写回（write back）主存。当被写回主存之后，该缓存行的状态会变成独享（exclusive)状态。</p>
+</li>
+<li><p><strong>E: 独享的（Exclusive)</strong></p>
+<p>该缓存行只被缓存在该CPU的缓存中，它是未被修改过的（clean)，与主存中数据一致。该状态可以在任何时刻当有其它CPU读取该内存时变成共享状态（shared)。同样地，当CPU修改该缓存行中内容时，该状态可以变成Modified状态。</p>
+</li>
+<li><p><strong>S:  共享的（Shared)</strong></p>
+<p>该状态意味着该缓存行可能被多个CPU缓存，并且各个缓存中的数据与主存数据一致（clean)，当有一个CPU修改该缓存行中，其它CPU中该缓存行可以被作废（变成无效状态（Invalid））。</p>
+</li>
+<li><p><strong>I: 无效的（Invalid）</strong></p>
+<p>该缓存是无效的（可能有其它CPU修改了该缓存行）。</p>
+</li>
+</ul>
+<p><img src="/2018/09/30/Java与内存/2.png" alt="mesi"></p>
+<p>然而，只是有这四种状态也会带来一定的问题。下面引用一下oracle的<a href="https://docs.oracle.com/cd/E19205-01/821-0393/aewcx/index.html" target="_blank" rel="noopener">文档</a>。</p>
+<blockquote>
+<p>同时更新来自不同处理器的相同缓存代码行中的单个元素会使整个缓存代码行无效，即使这些更新在逻辑上是彼此独立的。每次对缓存代码行的单个元素进行更新时，都会将此代码行标记为<strong>无效</strong>。其他访问同一代码行中不同元素的处理器将看到该代码行已标记为<strong>无效</strong>。即使所访问的元素未被修改，也会强制它们从内存或其他位置获取该代码行的较新副本。这是因为基于缓存代码行保持缓存一致性，而不是针对单个元素的。因此，互连通信和开销方面都将有所增长。并且，正在进行缓存代码行更新的时候，禁止访问该代码行中的元素。</p>
+</blockquote>
+<p><strong>MESI协议，可以保证缓存的一致性，但是无法保证实时性。</strong>这种情况称为<strong>伪共享</strong>。</p>
+<h4 id="伪共享问题"><a href="#伪共享问题" class="headerlink" title="伪共享问题"></a>伪共享问题</h4><p>伪共享问题其实在Java中是真实存在的一个问题。假设有如下所示的java class</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyObiect</span></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> a;</span><br><span class="line">    <span class="keyword">long</span> b;</span><br><span class="line">    <span class="keyword">long</span> c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>按照java规范，MyObiect对象是在堆空间中分配的，a、b、c这三个变量在内存空间中是近邻，分别占8字节，长度之和为24字节。而我们的x86的缓存行是64字节，这三个变量完全有可能会在一个缓存行中，并且被两个不同的cpu核心共享！</p>
+<p>根据MESI协议，如果不同物理核心cpu中的线程1和线程2要互斥的对这几个变量进行操作，很有可能要互相抢占资源，导致原来的并行变成串行，大大降低了系统的并发性，这就是缓存的伪共享。</p>
+<h4 id="解决伪共享"><a href="#解决伪共享" class="headerlink" title="解决伪共享"></a>解决伪共享</h4><p>其实解决伪共享很简单，只需要将这几个变量分别放到不同的缓存行即可。在java8中，就已经提供了普适性的解决方案，即采用<code>@Contended</code>注解来保证对象中的变量或者属性不在一个缓存行中~</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Contended</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">VolatileObiect</span></span>&#123;</span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">long</span> a = <span class="number">1L</span>;</span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">long</span> b = <span class="number">2L</span>;</span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">long</span> c = <span class="number">3L</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="内存不一致性问题"><a href="#内存不一致性问题" class="headerlink" title="内存不一致性问题"></a>内存不一致性问题</h3><p>上面我说了MESI协议在多核心cpu中解决缓存一致性的问题，下面我们说说cpu的内存不一致性问题。</p>
+<h4 id="三种cpu架构"><a href="#三种cpu架构" class="headerlink" title="三种cpu架构"></a>三种cpu架构</h4><p>首先，要了解三个名词：</p>
+<ul>
+<li>SMP(Symmetric Multi-Processor)</li>
+</ul>
+<blockquote>
+<p>SMP ,对称多处理系统内有许多紧耦合多处理器，在这样的系统中，所有的CPU共享全部资源，如总线，内存和I/O系统等，操作系统或管理数据库的复本只有一个，这种系统有一个最大的特点就是共享所有资源。多个CPU之间没有区别，平等地访问内存、外设、一个操作系统。操作系统管理着一个队列，每个处理器依次处理队列中的进程。如果两个处理器同时请求访问一个资源（例如同一段内存地址），由硬件、软件的锁机制去解决资源争用问题。</p>
+</blockquote>
+<p><a href="https://gooqia.bay.livefilestore.com/y1mTR45b2QQBvMknXoy3T6RC7QW_bimMfEFsHvninuE5BlQRc5CpJu-XhG5EM0L20gGCUUYgBbYMkpvckoz7whBhXF8bXDRyyux_cspQ4Z_CgHpDB_86XN_zt6QwLXFH3xhgy1_OF1jz5k/smp%5b2%5d.gif" target="_blank" rel="noopener"><img src="/2018/09/30/Java与内存/clip_image001_d7728dc2-e525-4e5b-b84c-6f5a7f4de300.gif" alt="clip_image001"></a></p>
+<blockquote>
+<p>所谓对称多处理器结构，是指服务器中多个 CPU 对称工作，无主次或从属关系。各 CPU 共享相同的物理内存，每个 CPU 访问内存中的任何地址所需时间是相同的，因此 SMP 也被称为一致存储器访问结构 (UMA ： Uniform Memory Access) 。对 SMP 服务器进行扩展的方式包括增加内存、使用更快的 CPU 、增加 CPU 、扩充 I/O( 槽口数与总线数 ) 以及添加更多的外部设备 ( 通常是磁盘存储 ) 。</p>
+<p>SMP 服务器的主要特征是共享，系统中所有资源 (CPU 、内存、 I/O 等 ) 都是共享的。也正是由于这种特征，导致了 SMP 服务器的主要问题，那就是它的扩展能力非常有限。对于 SMP 服务器而言，每一个共享的环节都可能造成 SMP 服务器扩展时的瓶颈，而最受限制的则是内存。由于每个 CPU 必须通过相同的内存总线访问相同的内存资源，因此随着 CPU 数量的增加，内存访问冲突将迅速增加，最终会造成 CPU 资源的浪费，使 CPU 性能的有效性大大降低。实验证明， SMP 服务器 CPU 利用率最好的情况是 2 至 4 个 CPU 。</p>
+</blockquote>
+<p><a href="http://images.cnblogs.com/cnblogs_com/yubo/WindowsLiveWriter/SMPNUMAMPP_F6D4/clip_image002_2.gif" target="_blank" rel="noopener"><img src="/2018/09/30/Java与内存/clip_image002_thumb.gif" alt="clip_image002"></a></p>
+<ul>
+<li>NUMA(Non-Uniform Memory Access)</li>
+</ul>
+<blockquote>
+<p>　　由于 SMP 在扩展能力上的限制，人们开始探究如何进行有效地扩展从而构建大型系统的技术， NUMA 就是这种努力下的结果之一。利用 NUMA 技术，可以把几十个 CPU( 甚至上百个 CPU) 组合在一个服务器内。其NUMA 服务器 CPU 模块结构如图所示：</p>
+</blockquote>
+<p><a href="http://images.cnblogs.com/cnblogs_com/yubo/WindowsLiveWriter/SMPNUMAMPP_F6D4/clip_image003_2.gif" target="_blank" rel="noopener"><img src="/2018/09/30/Java与内存/clip_image003_thumb.gif" alt="clip_image003"></a></p>
+<blockquote>
+<p>NUMA 服务器的基本特征是具有多个 CPU 模块，每个 CPU 模块由多个 CPU( 如 4 个 ) 组成，并且具有独立的本地内存、 I/O 槽口等。由于其节点之间可以通过互联模块 ( 如称为 Crossbar Switch) 进行连接和信息交互，因此每个 CPU 可以访问整个系统的内存 ( 这是 NUMA 系统与 MPP 系统的重要差别 ) 。显然，访问本地内存的速度将远远高于访问远地内存 ( 系统内其它节点的内存 ) 的速度，这也是非一致存储访问 NUMA 的由来。由于这个特点，为了更好地发挥系统性能，开发应用程序时需要尽量减少不同 CPU 模块之间的信息交互。</p>
+<p>利用 NUMA 技术，可以较好地解决原来 SMP 系统的扩展问题，在一个物理服务器内可以支持上百个 CPU 。比较典型的 NUMA 服务器的例子包括 HP 的 Superdome 、 SUN15K 、 IBMp690 等。</p>
+<p>　　但 NUMA 技术同样有一定缺陷，由于访问远地内存的延时远远超过本地内存，因此当 CPU 数量增加时，系统性能无法线性增加。如 HP 公司发布 Superdome 服务器时，曾公布了它与 HP 其它 UNIX 服务器的相对性能值，结果发现， 64 路 CPU 的 Superdome (NUMA 结构 ) 的相对性能值是 20 ，而 8 路 N4000( 共享的 SMP 结构 ) 的相对性能值是 6.3 。从这个结果可以看到， 8 倍数量的 CPU 换来的只是 3 倍性能的提升。</p>
+</blockquote>
+<ul>
+<li>MPP(Massive Parallel Processing)</li>
+</ul>
+<blockquote>
+<p>　　和 NUMA 不同， MPP 提供了另外一种进行系统扩展的方式，它由多个 SMP 服务器通过一定的节点互联网络进行连接，协同工作，完成相同的任务，从用户的角度来看是一个服务器系统。其基本特征是由多个 SMP 服务器 ( 每个 SMP 服务器称节点 ) 通过节点互联网络连接而成，每个节点只访问自己的本地资源 ( 内存、存储等 ) ，是一种完全无共享 (Share Nothing) 结构，因而扩展能力最好，理论上其扩展无限制，目前的技术可实现 512 个节点互联，数千个 CPU 。目前业界对节点互联网络暂无标准，如 NCR 的 Bynet ， IBM 的 SPSwitch ，它们都采用了不同的内部实现机制。但节点互联网仅供 MPP 服务器内部使用，对用户而言是透明的。</p>
+<p>　　在 MPP 系统中，每个 SMP 节点也可以运行自己的操作系统、数据库等。但和 NUMA 不同的是，它不存在异地内存访问的问题。换言之，每个节点内的 CPU 不能访问另一个节点的内存。节点之间的信息交互是通过节点互联网络实现的，这个过程一般称为数据重分配 (Data Redistribution) 。</p>
+<p>但是 MPP 服务器需要一种复杂的机制来调度和平衡各个节点的负载和并行处理过程。目前一些基于 MPP 技术的服务器往往通过系统级软件 ( 如数据库 ) 来屏蔽这种复杂性。举例来说， NCR 的 Teradata 就是基于 MPP 技术的一个关系数据库软件，基于此数据库来开发应用时，不管后台服务器由多少个节点组成，开发人员所面对的都是同一个数据库系统，而不需要考虑如何调度其中某几个节点的负载。</p>
+<p>MPP (Massively Parallel Processing)，大规模并行处理系统，这样的系统是由许多松耦合的处理单元组成的，要注意的是这里指的是处理单元而不是处理器。每个单元内的CPU都有自己私有的资源，如总线，内存，硬盘等。在每个单元内都有操作系统和管理数据库的实例复本。这种结构最大的特点在于不共享资源。</p>
+</blockquote>
+<h4 id="NUMA结构下的缓存一致性"><a href="#NUMA结构下的缓存一致性" class="headerlink" title="NUMA结构下的缓存一致性"></a>NUMA结构下的缓存一致性</h4><p>要知道，MESI协议解决的是传统SMP结构下缓存的一致性，为了在NUMA架构也实现缓存一致性，intel引入了MESI的一个拓展协议–MESIF，但是目前并没有什么资料，也没法研究，更多消息请查阅intel的wiki。</p>
+<h2 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h2><h3 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h3><p>我们写程序，为什么要考虑内存模型呢，我们前面说了，缓存一致性问题、内存一致问题是硬件的不断升级导致的。解决问题，最简单直接的做法就是废除CPU缓存，让CPU直接和主存交互。但是，这么做虽然可以保证多线程下的并发问题。但是，这就有点时代倒退了。</p>
+<p>所以，为了保证并发编程中可以满足原子性、可见性及有序性。有一个重要的概念，那就是——内存模型。</p>
+<p>即为了保证共享内存的正确性（可见性、有序性、原子性），需要内存模型来定义了共享内存系统中多线程程序读写操作行为的相应规范~</p>
+<h3 id="JMM"><a href="#JMM" class="headerlink" title="JMM"></a>JMM</h3><p>Java内存模型是根据英文Java Memory Model（JMM）翻译过来的。其实JMM并不像JVM内存结构一样是真实存在的。它<strong>是一种符合内存模型规范的，屏蔽了各种硬件和操作系统的访问差异的，保证了Java程序在各种平台下对内存的访问都能保证效果一致的机制及规范</strong>。就像JSR-133: Java Memory Model and Thread Specification 中描述了，JMM是和多线程相关的，他描述了一组规则或规范，这个规范定义了一个线程对共享变量的写入时对另一个线程是可见的。</p>
+<p><img src="/2018/09/30/Java与内存/7.png" alt="抽象图"></p>
+<p>Java的多线程之间是通过共享内存进行通信的，而由于采用共享内存进行通信，在通信过程中会存在一系列如可见性、原子性、顺序性等问题，而JMM就是围绕着多线程通信以及与其相关的一系列特性而建立的模型。JMM定义了一些语法集，这些语法集映射到Java语言中就是<code>volatile</code>、<code>synchronized</code>等关键字。</p>
+<p>在JMM中，我们把多个线程间通信的共享内存称之为主内存，而在并发编程中多个线程都维护了一个自己的本地内存（这是个抽象概念），其中保存的数据是主内存中的数据拷贝。而<strong>JMM主要是控制本地内存和主内存之间的数据交互的</strong>。</p>
+<p>下面看看Java内存模型抽象图：</p>
+<p><img src="/2018/09/30/Java与内存/5.png" alt="抽象图"></p>
+<p>在Java中，JMM是一个非常重要的概念，正是由于有了JMM，Java的并发编程才能避免很多问题。</p>
+<h3 id="JMM同步八种操作"><a href="#JMM同步八种操作" class="headerlink" title="JMM同步八种操作"></a>JMM同步八种操作</h3><p>JMM规定了一系列操作，为了保证数据的操作的一致数据的一致。</p>
+<p>（1）lock(锁定)：作用于主内存的变量，把一个变量标记为一条线程独占状态</p>
+<p>（2）unlock(解锁)：作用于主内存的变量，把一个处于锁定状态的变量释放出来，释放后的变量才可以被其他线程锁定</p>
+<p>（3）read(读取)：作用于主内存的变量，把一个变量值从主内存传输到线程的工作内存中，以便随后的load动作使用</p>
+<p>（4）load(载入)：作用于工作内存的变量，它把read操作从主内存中得到的变量值放入工作内存的变量副本中</p>
+<p>（5）use(使用)：作用于工作内存的变量，把工作内存中的一个变量值传递给执行引擎</p>
+<p>（6）assign(赋值)：作用于工作内存的变量，它把一个从执行引擎接收到的值赋给工作内存的变量</p>
+<p>（7）store(存储)：作用于工作内存的变量，把工作内存中的一个变量的值传送到主内存中，以便随后的write的操作</p>
+<p>（8）write(写入)：作用于工作内存的变量，它把store操作从工作内存中的一个变量的值传送到主内存的变量中</p>
+<p>按照顺序如图所示：</p>
+<p><img src="/2018/09/30/Java与内存/8.png" alt="JMM同步八种操作"></p>
+<h4 id="同步规则"><a href="#同步规则" class="headerlink" title="同步规则"></a>同步规则</h4><p>同步规则分析：</p>
+<ol>
+<li>不允许一个线程无原因地（没有发生过任何assign操作）把数据从工作内存同步会主内存中</li>
+<li>一个新的变量只能在主内存中诞生，不允许在工作内存中直接使用一个未被初始化（load或者assign）的变量。即就是对一个变量实施use和store操作之前，必须先自行assign和load操作。</li>
+<li>一个变量在同一时刻只允许一条线程对其进行lock操作，但lock操作可以被同一线程重复执行多次，多次执行lock后，只有执行相同次数的unlock操作，变量才会被解锁。lock和unlock必须成对出现。</li>
+<li>如果对一个变量执行lock操作，将会清空工作内存中此变量的值，在执行引擎使用这个变量之前需要重新执行load或assign操作初始化变量的值。</li>
+<li>如果一个变量事先没有被lock操作锁定，则不允许对它执行unlock操作；也不允许去unlock一个被其他线程锁定的变量。</li>
+<li>对一个变量执行unlock操作之前，必须先把此变量同步到主内存中（执行store和write操作）</li>
+</ol>
+<h3 id="JMM应用"><a href="#JMM应用" class="headerlink" title="JMM应用"></a>JMM应用</h3><p>了解Java多线程的朋友都知道，在Java中提供了一系列和并发处理相关的关键字，比如<code>volatile</code>、<code>synchronized</code>、<code>final</code>、<code>concurrent</code>包等。其实这些就是Java内存模型封装了底层的实现后提供给我们使用的一些关键字。</p>
+<p>在开发多线程的代码的时候，我们可以直接使用<code>synchronized</code>等关键字来控制并发，从来就不需要关心底层的编译器优化、缓存一致性等问题。所以，<strong>Java内存模型，除了定义了一套规范，还提供了一系列原语，封装了底层实现后，供开发者直接使用。</strong></p>
+<p>并发编程要解决原子性、有序性和可见性的问题，我们就再来看下，在Java中，分别使用什么方式来保证。</p>
+<h4 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h4><p><strong>原子性</strong>是指在一个操作中就是cpu不可以在中途暂停然后再调度，既不被中断操作，要不执行完成，要不就不执行。</p>
+<p>JMM提供保证了访问基本数据类型的原子性（其实在写一个工作内存变量到主内存是分主要两步：store、write），但是实际业务处理场景往往是需要更大的范围的原子性保证。</p>
+<p>在Java中，为了保证原子性，提供了两个高级的字节码指令<code>monitorenter</code>和<code>monitorexit</code>，而这两个字节码，在Java中对应的关键字就是<code>synchronized</code>。</p>
+<p>因此，在Java中可以使用<code>synchronized</code>来保证方法和代码块内的操作是原子性的。这里推荐一篇文章<a href="https://blog.csdn.net/javazejian/article/details/72828483" target="_blank" rel="noopener">深入理解Java并发之synchronized实现原理</a>。</p>
+<h4 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h4><p><strong>可见性</strong>是指当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。</p>
+<p>Java内存模型是通过在变量修改后将新值同步回主内存，在变量读取前从主内存刷新变量值的这种依赖主内存作为传递媒介的方式来实现的。</p>
+<p>Java中的<code>volatile</code>关键字提供了一个功能，那就是被其修饰的变量在被修改后可以立即同步到<strong>主内存</strong>，被其修饰的变量在每次是用之前都从主内存刷新。因此，可以使用<code>volatile</code>来保证多线程操作时变量的可见性。</p>
+<p>除了<code>volatile</code>，Java中的<code>synchronized</code>和<code>final</code>、<code>static</code>三个关键字也可以实现可见性。下面分享一下我的读书笔记：</p>
+<p><img src="/2018/09/30/Java与内存/6.png" alt="1538374970743"></p>
+<h4 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h4><p><strong>有序性</strong>即程序执行的顺序按照代码的先后顺序执行。</p>
+<p>在Java中，可以使用<code>synchronized</code>和<code>volatile</code>来保证多线程之间操作的有序性。实现方式有所区别：</p>
+<p><code>volatile</code>关键字会禁止指令重排。<code>synchronized</code>关键字保证同一时刻只允许一条线程操作。</p>
+<p>好了，这里简单的介绍完了Java并发编程中解决原子性、可见性以及有序性可以使用的关键字。读者可能发现了，好像<code>synchronized</code>关键字是万能的，他可以同时满足以上三种特性，这其实也是很多人滥用<code>synchronized</code>的原因。</p>
+<p>但是<code>synchronized</code>是比较影响性能的，虽然编译器提供了很多锁优化技术，但是也不建议过度使用。</p>
+<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><p>我们都知道，Java代码是要运行在虚拟机上的，而虚拟机在执行Java程序的过程中会把所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途。下面我们来说说JVM运行时内存区域结构</p>
+<h3 id="JVM运行时内存区域结构"><a href="#JVM运行时内存区域结构" class="headerlink" title="JVM运行时内存区域结构"></a>JVM运行时内存区域结构</h3><p>在《Java虚拟机规范（Java SE 8）》中描述了JVM运行时内存区域结构如下：</p>
+<p><img src="/2018/09/30/Java与内存/3.png" alt="JVM"></p>
+<p> 1.<strong>程序计数器</strong></p>
+<p>　　程序计数器（Program Counter Register），也有称作为PC寄存器。想必学过汇编语言的朋友对程序计数器这个概念并不陌生，在汇编语言中，程序计数器是指CPU中的寄存器，它保存的是程序当前执行的指令的地址（也可以说保存下一条指令的所在存储单元的地址），当CPU需要执行指令时，需要从程序计数器中得到当前需要执行的指令所在存储单元的地址，然后根据得到的地址获取到指令，在得到指令之后，程序计数器便自动加1或者根据转移指针得到下一条指令的地址，如此循环，直至执行完所有的指令。</p>
+<p>　　虽然JVM中的程序计数器并不像汇编语言中的程序计数器一样是物理概念上的CPU寄存器，但是JVM中的程序计数器的功能跟汇编语言中的程序计数器的功能在逻辑上是等同的，也就是说是用来指示 执行哪条指令的。</p>
+<p>　　由于在JVM中，多线程是通过线程轮流切换来获得CPU执行时间的，因此，在任一具体时刻，一个CPU的内核只会执行一条线程中的指令，因此，为了能够使得每个线程都在线程切换后能够恢复在切换之前的程序执行位置，每个线程都需要有自己独立的程序计数器，并且不能互相被干扰，否则就会影响到程序的正常执行次序。因此，可以这么说，程序计数器是每个线程所私有的。</p>
+<p>　　在JVM规范中规定，如果线程执行的是非native方法，则程序计数器中保存的是当前需要执行的指令的地址；如果线程执行的是native方法，则程序计数器中的值是undefined。</p>
+<p>　　由于程序计数器中存储的数据所占空间的大小不会随程序的执行而发生改变，因此，对于程序计数器是不会发生内存溢出现象(OutOfMemory)的。</p>
+<p> 2.<strong>Java栈</strong></p>
+<p>　　Java栈也称作虚拟机栈（Java Vitual Machine Stack），也就是我们常常所说的栈，跟C语言的数据段中的栈类似。事实上，Java栈是Java方法执行的内存模型。为什么这么说呢？下面就来解释一下其中的原因。</p>
+<p>　　Java栈中存放的是一个个的栈帧，每个栈帧对应一个被调用的方法，在栈帧中包括局部变量表(Local Variables)、操作数栈(Operand Stack)、指向当前方法所属的类的运行时常量池（运行时常量池的概念在方法区部分会谈到）的引用(Reference to runtime constant pool)、方法返回地址(Return Address)和一些额外的附加信息。当线程执行一个方法时，就会随之创建一个对应的栈帧，并将建立的栈帧压栈。当方法执行完毕之后，便会将栈帧出栈。因此可知，线程当前执行的方法所对应的栈帧必定位于Java栈的顶部。讲到这里，大家就应该会明白为什么 在 使用 递归方法的时候容易导致栈内存溢出的现象了以及为什么栈区的空间不用程序员去管理了（当然在Java中，程序员基本不用关系到内存分配和释放的事情，因为Java有自己的垃圾回收机制），这部分空间的分配和释放都是由系统自动实施的。对于所有的程序设计语言来说，栈这部分空间对程序员来说是不透明的。下图表示了一个Java栈的模型：</p>
+<p><img src="/2018/09/30/Java与内存/4.png" alt="img"></p>
+<p>　　<strong>局部变量表</strong>，顾名思义，想必不用解释大家应该明白它的作用了吧。就是用来存储方法中的局部变量（包括在方法中声明的非静态变量以及函数形参）。对于基本数据类型的变量，则直接存储它的值，对于引用类型的变量，则存的是指向对象的引用。局部变量表的大小在编译器就可以确定其大小了，因此在程序执行期间局部变量表的大小是不会改变的。</p>
+<p>　　<strong>操作数栈</strong>，想必学过数据结构中的栈的朋友想必对表达式求值问题不会陌生，栈最典型的一个应用就是用来对表达式求值。想想一个线程执行方法的过程中，实际上就是不断执行语句的过程，而归根到底就是进行计算的过程。因此可以这么说，程序中的所有计算过程都是在借助于操作数栈来完成的。</p>
+<p>　　<strong>指向运行时常量池的引用</strong>，因为在方法执行的过程中有可能需要用到类中的常量，所以必须要有一个引用指向运行时常量。</p>
+<p>　　<strong>方法返回地址</strong>，当一个方法执行完毕之后，要返回之前调用它的地方，因此在栈帧中必须保存一个方法返回地址。</p>
+<p>　　由于每个线程正在执行的方法可能不同，因此每个线程都会有一个自己的Java栈，互不干扰。</p>
+<p> 3.<strong>本地方法栈</strong></p>
+<p>　　本地方法栈与Java栈的作用和原理非常相似。区别只不过是Java栈是为执行Java方法服务的，而本地方法栈则是为执行本地方法（Native Method）服务的。在JVM规范中，并没有对本地方发展的具体实现方法以及数据结构作强制规定，虚拟机可以自由实现它。在HotSopt虚拟机中直接就把本地方法栈和Java栈合二为一。</p>
+<p>4.<strong>堆</strong></p>
+<p>　　在C语言中，堆这部分空间是唯一一个程序员可以管理的内存区域。程序员可以通过malloc函数和free函数在堆上申请和释放空间。那么在Java中是怎么样的呢？</p>
+<p>　　Java中的堆是用来存储对象本身的以及数组（当然，数组引用是存放在Java栈中的）。只不过和C语言中的不同，在Java中，程序员基本不用去关心空间释放的问题，Java的垃圾回收机制会自动进行处理。因此这部分空间也是Java垃圾收集器管理的主要区域。另外，堆是被所有线程共享的，在JVM中只有一个堆。</p>
+<p> 5.<strong>方法区</strong></p>
+<p>　　方法区在JVM中也是一个非常重要的区域，它与堆一样，是被线程共享的区域。在方法区中，存储了每个类的信息（包括类的名称、方法信息、字段信息）、静态变量、常量以及编译器编译后的代码等。</p>
+<p>　　在Class文件中除了类的字段、方法、接口等描述信息外，还有一项信息是常量池，用来存储编译期间生成的字面量和符号引用。</p>
+<p>　　在方法区中有一个非常重要的部分就是运行时常量池，它是每一个类或接口的常量池的运行时表示形式，在类和接口被加载到JVM后，对应的运行时常量池就被创建出来。当然并非Class文件常量池中的内容才能进入运行时常量池，在运行期间也可将新的常量放入运行时常量池中，比如String的intern方法。</p>
+<p>　　在JVM规范中，没有强制要求方法区必须实现垃圾回收。很多人习惯将方法区称为“永久代”，是因为HotSpot虚拟机以永久代来实现方法区，从而JVM的垃圾收集器可以像管理堆区一样管理这部分区域，从而不需要专门为这部分设计垃圾回收机制。不过自从JDK7之后，Hotspot虚拟机便将运行时常量池从永久代移除了。</p>
+<h3 id="Java对象模型的内存布局"><a href="#Java对象模型的内存布局" class="headerlink" title="Java对象模型的内存布局"></a>Java对象模型的内存布局</h3><p>java是一种面向对象的语言，而Java对象在JVM中的存储也是有一定的结构的。而这个关于Java对象自身的存储模型称之为Java对象模型。</p>
+<p>HotSpot虚拟机中，设计了一个OOP-Klass Model。OOP（Ordinary Object Pointer）指的是普通对象指针，而Klass用来描述对象实例的具体类型。</p>
+<p>每一个Java类，在被JVM加载的时候，JVM会给这个类创建一个<code>instanceKlass</code>，保存在方法区，用来在JVM层表示该Java类。当我们在Java代码中，使用new创建一个对象的时候，JVM会创建一个<code>instanceOopDesc</code>对象，对象在内存中存储的布局可以分为3块区域：对象头（Header）、 实例数据（Instance Data）和对齐填充（Padding）。 </p>
+<ol>
+<li>对象头：标记字（32位虚拟机4B，64位虚拟机8B） + 类型指针（32位虚拟机4B，64位虚拟机8B）+ [数组长（对于数组对象才需要此部分信息）]</li>
+<li>实例数据：存储的是真正有效数据，如各种字段内容，各字段的分配策略为longs/doubles、ints、shorts/chars、bytes/boolean、oops(ordinary object pointers)，相同宽度的字段总是被分配到一起，便于之后取数据。父类定义的变量会出现在子类定义的变量的前面。</li>
+<li>对齐填充：对于64位虚拟机来说，对象大小必须是8B的整数倍，不够的话需要占位填充</li>
+</ol>
+<h3 id="JVM内存垃圾收集器"><a href="#JVM内存垃圾收集器" class="headerlink" title="JVM内存垃圾收集器"></a>JVM内存垃圾收集器</h3><p>为了理解现有收集器，我们需要先了解一些术语。最基本的垃圾收集涉及识别不再使用的内存并使其可重用。现代收集器在几个阶段进行这一过程，对于这些阶段我们往往有如下描述：</p>
+<ul>
+<li>并行- 在JVM运行时，同时存在应用程序线程和垃圾收集器线程。 并行阶段是由多个gc线程执行，即gc工作在它们之间分配。 不涉及GC线程是否需要暂停应用程序线程。</li>
+<li>串行- 串行阶段仅在单个gc线程上执行。与之前一样，它也没有说明GC线程是否需要暂停应用程序线程。</li>
+<li>STW - STW阶段，应用程序线程被暂停，以便gc执行其工作。 当应用程序因为GC暂停时，这通常是由于Stop The World阶段。</li>
+<li>并发 -如果一个阶段是并发的，那么GC线程可以和应用程序线程同时进行。 并发阶段很复杂，因为它们需要在阶段完成之前处理可能使工作无效（译者注：因为是并发进行的，GC线程在完成一阶段的同时，应用线程也在工作产生操作内存，所以需要额外处理）的应用程序线程。</li>
+<li>增量 -如果一个阶段是增量的，那么它可以运行一段时间之后由于某些条件提前终止，例如需要执行更高优先级的gc阶段，同时仍然完成生产性工作。 增量阶段与需要完全完成的阶段形成鲜明对比。</li>
+</ul>
+<h4 id="Serial收集器"><a href="#Serial收集器" class="headerlink" title="Serial收集器"></a>Serial收集器</h4><p>Serial收集器是最基本的收集器，这是一个单线程收集器，它仍然是JVM在Client模式下的默认新生代收集器。它有着优于其他收集器的地方：简单而高效（与其他收集器的单线程比较），Serial收集器由于没有线程交互的开销，专心只做垃圾收集自然也获得最高的效率。在用户桌面场景下，分配给JVM的内存不会太多，停顿时间完全可以在几十到一百多毫秒之间，只要收集不频繁，这是完全可以接受的。</p>
+<h4 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h4><p>ParNew是Serial的多线程版本，在回收算法、对象分配原则上都是一致的。ParNew收集器是许多运行在Server模式下的默认新生代垃圾收集器，其主要在于除了Serial收集器，目前只有ParNew收集器能够与CMS收集器配合工作。</p>
+<h4 id="Parallel-Scavenge收集器"><a href="#Parallel-Scavenge收集器" class="headerlink" title="Parallel Scavenge收集器"></a>Parallel Scavenge收集器</h4><p>Parallel Scavenge收集器是一个新生代垃圾收集器，其使用的算法是复制算法，也是并行的多线程收集器。</p>
+<p>Parallel Scavenge 收集器更关注可控制的吞吐量，吞吐量等于运行用户代码的时间/(运行用户代码的时间+垃圾收集时间)。直观上，只要最大的垃圾收集停顿时间越小，吞吐量是越高的，但是GC停顿时间的缩短是以牺牲吞吐量和新生代空间作为代价的。比如原来10秒收集一次，每次停顿100毫秒，现在变成5秒收集一次，每次停顿70毫秒。停顿时间下降的同时，吞吐量也下降了。</p>
+<p>停顿时间越短就越适合需要与用户交互的程序；而高吞吐量则可以最高效的利用CPU的时间，尽快的完成计算任务，主要适用于后台运算。</p>
+<h4 id="Serial-Old收集器"><a href="#Serial-Old收集器" class="headerlink" title="Serial Old收集器"></a>Serial Old收集器</h4><p>Serial Old收集器是Serial收集器的老年代版本，也是一个单线程收集器，采用“标记-整理算法”进行回收。其运行过程与Serial收集器一样。</p>
+<h4 id="Parallel-Old收集器"><a href="#Parallel-Old收集器" class="headerlink" title="Parallel Old收集器"></a>Parallel Old收集器</h4><p>Parallel Old收集器是Parallel Scavenge收集器的老年代版本，使用多线程和标记-整理算法进行垃圾回收。其通常与Parallel Scavenge收集器配合使用，“吞吐量优先”收集器是这个组合的特点，在注重吞吐量和CPU资源敏感的场合，都可以使用这个组合。</p>
+<h4 id="CMS-收集器"><a href="#CMS-收集器" class="headerlink" title="CMS 收集器"></a>CMS 收集器</h4><p>CMS（Concurrent Mark Sweep）收集器是一种以获取最短停顿时间为目标的收集器，CMS收集器采用标记–清除算法，运行在老年代。主要包含以下几个步骤：</p>
+<ul>
+<li>初始标记</li>
+<li>并发标记</li>
+<li>重新标记</li>
+<li>并发清除</li>
+</ul>
+<p>其中初始标记和重新标记仍然需要“Stop the world”。初始标记仅仅标记GC Root能直接关联的对象，并发标记就是进行GC Root Tracing过程，而重新标记则是为了修正并发标记期间，因用户程序继续运行而导致标记变动的那部分对象的标记记录。</p>
+<p>由于整个过程中最耗时的并发标记和并发清除，收集线程和用户线程一起工作，所以总体上来说，CMS收集器回收过程是与用户线程并发执行的。虽然CMS优点是并发收集、低停顿，很大程度上已经是一个不错的垃圾收集器，但是还是有三个显著的缺点：</p>
+<ol>
+<li>CMS收集器对CPU资源很敏感。在并发阶段，虽然它不会导致用户线程停顿，但是会因为占用一部分线程（CPU资源）而导致应用程序变慢。</li>
+<li>CMS收集器不能处理浮动垃圾。所谓的“浮动垃圾”，就是在并发标记阶段，由于用户程序在运行，那么自然就会有新的垃圾产生，这部分垃圾被标记过后，CMS无法在当次集中处理它们，只好在下一次GC的时候处理，这部分未处理的垃圾就称为“浮动垃圾”。也是由于在垃圾收集阶段程序还需要运行，即还需要预留足够的内存空间供用户使用，因此CMS收集器不能像其他收集器那样等到老年代几乎填满才进行收集，需要预留一部分空间提供并发收集时程序运作使用。要是CMS预留的内存空间不能满足程序的要求，这是JVM就会启动预备方案：临时启动Serial Old收集器来收集老年代，这样停顿的时间就会很长。</li>
+<li>由于CMS使用标记–清除算法，所以在收集之后会产生大量内存碎片。当内存碎片过多时，将会给分配大对象带来困难，这是就会进行Full GC。</li>
+</ol>
+<h4 id="G1收集器"><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h4><p>G1收集器与CMS相比有很大的改进：</p>
+<p>· G1收集器采用标记–整理算法实现。</p>
+<p>· 可以非常精确地控制停顿。</p>
+<p>​    G1收集器可以实现在基本不牺牲吞吐量的情况下完成低停顿的内存回收，这是由于它极力的避免全区域的回收，G1收集器将Java堆（包括新生代和老年代）划分为多个区域（Region），并在后台维护一个优先列表，每次根据允许的时间，优先回收垃圾最多的区域 。</p>
+<h4 id="ZGC收集器"><a href="#ZGC收集器" class="headerlink" title="ZGC收集器"></a>ZGC收集器</h4><p>Java 11 新加入的ZGC垃圾收集器号称可以达到10ms 以下的 GC 停顿，ZGC给Hotspot Garbage Collectors增加了两种新技术：着色指针和读屏障。下面引用国外文章说的内容：</p>
+<blockquote>
+<h5 id="着色指针"><a href="#着色指针" class="headerlink" title="着色指针"></a><strong>着色指针</strong></h5><p>着色指针是一种将信息存储在指针（或使用Java术语引用）中的技术。因为在64位平台上（ZGC仅支持64位平台），指针可以处理更多的内存，因此可以使用一些位来存储状态。 ZGC将限制最大支持4Tb堆（42-bits），那么会剩下22位可用，它目前使用了4位： <code>finalizable</code>， <code>remap</code>， <code>mark0</code>和<code>mark1</code>。 我们稍后解释它们的用途。</p>
+<p>着色指针的一个问题是，当您需要取消着色时，它需要额外的工作（因为需要屏蔽信息位）。 像SPARC这样的平台有内置硬件支持指针屏蔽所以不是问题，而对于x86平台来说，ZGC团队使用了简洁的多重映射技巧。</p>
+<h5 id="多重映射"><a href="#多重映射" class="headerlink" title="多重映射"></a><strong>多重映射</strong></h5><p>要了解多重映射的工作原理，我们需要简要解释虚拟内存和物理内存之间的区别。 物理内存是系统可用的实际内存，通常是安装的DRAM芯片的容量。 虚拟内存是抽象的，这意味着应用程序对（通常是隔离的）物理内存有自己的视图。 操作系统负责维护虚拟内存和物理内存范围之间的映射，它通过使用页表和处理器的内存管理单元（MMU）和转换查找缓冲器（TLB）来实现这一点，后者转换应用程序请求的地址。</p>
+<p>多重映射涉及将不同范围的虚拟内存映射到同一物理内存。 由于设计中只有一个<code>remap</code>，<code>mark0</code>和<code>mark1</code>在任何时间点都可以为1，因此可以使用三个映射来完成此操作。 ZGC源代码中有一个很好的图表可以说明这一点。</p>
+<h5 id="读屏障"><a href="#读屏障" class="headerlink" title="读屏障"></a><strong>读屏障</strong></h5><p>读屏障是每当应用程序线程从堆加载引用时运行的代码片段（即访问对象上的非原生字段non-primitive field）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="function"><span class="keyword">void</span> <span class="title">printName</span><span class="params">( Person person )</span> </span>&#123;</span><br><span class="line">&gt;     String name = person.name;  <span class="comment">// 这里触发读屏障</span></span><br><span class="line">&gt;                                 <span class="comment">// 因为需要从heap读取引用 </span></span><br><span class="line">&gt;                                 <span class="comment">// </span></span><br><span class="line">&gt;     System.out.println(name);   <span class="comment">// 这里没有直接触发读屏障</span></span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>在上面的代码中，String name = person.name 访问了堆上的person引用，然后将引用加载到本地的name变量。此时触发读屏障。 Systemt.out那行不会直接触发读屏障，因为没有来自堆的引用加载（name是局部变量，因此没有从堆加载引用）。 但是System和out，或者println内部可能会触发其他读屏障。</p>
+<p>这与其他GC使用的写屏障形成对比，例如G1。读屏障的工作是检查引用的状态，并在将引用（或者甚至是不同的引用）返回给应用程序之前执行一些工作。 在ZGC中，它通过测试加载的引用来执行此任务，以查看是否设置了某些位。 如果通过了测试，则不执行任何其他工作，如果失败，则在将引用返回给应用程序之前执行某些特定于阶段的任务。</p>
+<h5 id="标记"><a href="#标记" class="headerlink" title="标记"></a><strong>标记</strong></h5><p>现在我们了解了这两种新技术是什么，让我们来看看ZG的GC循环。</p>
+<p>GC循环的第一部分是标记。标记包括查找和标记运行中的应用程序可以访问的所有堆对象，换句话说，查找不是垃圾的对象。</p>
+<p>ZGC的标记分为三个阶段。 第一阶段是STW，其中GC roots被标记为活对象。 GC roots类似于局部变量，通过它可以访问堆上其他对象。 如果一个对象不能通过遍历从roots开始的对象图来访问，那么应用程序也就无法访问它，则该对象被认为是垃圾。从roots访问的对象集合称为Live集。GC roots标记步骤非常短，因为roots的总数通常比较小。</p>
+<p>该阶段完成后，应用程序恢复执行，ZGC开始下一阶段，该阶段同时遍历对象图并标记所有可访问的对象。 在此阶段期间，读屏障针使用掩码测试所有已加载的引用，该掩码确定它们是否已标记或尚未标记，如果尚未标记引用，则将其添加到队列以进行标记。</p>
+<p>在遍历完成之后，有一个最终的，时间很短的的Stop The World阶段，这个阶段处理一些边缘情况（我们现在将它忽略），该阶段完成之后标记阶段就完成了。</p>
+<h5 id="重定位"><a href="#重定位" class="headerlink" title="重定位"></a><strong>重定位</strong></h5><p>GC循环的下一个主要部分是重定位。重定位涉及移动活动对象以释放部分堆内存。 为什么要移动对象而不是填补空隙？ 有些GC实际是这样做的，但是它导致了一个不幸的后果，即分配内存变得更加昂贵，因为当需要分配内存时，内存分配器需要找到可以放置对象的空闲空间。 相比之下，如果可以释放大块内存，那么分配内存就很简单，只需要将指针递增新对象所需的内存大小即可。</p>
+<p>ZGC将堆分成许多页面，在此阶段开始时，它同时选择一组需要重定位活动对象的页面。选择重定位集后，会出现一个Stop The World暂停，其中ZGC重定位该集合中root对象，并将他们的引用映射到新位置。与之前的Stop The World步骤一样，此处涉及的暂停时间仅取决于root的数量以及重定位集的大小与对象的总活动集的比率，这通常相当小。所以不像很多收集器那样，暂停时间随堆增加而增加。</p>
+<p>移动root后，下一阶段是并发重定位。 在此阶段，GC线程遍历重定位集并重新定位其包含的页中所有对象。 如果应用程序线程试图在GC重新定位对象之前加载它们，那么应用程序线程也可以重定位该对象，这可以通过读屏障（在从堆加载引用时触发）</p>
+<p>这可确保应用程序看到的所有引用都已更新，并且应用程序不可能同时对重定位的对象进行操作。</p>
+<p>GC线程最终将对重定位集中的所有对象重定位，然而可能仍有引用指向这些对象的旧位置。 GC可以遍历对象图并重新映射这些引用到新位置，但是这一步代价很高昂。 因此这一步与下一个标记阶段合并在一起。在下一个GC周期的标记阶段遍历对象对象图的时候，如果发现未重映射的引用，则将其重新映射，然后标记为活动状态。</p>
+</blockquote>
+<h3 id="JVM内存优化"><a href="#JVM内存优化" class="headerlink" title="JVM内存优化"></a>JVM内存优化</h3><p>在《深入理解Java虚拟机》一书中讲了很多jvm优化思路，下面我来简单说说。</p>
+<h4 id="java内存抖动"><a href="#java内存抖动" class="headerlink" title="java内存抖动"></a>java内存抖动</h4><p>堆内存都有一定的大小，能容纳的数据是有限制的，当Java堆的大小太大时，垃圾收集会启动停止堆中不再应用的对象，来释放内存。现在，内存抖动这个术语可用于描述在极短时间内分配给对象的过程。 具体如何优化请谷歌查询~</p>
+<h4 id="jvm大页内存"><a href="#jvm大页内存" class="headerlink" title="jvm大页内存"></a>jvm大页内存</h4><h5 id="什么是内存分页？"><a href="#什么是内存分页？" class="headerlink" title="什么是内存分页？"></a>什么是内存分页？</h5><p>CPU是通过寻址来访问内存的。32位CPU的寻址宽度是 0~0xFFFFFFFF，即4G，也就是说可支持的物理内存最大是4G。但在实践过程中，程序需要使用4G内存，而可用物理内存小于4G，导致程序不得不降低内存占用。为了解决此类问题，现代CPU引入了<code>MMU</code>（Memory Management Unit，内存管理单元）。       </p>
+<p><code>MMU</code> 的核心思想是利用虚拟地址替代物理地址，即CPU寻址时使用虚址，由MMU负责将虚址映射为物理地址。MMU的引入，解决了对物理内存的限制，对程序来说，就像自己在使用4G内存一样。       </p>
+<p><strong>内存分页</strong>(Paging)是在使用MMU的基础上，提出的一种内存管理机制。它将虚拟地址和物理地址按固定大小（4K）分割成页(page)和页帧(page frame)，并保证页与页帧的大小相同。这种机制，从数据结构上，保证了访问内存的高效，并使OS能支持非连续性的内存分配。在程序内存不够用时，还可以将不常用的物理内存页转移到其他存储设备上，比如磁盘，这就是虚拟内存。    </p>
+<p>要知道，虚拟地址与物理地址需要通过映射，才能使CPU正常工作。而映射就需要存储映射表。在现代CPU架构中，映射关系通常被存储在物理内存上一个被称之为页表(page table)的地方。 页表是被存储在内存中的，CPU通过总线访问内存，肯定慢于直接访问寄存器的。为了进一步优化性能，现代CPU架构引入了<code>TLB</code>（Translation lookaside buffer，页表寄存器缓冲），用来缓存一部分经常访问的页表内容 。</p>
+<h5 id="为什么要支持大内存分页？"><a href="#为什么要支持大内存分页？" class="headerlink" title="为什么要支持大内存分页？"></a>为什么要支持大内存分页？</h5><p>TLB是有限的，这点毫无疑问。当超出TLB的存储极限时，就会发生 TLB miss，于是OS就会命令CPU去访问内存上的页表。如果频繁的出现TLB miss，程序的性能会下降地很快。</p>
+<p>为了让TLB可以存储更多的页地址映射关系，我们的做法是调大内存分页大小。</p>
+<p>如果一个页4M，对比一个页4K，前者可以让TLB多存储1000个页地址映射关系，性能的提升是比较可观的。</p>
+<h5 id="开启JVM大页内存"><a href="#开启JVM大页内存" class="headerlink" title="开启JVM大页内存"></a>开启JVM大页内存</h5><p>JVM启用时加参数 -XX:LargePageSizeInBytes=10m 如果JDK是在1.5 update5以前的，还需要加 -XX:+UseLargePages，作用是启用大内存页支持。 </p>
+<h4 id="通过软引用和弱引用提升JVM内存使用性能"><a href="#通过软引用和弱引用提升JVM内存使用性能" class="headerlink" title="通过软引用和弱引用提升JVM内存使用性能"></a>通过软引用和弱引用提升JVM内存使用性能</h4><h5 id="强软弱虚"><a href="#强软弱虚" class="headerlink" title="强软弱虚"></a>强软弱虚</h5><ol>
+<li>强引用：</li>
+</ol>
+<p>只要引用存在，垃圾回收器永远不会回收</p>
+<p>Object obj = new Object();</p>
+<p>//可直接通过obj取得对应的对象 如obj.equels(new Object());</p>
+<p>而这样 obj对象对后面new Object的一个强引用，只有当obj这个引用被释放之后，对象才会被释放掉，这也是我们经常所用到的编码形式。</p>
+<ol start="2">
+<li>软引用（可以实现缓存）：</li>
+</ol>
+<p>非必须引用，内存溢出之前进行回收，可以通过以下代码实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Object obj = <span class="keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line">SoftReference&lt;Object&gt; sf = <span class="keyword">new</span> SoftReference&lt;Object&gt;(obj);</span><br><span class="line"></span><br><span class="line">obj = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">sf.get();<span class="comment">//有时候会返回null</span></span><br></pre></td></tr></table></figure></p>
+<p>这时候sf是对obj的一个软引用，通过sf.get()方法可以取到这个对象，当然，当这个对象被标记为需要回收的对象时，则返回null；软引用主要用户实现类似缓存的功能，在内存足够的情况下直接通过软引用取值，无需从繁忙的真实来源查询数据，提升速度；当内存不足时，自动删除这部分缓存数据，从真正的来源查询这些数据。</p>
+<ol start="3">
+<li>弱引用（用来在回调函数中防止内存泄露）：</li>
+</ol>
+<p>第二次垃圾回收时回收，可以通过如下代码实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Object obj = <span class="keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line">WeakReference&lt;Object&gt; wf = <span class="keyword">new</span> WeakReference&lt;Object&gt;(obj);</span><br><span class="line"></span><br><span class="line">obj = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">wf.get();<span class="comment">//有时候会返回null</span></span><br><span class="line"></span><br><span class="line">wf.isEnQueued();<span class="comment">//返回是否被垃圾回收器标记为即将回收的垃圾</span></span><br></pre></td></tr></table></figure></p>
+<p>弱引用是在第二次垃圾回收时回收，短时间内通过弱引用取对应的数据，可以取到，当执行过第二次垃圾回收时，将返回null。弱引用主要用于监控对象是否已经被垃圾回收器标记为即将回收的垃圾，可以通过弱引用的isEnQueued方法返回对象是否被垃圾回收器标记。</p>
+<ol start="4">
+<li>虚引用：</li>
+</ol>
+<p>垃圾回收时回收，无法通过引用取到对象值，可以通过如下代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Object obj = <span class="keyword">new</span> Object();</span><br><span class="line">PhantomReference&lt;Object&gt; pf = <span class="keyword">new</span> PhantomReference&lt;Object&gt;(obj);</span><br><span class="line">obj=<span class="keyword">null</span>;</span><br><span class="line">pf.get();<span class="comment">//永远返回null</span></span><br><span class="line">pf.isEnQueued();<span class="comment">//返回是否从内存中已经删除</span></span><br></pre></td></tr></table></figure>
+<p>虚引用是每次垃圾回收的时候都会被回收，通过虚引用的get方法永远获取到的数据为null，因此也被成为幽灵引用。虚引用主要用于检测对象是否已经从内存中删除。</p>
+<h5 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h5><p>简单来说，可以使用软引用还引用数量巨大的对象，详情请参考<a href="http://www.cnblogs.com/JavaArchitect/p/8685993.html" target="_blank" rel="noopener">http://www.cnblogs.com/JavaArchitect/p/8685993.html</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>此篇文章总共1.5W字，我从计算机物理内存体系讲到了java内存模型，在通过java内存模型引出了JVM内存的相关知识点。觉得写的好的请给个赞。本篇文章我会率先发布在我的个人博客，随后会在掘金等平台相继发出。最后，非常感谢你的阅读~</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>文中的各种超链接</p>
+<p>《深入理解Java虚拟机》</p>
+<p>《Java并发编程的艺术》</p>
+<p>《架构解密从分布式到微服务》</p>
+<p><a href="https://www.cnblogs.com/yubo/archive/2010/04/23/1718810.html" target="_blank" rel="noopener">SMP、NUMA、MPP体系结构介绍</a></p>
+<p><a href="https://medium.com/airbnb-engineering/nebula-as-a-storage-platform-to-build-airbnbs-search-backends-ecc577b05f06" target="_blank" rel="noopener">ZGC原理（请用正确的姿势魔法上网观看）</a></p>
+<p><a href="https://www.youtube.com/watch?v=tShc0dyFtgw" target="_blank" rel="noopener">Stefan Karlsson和PerLiden Jfokus的演讲（请用正确的姿势魔法上网）</a></p>
+<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><p>【版权申明】此片为原创内容，使用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0</a>授权条款，请遵守对应的义务，即被授权人有义务在所有副本中都必须包含版权声明。谢谢合作~</p>
+<p>想要解锁更多新姿势？请访问我的个人博客<a href="https://blog.tengshe789.tech/（😘" target="_blank" rel="noopener">https://blog.tengshe789.tech/（😘</a></p>
+
+      
+    </div>
+    
+    
+    
+      <div>
+        
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本稿が終わる<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="tEngSHe789 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    tEngSHe789
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tengshe789.github.io/2018/09/30/Java与内存/" title="并发基础-缓存、内存与JVM">https://tengshe789.github.io/2018/09/30/Java与内存/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/并发/" rel="tag"><i class="fa fa-tag"></i> 并发</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/03/记一次不经思考的消费-AppStore退款/" rel="next" title="记一次不经思考的消费(AppStore退款)">
+                <i class="fa fa-chevron-left"></i> 记一次不经思考的消费(AppStore退款)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/07/万物基于Spring/" rel="prev" title="万物基于Spring（一）">
+                万物基于Spring（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="tEngSHe789">
+            
+              <p class="site-author-name" itemprop="name">tEngSHe789</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/tengshe789" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:randyvan007@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/101453729765094892757" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/tengshe789" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/tengshe789" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://steamcommunity.com/id/tengshe789" target="_blank" title="Steam">
+                      
+                        <i class="fa fa-fw fa-steam"></i>Steam</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/9930788/tengshe-789" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://dribbble.com/tengshe789" target="_blank" title="dribbble">
+                      
+                        <i class="fa fa-fw fa-dribbble"></i>dribbble</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/ha.7787" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/5649075808" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/970176296" target="_blank" title="QQZone">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQZone</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://music.163.com/#/user/home?id=73274594" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b4c1dd0e51d45194558166b" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://segmentfault.com/u/tengshe789" target="_blank" title="思否">
+                      
+                        <i class="fa fa-fw fa-scribd"></i>思否</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算机内存"><span class="nav-number">1.</span> <span class="nav-text">计算机内存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cpu与内存缓存的千丝万缕"><span class="nav-number">1.1.</span> <span class="nav-text">cpu与内存缓存的千丝万缕</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cpu相关术语"><span class="nav-number">1.1.1.</span> <span class="nav-text">cpu相关术语</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cpu缓存"><span class="nav-number">1.1.2.</span> <span class="nav-text">cpu缓存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存一致性问题"><span class="nav-number">1.2.</span> <span class="nav-text">缓存一致性问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MESI协议"><span class="nav-number">1.2.1.</span> <span class="nav-text">MESI协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#伪共享问题"><span class="nav-number">1.2.2.</span> <span class="nav-text">伪共享问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决伪共享"><span class="nav-number">1.2.3.</span> <span class="nav-text">解决伪共享</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存不一致性问题"><span class="nav-number">1.3.</span> <span class="nav-text">内存不一致性问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#三种cpu架构"><span class="nav-number">1.3.1.</span> <span class="nav-text">三种cpu架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NUMA结构下的缓存一致性"><span class="nav-number">1.3.2.</span> <span class="nav-text">NUMA结构下的缓存一致性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java内存模型"><span class="nav-number">2.</span> <span class="nav-text">Java内存模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#起因"><span class="nav-number">2.1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JMM"><span class="nav-number">2.2.</span> <span class="nav-text">JMM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JMM同步八种操作"><span class="nav-number">2.3.</span> <span class="nav-text">JMM同步八种操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#同步规则"><span class="nav-number">2.3.1.</span> <span class="nav-text">同步规则</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JMM应用"><span class="nav-number">2.4.</span> <span class="nav-text">JMM应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原子性"><span class="nav-number">2.4.1.</span> <span class="nav-text">原子性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可见性"><span class="nav-number">2.4.2.</span> <span class="nav-text">可见性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有序性"><span class="nav-number">2.4.3.</span> <span class="nav-text">有序性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM"><span class="nav-number">3.</span> <span class="nav-text">JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM运行时内存区域结构"><span class="nav-number">3.1.</span> <span class="nav-text">JVM运行时内存区域结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java对象模型的内存布局"><span class="nav-number">3.2.</span> <span class="nav-text">Java对象模型的内存布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM内存垃圾收集器"><span class="nav-number">3.3.</span> <span class="nav-text">JVM内存垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Serial收集器"><span class="nav-number">3.3.1.</span> <span class="nav-text">Serial收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ParNew收集器"><span class="nav-number">3.3.2.</span> <span class="nav-text">ParNew收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Parallel-Scavenge收集器"><span class="nav-number">3.3.3.</span> <span class="nav-text">Parallel Scavenge收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Serial-Old收集器"><span class="nav-number">3.3.4.</span> <span class="nav-text">Serial Old收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Parallel-Old收集器"><span class="nav-number">3.3.5.</span> <span class="nav-text">Parallel Old收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMS-收集器"><span class="nav-number">3.3.6.</span> <span class="nav-text">CMS 收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#G1收集器"><span class="nav-number">3.3.7.</span> <span class="nav-text">G1收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZGC收集器"><span class="nav-number">3.3.8.</span> <span class="nav-text">ZGC收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#着色指针"><span class="nav-number">3.3.8.1.</span> <span class="nav-text">着色指针</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多重映射"><span class="nav-number">3.3.8.2.</span> <span class="nav-text">多重映射</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#读屏障"><span class="nav-number">3.3.8.3.</span> <span class="nav-text">读屏障</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#标记"><span class="nav-number">3.3.8.4.</span> <span class="nav-text">标记</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#重定位"><span class="nav-number">3.3.8.5.</span> <span class="nav-text">重定位</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM内存优化"><span class="nav-number">3.4.</span> <span class="nav-text">JVM内存优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#java内存抖动"><span class="nav-number">3.4.1.</span> <span class="nav-text">java内存抖动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jvm大页内存"><span class="nav-number">3.4.2.</span> <span class="nav-text">jvm大页内存</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是内存分页？"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">什么是内存分页？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么要支持大内存分页？"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">为什么要支持大内存分页？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#开启JVM大页内存"><span class="nav-number">3.4.2.3.</span> <span class="nav-text">开启JVM大页内存</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过软引用和弱引用提升JVM内存使用性能"><span class="nav-number">3.4.3.</span> <span class="nav-text">通过软引用和弱引用提升JVM内存使用性能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#强软弱虚"><span class="nav-number">3.4.3.1.</span> <span class="nav-text">强软弱虚</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优化"><span class="nav-number">3.4.3.2.</span> <span class="nav-text">优化</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">4.1.</span> <span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#声明"><span class="nav-number">4.2.</span> <span class="nav-text">声明</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+      
+            <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+            <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+            <div class="widget-wrap">
+            <h3 class="widget-title">Tag Cloud</h3>
+            <div id="myCanvasContainer" class="widget tagcloud">
+                <canvas width="250" height="250" id="resCanvas" style="width=100%">
+                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows10/">Windows10</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/">k8s</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/军事/">军事</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分享/">分享</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/初/">初</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/吐槽/">吐槽</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学好分布式架构/">学好分布式架构</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a><span class="tag-list-count">27</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构与算法/">数据结构与算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/硬件/">硬件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/窍门/">窍门</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件分享/">软件分享</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件教学/">软件教学</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/错题/">错题</a><span class="tag-list-count">1</span></li></ul>
+                </canvas>
+            </div>
+            </div>
+      
+
+      
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-7659349864173199",
+            enable_page_level_ads: true
+            });
+            </script>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tEngSHe789</span>
+
+  
+</div>
+
+
+  <!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div> -->
+
+
+
+
+
+
+
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("01/1/2018 0:00:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-nipsilon"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"tagMode":true,"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=1.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=1.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=1.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=1.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=1.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=1.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=1.0.0"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://tengshe789.github.io/2018/09/30/Java与内存/';
+          this.page.identifier = '2018/09/30/Java与内存/';
+          this.page.title = '并发基础-缓存、内存与JVM';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'LNoutjtqdzTwP7Ui74LV5Dw1-gzGzoHsz',
+        appKey: 'rO9bQ0F0wlhqulsUoNy80KPb',
+        placeholder: '来说两句吧~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("LNoutjtqdzTwP7Ui74LV5Dw1-gzGzoHsz", "rO9bQ0F0wlhqulsUoNy80KPb");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=1.0.0"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=1.0.0"></script>
+
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-nipsilon"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"tagMode":true,"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script>
+</body>
+</html>
+<!-- 页面点击小红心 --> 
+<script type="text/javascript" src="/js/src/love.js"></script>

@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="A1lh6qh2KG4qHp1egv4rR8POayZtKMsUVAbq3sk2XOc">
+
+
+
+  <meta name="msvalidate.01" content="0EF0AB564911357C367CABC34BA94C40">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=1.0.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=1.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="技术,java,学好分布式架构,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="tEngSHe789の小站" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="“学好分布式架构”节目做到第四期了，👏👏👏 想要解锁更多新姿势？请访问我的博客 分布式概念（前戏）了解一个技术，先要掌握它的理论，然后循序渐进。所以，理论来了~ 什么是分布式呢？简单说，分布式系统背后是由一系列的计算机组成的，但用户感知不到背后的逻辑，就像访问单个计算机一样   最基本的特点分布性服务器的位置可能在不一个位置 并发性程序运行过程中，并发性操作是很常见的。比如同一个分布式系统中">
+<meta name="keywords" content="技术,java,学好分布式架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学好分布式架构=5=-zookeeper">
+<meta property="og:url" content="https://tengshe789.github.io/2018/07/29/我要学好分布式-zookeeper/index.html">
+<meta property="og:site_name" content="tEngSHe789の小站">
+<meta property="og:description" content="“学好分布式架构”节目做到第四期了，👏👏👏 想要解锁更多新姿势？请访问我的博客 分布式概念（前戏）了解一个技术，先要掌握它的理论，然后循序渐进。所以，理论来了~ 什么是分布式呢？简单说，分布式系统背后是由一系列的计算机组成的，但用户感知不到背后的逻辑，就像访问单个计算机一样   最基本的特点分布性服务器的位置可能在不一个位置 并发性程序运行过程中，并发性操作是很常见的。比如同一个分布式系统中">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://tengshe789.github.io/2018/07/29/我要学好分布式-zookeeper/0.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/07/29/我要学好分布式-zookeeper/1.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/07/29/我要学好分布式-zookeeper/6.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/07/29/我要学好分布式-zookeeper/2.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/07/29/我要学好分布式-zookeeper/3.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/07/29/我要学好分布式-zookeeper/5.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/07/29/我要学好分布式-zookeeper/4.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/07/29/我要学好分布式-zookeeper/7.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/07/29/我要学好分布式-zookeeper/8.png">
+<meta property="og:updated_time" content="2019-11-20T13:39:41.401Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学好分布式架构=5=-zookeeper">
+<meta name="twitter:description" content="“学好分布式架构”节目做到第四期了，👏👏👏 想要解锁更多新姿势？请访问我的博客 分布式概念（前戏）了解一个技术，先要掌握它的理论，然后循序渐进。所以，理论来了~ 什么是分布式呢？简单说，分布式系统背后是由一系列的计算机组成的，但用户感知不到背后的逻辑，就像访问单个计算机一样   最基本的特点分布性服务器的位置可能在不一个位置 并发性程序运行过程中，并发性操作是很常见的。比如同一个分布式系统中">
+<meta name="twitter:image" content="https://tengshe789.github.io/2018/07/29/我要学好分布式-zookeeper/0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '1.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://tengshe789.github.io/2018/07/29/我要学好分布式-zookeeper/">
+
+
+<!-- 谷歌AdSense -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+<!-- 心智天气 -->
+<script>(function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.seniverse.com/widget/chameleon.js"))</script>
+<script>tpwidget("init", {
+    "flavor": "bubble",
+    "location": "WWMT5Q64CR3G",
+    "geolocation": "enabled",
+    "position": "bottom-right",
+    "margin": "10px 10px",
+    "language": "zh-chs",
+    "unit": "c",
+    "theme": "chameleon",
+    "uid": "UFA58EE03C",
+    "hash": "f8aaef53e1c80162af9fcce01022efec"
+});
+tpwidget("show");</script>
+
+  <title>学好分布式架构=5=-zookeeper | tEngSHe789の小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tEngSHe789の小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">随性而行，不行拉倒</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tengshe789.github.io/2018/07/29/我要学好分布式-zookeeper/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tEngSHe789">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tEngSHe789の小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">学好分布式架构=5=-zookeeper</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-29T16:02:49+08:00">
+                2018-07-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/29/我要学好分布式-zookeeper/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/07/29/我要学好分布式-zookeeper/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/07/29/我要学好分布式-zookeeper/" class="leancloud_visitors" data-flag-title="学好分布式架构=5=-zookeeper">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,823
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>“学好分布式架构”节目做到第四期了，👏👏👏</p>
+<p>想要解锁更多新姿势？请访问<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">我的博客</a></p>
+<h1 id="分布式概念（前戏）"><a href="#分布式概念（前戏）" class="headerlink" title="分布式概念（前戏）"></a>分布式概念（前戏）</h1><p>了解一个技术，先要掌握它的理论，然后循序渐进。所以，理论来了~</p>
+<p>什么是分布式呢？简单说，分布式系统背后是由一系列的计算机组成的，但用户感知不到背后的逻辑，就像访问单个计算机一样 </p>
+<p><img src="/2018/07/29/我要学好分布式-zookeeper/0.png" alt="分布式概念"></p>
+<h2 id="最基本的特点"><a href="#最基本的特点" class="headerlink" title="最基本的特点"></a>最基本的特点</h2><h4 id="分布性"><a href="#分布性" class="headerlink" title="分布性"></a>分布性</h4><p>服务器的位置可能在不一个位置</p>
+<h4 id="并发性"><a href="#并发性" class="headerlink" title="并发性"></a>并发性</h4><p>程序运行过程中，并发性操作是很常见的。比如同一个分布式系统中的多个节点，同时访问一个共享资源。数据库、分布式存储</p>
+<h4 id="无序性"><a href="#无序性" class="headerlink" title="无序性"></a>无序性</h4><p>进程之间的消息通信，会出现顺序不一致问题</p>
+<h2 id="分布式环境下面临的问题"><a href="#分布式环境下面临的问题" class="headerlink" title="分布式环境下面临的问题"></a>分布式环境下面临的问题</h2><p>分布式的特点决定了它一定会有相应的问题</p>
+<h3 id="网络通信"><a href="#网络通信" class="headerlink" title="网络通信"></a>网络通信</h3><p>分布式系统的信息通过网络来传输的，而网络本身的不可靠性，因此会涉及到一些网络通信问题</p>
+<h3 id="网络分区-脑裂"><a href="#网络分区-脑裂" class="headerlink" title="网络分区(脑裂)"></a>网络分区(脑裂)</h3><p>什么是脑裂呢？</p>
+<p>在高可用（HA）系统中，当联系2个节点的“心跳线”断开时，本来为一整体、动作协调的HA系统，就分裂成为2个独立的个体。由于相互失去了联系，都以为是对方出了故障。两个节点上的HA软件像“裂脑人”一样，争抢“共享资源”、争起“应用服务”，就会发生严重后果——或者共享资源被瓜分、2边“服务”都起不来了；或者2边“服务”都起来了，但同时读写“共享存储”，导致数据损坏（常见如数据库轮询着的联机日志出错）。 </p>
+<p>而当网络发生异常导致分布式系统中部分节点之间的网络延时不断增大，就会产生脑裂现象，即组成分布式架构的所有节点，只有部分节点能够正常通信</p>
+<h3 id="三态"><a href="#三态" class="headerlink" title="三态"></a>三态</h3><p>在正常的单机环境下，一个程序调用一个接口，正常情况下只有2个状态，成功态和失败态。  但是在分布式环境下，就又多了一种状态，叫做超时态，指的就是在分布式网路通信时，因为网络故障，我的消息一直没有收到返回或者是我的消息没有发送出去。 </p>
+<h3 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h3><p>分布式也会有事物问题，即ACID(原子性、一致性、隔离性、持久性)。譬如，如果两台分布式架构的服务器有这相同的功能，当用户操作的时候，你要保存这两台服务器的同时发生同时成功，这就属于事物问题。</p>
+<blockquote>
+<p>1.原子性（Atomicity）</p>
+<p>​    一个原子事务要么完整执行，要么干脆不执行。这意味着，工作单元中的每项任务都必须正确执行。如果有任一任务执行失败，则整个工作单元或事务就会被终止。即此前对数据所作的任何修改都将被撤销。如果所有任务都被成功执行，事务就会被提交，即对数据所作的修改将会是永久性的。</p>
+<p>2.一致性（Consistency）</p>
+<p>​    一致性代表了底层数据存储的完整性。它必须由事务系统和应用开发人员共同来保证。事务系统通过保证事务的原子性，隔离性和持久性来满足这一要求; 应用开发人员则需要保证数据库有适当的约束(主键，引用完整性等)，并且工作单元中所实现的业务逻辑不会导致数据的不一致(即，数据预期所表达的现实业务情况不相一致)。例如，在一次转账过程中，从某一账户中扣除的金额必须与另一账户中存入的金额相等。</p>
+<p>3.隔离性（Isolation）</p>
+<p>​    隔离性意味着事务必须在不干扰其他进程或事务的前提下独立执行。换言之，在事务或工作单元执行完毕之前，其所访问的数据不能受系统其他部分的影响。</p>
+<p>4.持久性（Durability）</p>
+<p>​    持久性表示在某个事务的执行过程中，对数据所作的所有改动都必须在事务成功结束前保存至某种物理存储设备。这样可以保证，所作的修改在任何系统瘫痪时不至于丢失。</p>
+</blockquote>
+<h4 id="中心化和去中心化"><a href="#中心化和去中心化" class="headerlink" title="中心化和去中心化"></a>中心化和去中心化</h4><p>数据库备份一般使用冷备或者热备</p>
+<blockquote>
+<p>热备：一般用于保证服务正常不间断运行，用两台机器作为服务机器，一台用于实际数据库操作应用,另外一台实时的从前者中获取数据以保持数据一致.如果当前的机器熄火,备份的机器立马取代当前的机器继续提供服务</p>
+<p>冷备：.冷备份指在数据库关闭后,进行备份,适用于所有模式的数据库</p>
+</blockquote>
+<p>分布式架构里面，很多的架构思想采用的是去中心化。即在一个分布有众多节点的系统中，每个节点都具有高度自治的特征。节点之间彼此可以自由连接，形成新的连接单元。任何一个节点都可能成为阶段性的中心，但不具备强制性的中心控制功能。节点与节点之间的影响，会通过网络而形成非线性因果关系。这种开放式、扁平化、平等性的系统现象或结构，我们称之为去中心化 </p>
+<p>最典型的是： zookeeper / etcd</p>
+<h4 id="经典的CAP"><a href="#经典的CAP" class="headerlink" title="经典的CAP"></a>经典的CAP</h4><p>C<strong>一致性</strong> （Consistency）: 所有节点上的数据，时刻保持一致</p>
+<p>A<strong>可用性</strong>（Availability）：每个请求都能够收到一个响应，无论响应成功或者失败</p>
+<p>P<strong>分区容错</strong> （Partition-tolerance）：表示系统出现脑裂以后，可能导致某些server与集群中的其他机器失去联系</p>
+<p>无论如何，都只能保证CP或者 AP。<em>CAP理论仅适用于原子读写的Nosql场景，不适用于数据库系统</em></p>
+<h4 id="BASE理论"><a href="#BASE理论" class="headerlink" title="BASE理论"></a>BASE理论</h4><p>基于CAP理论，CAP理论并不适用于数据库事务（因为更新一些错误的数据而导致数据出现紊乱，无论什么样的数据库高可用方案都是徒劳） ，虽然XA事务可以保证数据库在分布式系统下的ACID特性，但是会带来性能方面的影响；</p>
+<p>eBay尝试了一种完全不同的套路，放宽了对事务ACID的要求。提出了BASE理论：</p>
+<p><strong>Basically available</strong>  ： 数据库采用分片模式， 把100W的用户数据分布在5个实例上。如果破坏了其中一个实例，仍然可以保证</p>
+<p>80%的用户可用</p>
+<p><strong>soft-state</strong>：  在基于client-server模式的系统中，server端是否有状态，决定了系统是否具备良好的水平扩展、负载均衡、故障恢复等特性。</p>
+<p>Server端承诺会维护client端状态数据，这个状态仅仅维持一小段时间, 这段时间以后，server端就会丢弃这个状态，恢复正常状态</p>
+<p><strong>Eventually consistent</strong>：数据的最终一致性</p>
+<p>是</p>
+<h1 id="Zookeeper（正片）"><a href="#Zookeeper（正片）" class="headerlink" title="Zookeeper（正片）"></a>Zookeeper（正片）</h1><p>zookeeper是一个开源的分布式数据存储系统，提供分布式数据一致性的解决方案。是由雅虎创建的，基于google chubby。 </p>
+<h2 id="zookeeper是什么"><a href="#zookeeper是什么" class="headerlink" title="zookeeper是什么"></a>zookeeper是什么</h2><p>分布式数据一致性的解决方案</p>
+<h2 id="zookeeper能做什么"><a href="#zookeeper能做什么" class="headerlink" title="zookeeper能做什么"></a>zookeeper能做什么</h2><p>数据的发布/订阅（配置中心:disconf）  、 负载均衡（dubbo利用了zookeeper机制实现负载均衡） 、命名服务、</p>
+<p>master选举(kafka、hadoop、hbase)、分布式队列、分布式锁</p>
+<h3 id="zookeeper特性"><a href="#zookeeper特性" class="headerlink" title="zookeeper特性"></a>zookeeper特性</h3><h4 id="顺序一致性"><a href="#顺序一致性" class="headerlink" title="顺序一致性"></a>顺序一致性</h4><p>从同一个客户端发起的事务请求，最终会严格按照顺序被应用到zookeeper中</p>
+<h4 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h4><p>所有的事务请求的处理结果在整个集群中的所有机器上的应用情况是一致的，也就是说，要么整个集群中的所有机器都成功应用了某一事务、要么全都不应用</p>
+<h4 id="可靠性"><a href="#可靠性" class="headerlink" title="可靠性"></a>可靠性</h4><p>一旦服务器成功应用了某一个事务数据，并且对客户端做了响应，那么这个数据在整个集群中一定是同步并且保留下来的</p>
+<h4 id="实时性"><a href="#实时性" class="headerlink" title="实时性"></a>实时性</h4><p>一旦一个事务被成功应用，客户端就能够立即从服务器端读取到事务变更后的最新数据状态；（zookeeper仅仅保证在一定时间内，近实时）</p>
+<h2 id="zookeeper集群环境"><a href="#zookeeper集群环境" class="headerlink" title="zookeeper集群环境"></a>zookeeper集群环境</h2><p>zookeeper集群, 包含三种角色: leader / follower /observer</p>
+<p> <img src="/2018/07/29/我要学好分布式-zookeeper/1.png" alt="三种角色"></p>
+<p><code>observer</code></p>
+<p>observer 是一种特殊的zookeeper节点。可以<strong>帮助解决zookeeper的扩展性</strong>（如果大量客户端访问我们zookeeper集群，需要增加zookeeper集群机器数量。从而增加zookeeper集群的性能。 导致zookeeper写性能下降， zookeeper的数据变更需要<strong>半数</strong>以上服务器投票通过。造成网络消耗增加投票成本）</p>
+<ol>
+<li><p>observer不参与投票。 <strong>只接收</strong>投票结果。不和follower联系。</p>
+</li>
+<li><p>不属于zookeeper的关键部位。</p>
+</li>
+</ol>
+<p><img src="/2018/07/29/我要学好分布式-zookeeper/6.png" alt="1532939249421"></p>
+<h3 id="安装zookeeper"><a href="#安装zookeeper" class="headerlink" title="安装zookeeper"></a>安装zookeeper</h3><p>可以虚拟机中操作，系统centos7，zookeeper去官方网下稳定版。安装后：</p>
+<h5 id="第一步：-修改配置文件zoo-cfg"><a href="#第一步：-修改配置文件zoo-cfg" class="headerlink" title="第一步： 修改配置文件zoo.cfg"></a>第一步： 修改配置文件zoo.cfg</h5><p><code>server.id=host:port:port</code></p>
+<p>id的取值范围： 1~255； 用id来标识该机器在集群中的机器序号；</p>
+<p>2888是表示follower节点与leader节点交换信息的端口号，要定义成和系统没有冲突的端口号；</p>
+<p>3181 表示leader选举的端口，如果leader节点挂掉了, 需要一个端口来重新选举 </p>
+<p> 栗子：</p>
+<p>server.1=192.168.11.129:2888:3181</p>
+<p>server.2=192.168.11.131:2888:3181</p>
+<p>server.3=192.168.11.135:2888:3181</p>
+<p>如果需要增加observer节点，zoo.cfg中，增加 ;peerType=observer</p>
+<p>server.1=192.168.11.129:2888:3181  </p>
+<p>server.2=192.168.11.135:2888:3181   </p>
+<p>server.3=192.168.111.136:2888:3181:observer</p>
+<h5 id="第二步：创建myid"><a href="#第二步：创建myid" class="headerlink" title="第二步：创建myid"></a>第二步：创建myid</h5><p>在每一个服务器的dataDir目录下创建一个myid的文件，文件就一行数据，数据内容是每台机器对应的server ID的数字</p>
+<p><img src="/2018/07/29/我要学好分布式-zookeeper/2.png" alt="1532938048382"></p>
+<h5 id="第三步：启动zookeeper"><a href="#第三步：启动zookeeper" class="headerlink" title="第三步：启动zookeeper"></a>第三步：启动zookeeper</h5><p><img src="/2018/07/29/我要学好分布式-zookeeper/3.png" alt="1532938153285"></p>
+<p>关掉防火墙</p>
+<p><img src="/2018/07/29/我要学好分布式-zookeeper/5.png" alt="1532938312978"></p>
+<p>看到生成<code>zeekeeper.out</code>这样的一个日志，可以使用<code>tail</code>命令查看</p>
+<p><img src="/2018/07/29/我要学好分布式-zookeeper/4.png" alt="1532938204685"></p>
+<h3 id="Zookeeper中的一些概念"><a href="#Zookeeper中的一些概念" class="headerlink" title="Zookeeper中的一些概念"></a>Zookeeper中的一些概念</h3><h4 id="Zookeeper配置解析"><a href="#Zookeeper配置解析" class="headerlink" title="Zookeeper配置解析"></a>Zookeeper配置解析</h4><p><img src="/2018/07/29/我要学好分布式-zookeeper/7.png" alt="1532955279402"></p>
+<p><code>tickTime=2000</code>  zookeeper中最小的时间单位长度 （ms）</p>
+<p><code>initLimit=10</code>  follower节点启动后与leader节点完成数据同步的时间</p>
+<p><code>syncLimit</code>=5 leader节点和follower节点进行心跳检测的最大延时时间</p>
+<p><code>dataDir</code>=/tmp/zookeeper  表示zookeeper服务器存储快照文件的目录</p>
+<p><code>dataLogDir</code> 表示配置 zookeeper事务日志的存储路径，默认指定在dataDir目录下</p>
+<p><code>clientPort</code> 表示客户端和服务端建立连接的端口号： 2181</p>
+<h4 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h4><p><code>zookeeper</code>的数据模型和文件系统类似，每一个节点称为：<code>znode</code>.  是zookeeper中的最小数据单元。每一个<code>znode</code>上都可以保存数据和挂载子节点。 从而构成一个层次化的属性结构</p>
+<h5 id="节点特性"><a href="#节点特性" class="headerlink" title="节点特性"></a>节点特性</h5><p>持久化节点  ： 节点创建后会一直存在<code>zookeeper</code>服务器上，直到主动删除</p>
+<p>持久化有序节点 ：每个节点都会为它的一级子节点维护一个顺序</p>
+<p>临时节点 ： 临时节点的生命周期和客户端的<strong>会话</strong>保持一致。当客户端会话失效，该节点自动清理</p>
+<p>临时有序节点 ： 在临时节点上多勒一个顺序性特性</p>
+<h5 id="会话"><a href="#会话" class="headerlink" title="会话"></a>会话</h5><p>客户端和<code>zookeeper</code>会建立一个连接，这就是一个会话。</p>
+<p>会话有什么过程呢？</p>
+<p><img src="/2018/07/29/我要学好分布式-zookeeper/8.png" alt="1532956130898"></p>
+<h5 id="Watcher（监听）"><a href="#Watcher（监听）" class="headerlink" title="Watcher（监听）"></a>Watcher（监听）</h5><p><code>zookeeper</code>提供了分布式数据发布/订阅,<code>zookeeper</code>允许客户端向服务器注册一个<code>watcher</code>监听。当服务器端的节点触发指定事件的时候，会触发<code>watcher</code>。服务端会向客户端发送一个事件通知 <code>watcher</code>的<strong>通知是一次性</strong>，一旦触发一次通知后，该<code>watcher</code>就失效</p>
+<h5 id="ACL"><a href="#ACL" class="headerlink" title="ACL"></a>ACL</h5><p><code>zookeeper</code>提供控制节点访问权限的功能，用于有效的保证<code>zookeeper</code>中数据的安全性。避免误操作而导致系统出现重大事故。</p>
+<p>提供了：CREATE /READ/WRITE/DELETE/ADMIN</p>
+<h4 id="Zookeeper命令操作-增删改查"><a href="#Zookeeper命令操作-增删改查" class="headerlink" title="Zookeeper命令操作(增删改查)"></a>Zookeeper命令操作(增删改查)</h4><ol>
+<li><code>create [-s]   -e path data acl</code></li>
+</ol>
+<p>-s 表示节点是否有序</p>
+<p>-e 表示是否为临时节点</p>
+<p>(默认情况下，是持久化节点)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create /zoo #创建zoo节点</span><br><span class="line">create /zoo /zoo-1 #创建zoo节点下的zoo-1</span><br><span class="line">ls /nodes #显示节点</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><code>get path [watch]</code></li>
+</ol>
+<p>获得指定 path的信息</p>
+<p>​    3.<code>set path data [version]</code></p>
+<p>修改节点 path对应的data</p>
+<p><code>version</code>表示乐观锁，及数据库中有一个version字段去控制数据行的版本号</p>
+<blockquote>
+<p>乐观锁（ Optimistic Locking ） 相对<a href="https://baike.baidu.com/item/%E6%82%B2%E8%A7%82%E9%94%81" target="_blank" rel="noopener">悲观锁</a>而言，乐观锁机制采取了更加宽松的加锁机制。悲观锁大多数情况下依靠数据库的锁机制实现，以保证操作最大程度的独占性。但随之而来的就是数据库性能的大量开销，特别是对长<a href="https://baike.baidu.com/item/%E4%BA%8B%E5%8A%A1" target="_blank" rel="noopener">事务</a>而言，这样的开销往往无法承受。而乐观锁机制在一定程度上解决了这个问题。乐观锁，大多是基于数据版本（ Version ）记录机制实现。何谓数据版本？即为数据增加一个版本标识，在基于数据库表的版本解决方案中，一般是通过为数据库表增加一个 “version” 字段来实现。读取出数据时，将此版本号一同读出，之后更新时，对此版本号加一。此时，将提交数据的版本数据与数据库表对应记录的当前版本信息进行比对，如果提交的数据版本号大于数据库表当前版本号，则予以更新，否则认为是过期数据。  </p>
+</blockquote>
+<p>​     4.<code>delete path [version]</code></p>
+<p>删除节点</p>
+<h5 id="节点状态stat信息"><a href="#节点状态stat信息" class="headerlink" title="节点状态stat信息"></a>节点状态stat信息</h5><p><code>cversion</code> = 0       子（child）节点的版本号</p>
+<p><code>aclVersion</code> = 0     表示acl的版本号，修改节点权限</p>
+<p><code>dataVersion</code> = 1    表示的是当前节点数据的版本号</p>
+<p><code>czxid</code>    节点被创建时的事务ID</p>
+<p><code>mzxid</code>   节点最后一次被更新的事务ID</p>
+<p><code>pzxid</code>    当前节点下的子节点最后一次被修改时的事务ID</p>
+<p><code>ctime</code> = 创建时间</p>
+<p><code>mtime</code> = 修改时间</p>
+<p><code>ephemeralOwner</code> = 0x0   创建临时节点的时候，会有一个sessionId 。 该值存储的就是这个sessionid 。0X0代表无</p>
+<p><code>dataLength</code> = 3    数据值长度</p>
+<p><code>numChildren</code> = 0  子节点数</p>
+<h3 id="在Java中使用zookeeper"><a href="#在Java中使用zookeeper" class="headerlink" title="在Java中使用zookeeper"></a>在Java中使用zookeeper</h3><p>引入依赖</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.zookeeper<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>zookeeper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.9<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>困了，睡觉。明天再码字。未完待续。。。。。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p> <a href="https://www.cnblogs.com/savorboard/p/distributed-system-transaction-consistency.html" target="_blank" rel="noopener">聊聊分布式事务，再说说解决方案</a></p>
+<p>感谢</p>
+<p>结束 <br>此片完了~ 想要了解更多精彩新姿势？<br>请访问我的<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">个人博客</a> 本篇为原创内容，已在个人博客率先发表，随后CSDN，segmentfault，掘金，简书，开源中国同步发出。如有雷同，<strong>缘分呢</strong>兄弟。赶快加个好友，咱们两个想个号码， 买个彩票，先挣他个几百万😝</p>
+
+      
+    </div>
+    
+    
+    
+      <div>
+        
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本稿が終わる<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="tEngSHe789 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    tEngSHe789
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tengshe789.github.io/2018/07/29/我要学好分布式-zookeeper/" title="学好分布式架构=5=-zookeeper">https://tengshe789.github.io/2018/07/29/我要学好分布式-zookeeper/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/学好分布式架构/" rel="tag"><i class="fa fa-tag"></i> 学好分布式架构</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/28/我要学好分布式-webservice/" rel="next" title="学好分布式架构=4=-webservice">
+                <i class="fa fa-chevron-left"></i> 学好分布式架构=4=-webservice
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/02/记一次失败的redis安装/" rel="prev" title="记一次失败的redis安装">
+                记一次失败的redis安装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="tEngSHe789">
+            
+              <p class="site-author-name" itemprop="name">tEngSHe789</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/tengshe789" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:randyvan007@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/101453729765094892757" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/tengshe789" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/tengshe789" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://steamcommunity.com/id/tengshe789" target="_blank" title="Steam">
+                      
+                        <i class="fa fa-fw fa-steam"></i>Steam</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/9930788/tengshe-789" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://dribbble.com/tengshe789" target="_blank" title="dribbble">
+                      
+                        <i class="fa fa-fw fa-dribbble"></i>dribbble</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/ha.7787" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/5649075808" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/970176296" target="_blank" title="QQZone">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQZone</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://music.163.com/#/user/home?id=73274594" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b4c1dd0e51d45194558166b" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://segmentfault.com/u/tengshe789" target="_blank" title="思否">
+                      
+                        <i class="fa fa-fw fa-scribd"></i>思否</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式概念（前戏）"><span class="nav-number">1.</span> <span class="nav-text">分布式概念（前戏）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#最基本的特点"><span class="nav-number">1.1.</span> <span class="nav-text">最基本的特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分布性"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">分布性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#并发性"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">并发性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无序性"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">无序性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式环境下面临的问题"><span class="nav-number">1.2.</span> <span class="nav-text">分布式环境下面临的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络通信"><span class="nav-number">1.2.1.</span> <span class="nav-text">网络通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络分区-脑裂"><span class="nav-number">1.2.2.</span> <span class="nav-text">网络分区(脑裂)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三态"><span class="nav-number">1.2.3.</span> <span class="nav-text">三态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式事务"><span class="nav-number">1.2.4.</span> <span class="nav-text">分布式事务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#中心化和去中心化"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">中心化和去中心化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#经典的CAP"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">经典的CAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BASE理论"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">BASE理论</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#Zookeeper（正片）"><span class="nav-number">2.</span> <span class="nav-text">Zookeeper（正片）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#zookeeper是什么"><span class="nav-number">2.1.</span> <span class="nav-text">zookeeper是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zookeeper能做什么"><span class="nav-number">2.2.</span> <span class="nav-text">zookeeper能做什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#zookeeper特性"><span class="nav-number">2.2.1.</span> <span class="nav-text">zookeeper特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#顺序一致性"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">顺序一致性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原子性"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">原子性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可靠性"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">可靠性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实时性"><span class="nav-number">2.2.1.4.</span> <span class="nav-text">实时性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zookeeper集群环境"><span class="nav-number">2.3.</span> <span class="nav-text">zookeeper集群环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装zookeeper"><span class="nav-number">2.3.1.</span> <span class="nav-text">安装zookeeper</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一步：-修改配置文件zoo-cfg"><span class="nav-number">2.3.1.0.1.</span> <span class="nav-text">第一步： 修改配置文件zoo.cfg</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二步：创建myid"><span class="nav-number">2.3.1.0.2.</span> <span class="nav-text">第二步：创建myid</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第三步：启动zookeeper"><span class="nav-number">2.3.1.0.3.</span> <span class="nav-text">第三步：启动zookeeper</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Zookeeper中的一些概念"><span class="nav-number">2.3.2.</span> <span class="nav-text">Zookeeper中的一些概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Zookeeper配置解析"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">Zookeeper配置解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据模型"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">数据模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#节点特性"><span class="nav-number">2.3.2.2.1.</span> <span class="nav-text">节点特性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#会话"><span class="nav-number">2.3.2.2.2.</span> <span class="nav-text">会话</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Watcher（监听）"><span class="nav-number">2.3.2.2.3.</span> <span class="nav-text">Watcher（监听）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ACL"><span class="nav-number">2.3.2.2.4.</span> <span class="nav-text">ACL</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Zookeeper命令操作-增删改查"><span class="nav-number">2.3.2.3.</span> <span class="nav-text">Zookeeper命令操作(增删改查)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#节点状态stat信息"><span class="nav-number">2.3.2.3.1.</span> <span class="nav-text">节点状态stat信息</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在Java中使用zookeeper"><span class="nav-number">2.3.3.</span> <span class="nav-text">在Java中使用zookeeper</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">2.4.</span> <span class="nav-text">参考</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+      
+            <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+            <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+            <div class="widget-wrap">
+            <h3 class="widget-title">Tag Cloud</h3>
+            <div id="myCanvasContainer" class="widget tagcloud">
+                <canvas width="250" height="250" id="resCanvas" style="width=100%">
+                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows10/">Windows10</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/">k8s</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/军事/">军事</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分享/">分享</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/初/">初</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/吐槽/">吐槽</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学好分布式架构/">学好分布式架构</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a><span class="tag-list-count">27</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构与算法/">数据结构与算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/硬件/">硬件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/窍门/">窍门</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件分享/">软件分享</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件教学/">软件教学</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/错题/">错题</a><span class="tag-list-count">1</span></li></ul>
+                </canvas>
+            </div>
+            </div>
+      
+
+      
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-7659349864173199",
+            enable_page_level_ads: true
+            });
+            </script>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tEngSHe789</span>
+
+  
+</div>
+
+
+  <!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div> -->
+
+
+
+
+
+
+
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("01/1/2018 0:00:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-nipsilon"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"tagMode":true,"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=1.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=1.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=1.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=1.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=1.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=1.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=1.0.0"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://tengshe789.github.io/2018/07/29/我要学好分布式-zookeeper/';
+          this.page.identifier = '2018/07/29/我要学好分布式-zookeeper/';
+          this.page.title = '学好分布式架构=5=-zookeeper';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'LNoutjtqdzTwP7Ui74LV5Dw1-gzGzoHsz',
+        appKey: 'rO9bQ0F0wlhqulsUoNy80KPb',
+        placeholder: '来说两句吧~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("LNoutjtqdzTwP7Ui74LV5Dw1-gzGzoHsz", "rO9bQ0F0wlhqulsUoNy80KPb");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=1.0.0"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=1.0.0"></script>
+
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-nipsilon"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"tagMode":true,"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script>
+</body>
+</html>
+<!-- 页面点击小红心 --> 
+<script type="text/javascript" src="/js/src/love.js"></script>

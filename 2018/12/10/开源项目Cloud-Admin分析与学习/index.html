@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="A1lh6qh2KG4qHp1egv4rR8POayZtKMsUVAbq3sk2XOc">
+
+
+
+  <meta name="msvalidate.01" content="0EF0AB564911357C367CABC34BA94C40">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=1.0.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=1.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="技术,源码,学好分布式架构,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="tEngSHe789の小站" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="前一段时间在“感性认识JWT”一博文中分享了，很火的开源项目Cloud-Admin中鉴权中心和网关的实现。今天再来看看其他各个部分源码 提示老规矩，放开源项目地址：https://gitee.com/minull/ace-security 目录结构 架构下面是官方提供的架构模型。  项目的运行步骤 先启动rabbitmq、redis、mysql以及consul注册中心 运行数据库脚本：依次运行数据">
+<meta name="keywords" content="技术,源码,学好分布式架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开源项目Cloud-Admin分析与学习">
+<meta property="og:url" content="https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/index.html">
+<meta property="og:site_name" content="tEngSHe789の小站">
+<meta property="og:description" content="前一段时间在“感性认识JWT”一博文中分享了，很火的开源项目Cloud-Admin中鉴权中心和网关的实现。今天再来看看其他各个部分源码 提示老规矩，放开源项目地址：https://gitee.com/minull/ace-security 目录结构 架构下面是官方提供的架构模型。  项目的运行步骤 先启动rabbitmq、redis、mysql以及consul注册中心 运行数据库脚本：依次运行数据">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/5.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/6.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/1.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/2.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/3.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/4.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/5.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/6.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/7.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/8.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/9.png">
+<meta property="og:updated_time" content="2019-11-20T13:39:41.269Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="开源项目Cloud-Admin分析与学习">
+<meta name="twitter:description" content="前一段时间在“感性认识JWT”一博文中分享了，很火的开源项目Cloud-Admin中鉴权中心和网关的实现。今天再来看看其他各个部分源码 提示老规矩，放开源项目地址：https://gitee.com/minull/ace-security 目录结构 架构下面是官方提供的架构模型。  项目的运行步骤 先启动rabbitmq、redis、mysql以及consul注册中心 运行数据库脚本：依次运行数据">
+<meta name="twitter:image" content="https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/5.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '1.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/">
+
+
+<!-- 谷歌AdSense -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+<!-- 心智天气 -->
+<script>(function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.seniverse.com/widget/chameleon.js"))</script>
+<script>tpwidget("init", {
+    "flavor": "bubble",
+    "location": "WWMT5Q64CR3G",
+    "geolocation": "enabled",
+    "position": "bottom-right",
+    "margin": "10px 10px",
+    "language": "zh-chs",
+    "unit": "c",
+    "theme": "chameleon",
+    "uid": "UFA58EE03C",
+    "hash": "f8aaef53e1c80162af9fcce01022efec"
+});
+tpwidget("show");</script>
+
+  <title>开源项目Cloud-Admin分析与学习 | tEngSHe789の小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tEngSHe789の小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">随性而行，不行拉倒</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tEngSHe789">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tEngSHe789の小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">开源项目Cloud-Admin分析与学习</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-10T10:39:36+08:00">
+                2018-12-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/10/开源项目Cloud-Admin分析与学习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/12/10/开源项目Cloud-Admin分析与学习/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/12/10/开源项目Cloud-Admin分析与学习/" class="leancloud_visitors" data-flag-title="开源项目Cloud-Admin分析与学习">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,430
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前一段时间在<a href="https://blog.tengshe789.tech/2018/12/02/%E6%84%9F%E6%80%A7%E8%AE%A4%E8%AF%86jwt/#more" target="_blank" rel="noopener">“感性认识JWT”</a>一博文中分享了，很火的开源项目<code>Cloud-Admin</code>中鉴权中心和网关的实现。今天再来看看其他各个部分源码</p>
+<h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><p>老规矩，放开源项目地址：<a href="https://gitee.com/minull/ace-security" target="_blank" rel="noopener">https://gitee.com/minull/ace-security</a></p>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><p><img src="/2018/12/10/开源项目Cloud-Admin分析与学习/5.png" alt="1543763543823"></p>
+<h3 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h3><p>下面是官方提供的架构模型。</p>
+<p><img src="/2018/12/10/开源项目Cloud-Admin分析与学习/6.png" alt="image.png"></p>
+<h3 id="项目的运行步骤"><a href="#项目的运行步骤" class="headerlink" title="项目的运行步骤"></a>项目的运行步骤</h3><ul>
+<li>先启动rabbitmq、redis、mysql以及consul注册中心</li>
+<li>运行数据库脚本：依次运行数据库：ace-admin/db/init.sql、ace-auth-server/db/init.sql、ace-trace</li>
+<li>修改配置数据库配置：ace-admin/src/main/resources/application.yml、ace-gate/src/main/resources/application.yml</li>
+<li>按<code>顺序</code>运行main类：CenterBootstrap（ace-center）、AuthBootstrap（ace-auth-server）、AdminBootstrap（ace-admin）、GatewayServerBootstrap（ace-gateway-v2）</li>
+</ul>
+<h2 id="Admin模块"><a href="#Admin模块" class="headerlink" title="Admin模块"></a>Admin模块</h2><h3 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h3><p>先看看数据库设计，admin模块负责所有权限的管理。第一张表<code>base_element</code>，定义了各个资源的code，类型，uri，每一个特定资源对应一种请求路径，如图👇</p>
+<p><img src="/2018/12/10/开源项目Cloud-Admin分析与学习/1.png" alt="base_element"></p>
+<p>第二张，<code>base_group</code>定义了角色和请求路径的关系。👇</p>
+<p><img src="/2018/12/10/开源项目Cloud-Admin分析与学习/2.png" alt="base_element"></p>
+<p>第三张，<code>base_group_type</code>定义了类型👇</p>
+<p><img src="/2018/12/10/开源项目Cloud-Admin分析与学习/3.png" alt="base_element"></p>
+<p>第四张，<code>base_menu</code>定义了菜单👇</p>
+<p><img src="/2018/12/10/开源项目Cloud-Admin分析与学习/4.png" alt="base_element"></p>
+<p>第五张，记录了网关日志相关信息</p>
+<p><img src="/2018/12/10/开源项目Cloud-Admin分析与学习/5.png" alt="base_element"></p>
+<p>第六张，用户表</p>
+<p><img src="/2018/12/10/开源项目Cloud-Admin分析与学习/6.png" alt="base_element"></p>
+<h3 id="业务逻辑"><a href="#业务逻辑" class="headerlink" title="业务逻辑"></a>业务逻辑</h3><p>接口这部分作者写的有些乱，将很多业务逻辑的有关代码放到接口层了（吐槽）。这部分代码没什么好说的，就是根据上面的数据库<code>CRUD</code>。接口的路径分为</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/api/user/validate</span><br><span class="line">/element/**"</span><br><span class="line">/gateLog/**"</span><br><span class="line">/group/**"</span><br><span class="line">/groupType/**"</span><br><span class="line">/menu/**"</span><br><span class="line">/user/**"</span><br><span class="line">/api/permissions"</span><br><span class="line">/api/user/un/**"</span><br></pre></td></tr></table></figure>
+<p>这几类，并且走每一层都会走鉴权中心来鉴别，具体逻辑是使用springboot的<code>addInterceptors()</code>方法添加两层拦截器组成一个拦截器链，如下👇</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addInterceptor(getServiceAuthRestInterceptor()).</span><br><span class="line">                addPathPatterns(getIncludePathPatterns()).addPathPatterns(<span class="string">"/api/user/validate"</span>);</span><br><span class="line">        registry.addInterceptor(getUserAuthRestInterceptor()).</span><br><span class="line">                addPathPatterns(getIncludePathPatterns());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>第一层拦截器是鉴权中心的<code>ServiceAuthRestInterceptor</code>拦截器，判断访问的客户端是否有权限访问；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一层拦截器 </span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        HandlerMethod handlerMethod = (HandlerMethod) handler;</span><br><span class="line">        <span class="comment">// 配置该注解，说明不进行服务拦截</span></span><br><span class="line">        IgnoreClientToken annotation = handlerMethod.getBeanType().getAnnotation(IgnoreClientToken.class);</span><br><span class="line">        <span class="keyword">if</span> (annotation == <span class="keyword">null</span>) &#123;</span><br><span class="line">            annotation = handlerMethod.getMethodAnnotation(IgnoreClientToken.class);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(annotation!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">super</span>.preHandle(request, response, handler);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        String token = request.getHeader(serviceAuthConfig.getTokenHeader());</span><br><span class="line">        IJWTInfo infoFromToken = serviceAuthUtil.getInfoFromToken(token);</span><br><span class="line">        String uniqueName = infoFromToken.getUniqueName();</span><br><span class="line">        <span class="keyword">for</span>(String client:serviceAuthUtil.getAllowedClient())&#123;</span><br><span class="line">            <span class="keyword">if</span>(client.equals(uniqueName))&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">super</span>.preHandle(request, response, handler);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ClientForbiddenException(<span class="string">"Client is Forbidden!"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>第二层拦截器是鉴权中心的<code>UserAuthRestInterceptor</code>拦截器，拦截非法用户。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        HandlerMethod handlerMethod = (HandlerMethod) handler;</span><br><span class="line">        <span class="comment">// 配置该注解，说明不进行用户拦截</span></span><br><span class="line">        IgnoreUserToken annotation = handlerMethod.getBeanType().getAnnotation(IgnoreUserToken.class);</span><br><span class="line">        <span class="keyword">if</span> (annotation == <span class="keyword">null</span>) &#123;</span><br><span class="line">            annotation = handlerMethod.getMethodAnnotation(IgnoreUserToken.class);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (annotation != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">super</span>.preHandle(request, response, handler);</span><br><span class="line">        &#125;</span><br><span class="line">        String token = request.getHeader(userAuthConfig.getTokenHeader());</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isEmpty(token)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (request.getCookies() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (Cookie cookie : request.getCookies()) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (cookie.getName().equals(userAuthConfig.getTokenHeader())) &#123;</span><br><span class="line">                        token = cookie.getValue();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        IJWTInfo infoFromToken = userAuthUtil.getInfoFromToken(token);</span><br><span class="line">        BaseContextHandler.setUsername(infoFromToken.getUniqueName());</span><br><span class="line">        BaseContextHandler.setName(infoFromToken.getName());</span><br><span class="line">        BaseContextHandler.setUserID(infoFromToken.getId());</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.preHandle(request, response, handler);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="缓存中心"><a href="#缓存中心" class="headerlink" title="缓存中心"></a>缓存中心</h2><p>在上面的admin模块中，作者在user接口上，使用了自定义的缓存注解<code>@Cache</code>，用来保存用户的权限信息，减小数据库的访问压力👇</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"api"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserRest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PermissionService permissionService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Cache</span>(key=<span class="string">"permission"</span>)</span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/permissions"</span>, method = RequestMethod.GET)</span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function">List&lt;PermissionInfo&gt; <span class="title">getAllPermission</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> permissionService.getAllPermission();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Cache</span>(key=<span class="string">"permission:u&#123;1&#125;"</span>)</span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/user/un/&#123;username&#125;/permissions"</span>, method = RequestMethod.GET)</span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">List&lt;PermissionInfo&gt; <span class="title">getPermissionByUsername</span><span class="params">(@PathVariable(<span class="string">"username"</span>)</span> String username)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> permissionService.getPermissionByUsername(username);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/user/validate"</span>, method = RequestMethod.POST)</span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">UserInfo <span class="title">validate</span><span class="params">(@RequestBody Map&lt;String,String&gt; body)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> permissionService.validate(body.get(<span class="string">"username"</span>),body.get(<span class="string">"password"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面我们就分析一下缓存中心的设计。</p>
+<h3 id="目录结构-1"><a href="#目录结构-1" class="headerlink" title="目录结构"></a>目录结构</h3><p><img src="/2018/12/10/开源项目Cloud-Admin分析与学习/7.png" alt="base_element"></p>
+<p>缓存中心是作者通过maven方式添加的，并没有通过直接项目代码展现。因此我使用<code>idea</code>的反编码工具进行分析</p>
+<h4 id="入口"><a href="#入口" class="headerlink" title="入口"></a>入口</h4><p>入口为<code>EnableAceCache</code>，开启这个就可以自动配置缓存相关事项</p>
+<h3 id="缓存实体"><a href="#缓存实体" class="headerlink" title="缓存实体"></a>缓存实体</h3><p>先看缓存实体，作者定义了key，描述信息desc，以及过期时间</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CacheBean</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String key = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">private</span> String desc = <span class="string">""</span>;</span><br><span class="line">    <span class="meta">@JsonFormat</span>(</span><br><span class="line">        timezone = <span class="string">"GMT+8"</span>,</span><br><span class="line">        pattern = <span class="string">"yyyy-MM-dd HH:mm:ss"</span></span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">private</span> Date expireTime;</span><br><span class="line">    ..................&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="配置类"><a href="#配置类" class="headerlink" title="配置类"></a>配置类</h3><p>一共有两个配置</p>
+<p><img src="/2018/12/10/开源项目Cloud-Admin分析与学习/8.png" alt="base_element"></p>
+<h4 id="RedisConfig"><a href="#RedisConfig" class="headerlink" title="RedisConfig"></a>RedisConfig</h4><p>先看<code>RedisConfig</code>，使用<code>@PostConstruct</code>注解，意思是会在服务器加载<code>Servlet</code>的时候，将服务端<code>yml</code>中有关<code>redis</code>的配置加载到<code>JedisPool</code>中，这个方法只会被服务器调用一次。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> Environment env;</span><br><span class="line">    <span class="keyword">private</span> JedisPool pool;</span><br><span class="line">    <span class="keyword">private</span> String maxActive;</span><br><span class="line">    <span class="keyword">private</span> String maxIdle;</span><br><span class="line">    <span class="keyword">private</span> String maxWait;</span><br><span class="line">    <span class="keyword">private</span> String host;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">    <span class="keyword">private</span> String timeout;</span><br><span class="line">    <span class="keyword">private</span> String database;</span><br><span class="line">    <span class="keyword">private</span> String port;</span><br><span class="line">    <span class="keyword">private</span> String enable;</span><br><span class="line">    <span class="keyword">private</span> String sysName;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RedisConfig</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        PropertiesLoaderUtils prop = <span class="keyword">new</span> PropertiesLoaderUtils(<span class="keyword">new</span> String[]&#123;<span class="string">"application.properties"</span>&#125;);</span><br><span class="line">        <span class="keyword">this</span>.host = prop.getProperty(<span class="string">"redis.host"</span>);</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isBlank(<span class="keyword">this</span>.host)) &#123;</span><br><span class="line">            <span class="keyword">this</span>.host = <span class="keyword">this</span>.env.getProperty(<span class="string">"redis.host"</span>);</span><br><span class="line">            <span class="keyword">this</span>.maxActive = <span class="keyword">this</span>.env.getProperty(<span class="string">"redis.pool.maxActive"</span>);</span><br><span class="line">            <span class="keyword">this</span>.maxIdle = <span class="keyword">this</span>.env.getProperty(<span class="string">"redis.pool.maxIdle"</span>);</span><br><span class="line">            <span class="keyword">this</span>.maxWait = <span class="keyword">this</span>.env.getProperty(<span class="string">"redis.pool.maxWait"</span>);</span><br><span class="line">            <span class="keyword">this</span>.password = <span class="keyword">this</span>.env.getProperty(<span class="string">"redis.password"</span>);</span><br><span class="line">            <span class="keyword">this</span>.timeout = <span class="keyword">this</span>.env.getProperty(<span class="string">"redis.timeout"</span>);</span><br><span class="line">            <span class="keyword">this</span>.database = <span class="keyword">this</span>.env.getProperty(<span class="string">"redis.database"</span>);</span><br><span class="line">            <span class="keyword">this</span>.port = <span class="keyword">this</span>.env.getProperty(<span class="string">"redis.port"</span>);</span><br><span class="line">            <span class="keyword">this</span>.sysName = <span class="keyword">this</span>.env.getProperty(<span class="string">"redis.sysName"</span>);</span><br><span class="line">            <span class="keyword">this</span>.enable = <span class="keyword">this</span>.env.getProperty(<span class="string">"redis.enable"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.maxActive = prop.getProperty(<span class="string">"redis.pool.maxActive"</span>);</span><br><span class="line">            <span class="keyword">this</span>.maxIdle = prop.getProperty(<span class="string">"redis.pool.maxIdle"</span>);</span><br><span class="line">            <span class="keyword">this</span>.maxWait = prop.getProperty(<span class="string">"redis.pool.maxWait"</span>);</span><br><span class="line">            <span class="keyword">this</span>.password = prop.getProperty(<span class="string">"redis.password"</span>);</span><br><span class="line">            <span class="keyword">this</span>.timeout = prop.getProperty(<span class="string">"redis.timeout"</span>);</span><br><span class="line">            <span class="keyword">this</span>.database = prop.getProperty(<span class="string">"redis.database"</span>);</span><br><span class="line">            <span class="keyword">this</span>.port = prop.getProperty(<span class="string">"redis.port"</span>);</span><br><span class="line">            <span class="keyword">this</span>.sysName = prop.getProperty(<span class="string">"redis.sysName"</span>);</span><br><span class="line">            <span class="keyword">this</span>.enable = prop.getProperty(<span class="string">"redis.enable"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JedisPoolConfig <span class="title">constructJedisPoolConfig</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        JedisPoolConfig config = <span class="keyword">new</span> JedisPoolConfig();</span><br><span class="line">        config.setMaxTotal(Integer.parseInt(<span class="keyword">this</span>.maxActive));</span><br><span class="line">        config.setMaxIdle(Integer.parseInt(<span class="keyword">this</span>.maxIdle));</span><br><span class="line">        config.setMaxWaitMillis((<span class="keyword">long</span>)Integer.parseInt(<span class="keyword">this</span>.maxWait));</span><br><span class="line">        config.setTestOnBorrow(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">return</span> config;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>(</span><br><span class="line">        name = &#123;<span class="string">"pool"</span>&#125;</span><br><span class="line">    )</span><br><span class="line">    <span class="function"><span class="keyword">public</span> JedisPool <span class="title">constructJedisPool</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String ip = <span class="keyword">this</span>.host;</span><br><span class="line">        <span class="keyword">int</span> port = Integer.parseInt(<span class="keyword">this</span>.port);</span><br><span class="line">        String password = <span class="keyword">this</span>.password;</span><br><span class="line">        <span class="keyword">int</span> timeout = Integer.parseInt(<span class="keyword">this</span>.timeout);</span><br><span class="line">        <span class="keyword">int</span> database = Integer.parseInt(<span class="keyword">this</span>.database);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == <span class="keyword">this</span>.pool) &#123;</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isBlank(password)) &#123;</span><br><span class="line">                <span class="keyword">this</span>.pool = <span class="keyword">new</span> JedisPool(<span class="keyword">this</span>.constructJedisPoolConfig(), ip, port, timeout);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>.pool = <span class="keyword">new</span> JedisPool(<span class="keyword">this</span>.constructJedisPoolConfig(), ip, port, timeout, password, database);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.pool;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="CacheWebConfig"><a href="#CacheWebConfig" class="headerlink" title="CacheWebConfig"></a>CacheWebConfig</h4><p>第二个配置，就是使用<code>springboot</code>拦截器，将作者自己写的缓存管理中心视图界面展示出来（这个操作太神奇了，第一次看到）👇</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addResourceHandler(<span class="keyword">new</span> String[]&#123;<span class="string">"/static/cache/**"</span>&#125;).addResourceLocations(<span class="keyword">new</span> String[]&#123;<span class="string">"classpath:/META-INF/static/"</span>&#125;);</span><br><span class="line">        <span class="keyword">super</span>.addResourceHandlers(registry);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/10/开源项目Cloud-Admin分析与学习/9.png" alt="base_element"></p>
+<h3 id="使用缓存"><a href="#使用缓存" class="headerlink" title="使用缓存"></a>使用缓存</h3><h4 id="RedisServiceImpl和CacheRedis"><a href="#RedisServiceImpl和CacheRedis" class="headerlink" title="RedisServiceImpl和CacheRedis"></a>RedisServiceImpl和CacheRedis</h4><p><code>RedisServiceImpl</code>使用了<code>JedisPool</code>那几个方法实现了增删改查操作，代码省略。</p>
+<p><code>CacheRedis</code>则<code>RedisServiceImpl</code>是加入一些增删改查逻辑，譬如什么是什么设置缓存。</p>
+<h4 id="切面加入缓存"><a href="#切面加入缓存" class="headerlink" title="切面加入缓存"></a>切面加入缓存</h4><h5 id="核心方法"><a href="#核心方法" class="headerlink" title="核心方法"></a>核心方法</h5><p>核心方法<code>interceptor</code>如下，使用<code>ProceedingJoinPoint</code>拿到被<code>@Cache</code>标记的的方法中的参数，用<code>getKey（）</code>方法拿到具体缓存的key，使用<code>CacheRedis的get()</code>方法查找对应的key，如果key找不到则用<code>CacheRedis的set()</code>方法添加新的缓存。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Around</span>(<span class="string">"aspect()&amp;&amp;@annotation(anno)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">interceptor</span><span class="params">(ProceedingJoinPoint invocation, Cache anno)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        MethodSignature signature = (MethodSignature)invocation.getSignature();</span><br><span class="line">        Method method = signature.getMethod();</span><br><span class="line">        Object result = <span class="keyword">null</span>;</span><br><span class="line">        Class&lt;?&gt;[] parameterTypes = method.getParameterTypes();</span><br><span class="line">        Object[] arguments = invocation.getArgs();</span><br><span class="line">        String key = <span class="string">""</span>;</span><br><span class="line">        String value = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            key = <span class="keyword">this</span>.getKey(anno, parameterTypes, arguments);</span><br><span class="line">            value = <span class="keyword">this</span>.cacheAPI.get(key);</span><br><span class="line">            Type returnType = method.getGenericReturnType();</span><br><span class="line">            result = <span class="keyword">this</span>.getResult(anno, result, value, returnType);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception var14) &#123;</span><br><span class="line">            <span class="keyword">this</span>.log.error(<span class="string">"获取缓存失败："</span> + key, var14);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (result == <span class="keyword">null</span>) &#123;</span><br><span class="line">                result = invocation.proceed();</span><br><span class="line">                <span class="keyword">if</span> (StringUtils.isNotBlank(key)) &#123;</span><br><span class="line">                    <span class="keyword">this</span>.cacheAPI.set(key, result, anno.expire());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="取得key"><a href="#取得key" class="headerlink" title="取得key"></a>取得key</h5><p><code>getKey（）</code>方法的逻辑为，判断key生成器是否是默认生成器（可以使用多种生成器），然后根据默认生成器的规则生成一个key。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">getKey</span><span class="params">(Cache anno, Class&lt;?&gt;[] parameterTypes, Object[] arguments)</span> <span class="keyword">throws</span> InstantiationException, IllegalAccessException </span>&#123;</span><br><span class="line">        String generatorClsName = anno.generator().getName();</span><br><span class="line">        IKeyGenerator keyGenerator = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (anno.generator().equals(DefaultKeyGenerator.class)) &#123;</span><br><span class="line">            keyGenerator = <span class="keyword">this</span>.keyParser;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.generatorMap.contains(generatorClsName)) &#123;</span><br><span class="line">            keyGenerator = (IKeyGenerator)<span class="keyword">this</span>.generatorMap.get(generatorClsName);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            keyGenerator = (IKeyGenerator)anno.generator().newInstance();</span><br><span class="line">            <span class="keyword">this</span>.generatorMap.put(generatorClsName, keyGenerator);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        String key = keyGenerator.getKey(anno.key(), anno.scope(), parameterTypes, arguments);</span><br><span class="line">        <span class="keyword">return</span> key;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="key生成器"><a href="#key生成器" class="headerlink" title="key生成器"></a>key生成器</h5><p>默认key生成器的代码如下（生成规则我看不懂😭），</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">buildKey</span><span class="params">(String key, CacheScope scope, Class&lt;?&gt;[] parameterTypes, Object[] arguments)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> isFirst = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (key.indexOf(<span class="string">"&#123;"</span>) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            key = key.replace(<span class="string">"&#123;"</span>, <span class="string">":&#123;"</span>);</span><br><span class="line">            Pattern pattern = Pattern.compile(<span class="string">"\\d+\\.?[\\w]*"</span>);</span><br><span class="line">            Matcher matcher = pattern.matcher(key);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span>(matcher.find()) &#123;</span><br><span class="line">                String tmp = matcher.group();</span><br><span class="line">                String[] express = matcher.group().split(<span class="string">"\\."</span>);</span><br><span class="line">                String i = express[<span class="number">0</span>];</span><br><span class="line">                <span class="keyword">int</span> index = Integer.parseInt(i) - <span class="number">1</span>;</span><br><span class="line">                Object value = arguments[index];</span><br><span class="line">                <span class="keyword">if</span> (parameterTypes[index].isAssignableFrom(List.class)) &#123;</span><br><span class="line">                    List result = (List)arguments[index];</span><br><span class="line">                    value = result.get(<span class="number">0</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (value == <span class="keyword">null</span> || value.equals(<span class="string">"null"</span>)) &#123;</span><br><span class="line">                    value = <span class="string">""</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (express.length &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                    String field = express[<span class="number">1</span>];</span><br><span class="line">                    value = ReflectionUtils.getFieldValue(value, field);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (isFirst) &#123;</span><br><span class="line">                    key = key.replace(<span class="string">"&#123;"</span> + tmp + <span class="string">"&#125;"</span>, value.toString());</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    key = key.replace(<span class="string">"&#123;"</span> + tmp + <span class="string">"&#125;"</span>, <span class="string">"_"</span> + value.toString());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> key;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="key解析"><a href="#key解析" class="headerlink" title="key解析"></a>key解析</h5><p>因为作者的key生成器抖了很多机灵，因此，拿到key以后，要将生成key和value之前的数值找到才能进行比对，下面时解析key的代码👇大概逻辑是根据不同的value类型返回json</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">parse</span><span class="params">(String value, Type type, Class... origins)</span> </span>&#123;</span><br><span class="line">        Object result = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (type <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            ParameterizedType parameterizedType = (ParameterizedType)type;</span><br><span class="line">            Type rawType = parameterizedType.getRawType();</span><br><span class="line">            <span class="keyword">if</span> (((Class)rawType).isAssignableFrom(List.class)) &#123;</span><br><span class="line">                result = JSON.parseArray(value, (Class)parameterizedType.getActualTypeArguments()[<span class="number">0</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (origins == <span class="keyword">null</span>) &#123;</span><br><span class="line">            result = JSON.parseObject(value, (Class)type);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            result = JSON.parseObject(value, origins[<span class="number">0</span>]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="切面清除缓存"><a href="#切面清除缓存" class="headerlink" title="切面清除缓存"></a>切面清除缓存</h4><p>大概意思和上面差不多，只要服务端上加入<code>@CacheClear</code>注解就可以清除对应缓存。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Around</span>(<span class="string">"aspect()&amp;&amp;@annotation(anno)"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">public</span> Object <span class="title">interceptor</span><span class="params">(ProceedingJoinPoint invocation, CacheClear anno)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">       MethodSignature signature = (MethodSignature)invocation.getSignature();</span><br><span class="line">       Method method = signature.getMethod();</span><br><span class="line">       Class&lt;?&gt;[] parameterTypes = method.getParameterTypes();</span><br><span class="line">       Object[] arguments = invocation.getArgs();</span><br><span class="line">       String key = <span class="string">""</span>;</span><br><span class="line">       <span class="keyword">if</span> (StringUtils.isNotBlank(anno.key())) &#123;</span><br><span class="line">           key = <span class="keyword">this</span>.getKey(anno, anno.key(), CacheScope.application, parameterTypes, arguments);</span><br><span class="line">           <span class="keyword">this</span>.cacheAPI.remove(key);</span><br><span class="line">       &#125; <span class="keyword">else</span> <span class="keyword">if</span> (StringUtils.isNotBlank(anno.pre())) &#123;</span><br><span class="line">           key = <span class="keyword">this</span>.getKey(anno, anno.pre(), CacheScope.application, parameterTypes, arguments);</span><br><span class="line">           <span class="keyword">this</span>.cacheAPI.removeByPre(key);</span><br><span class="line">       &#125; <span class="keyword">else</span> <span class="keyword">if</span> (anno.keys().length &gt; <span class="number">1</span>) &#123;</span><br><span class="line">           String[] arr$ = anno.keys();</span><br><span class="line">           <span class="keyword">int</span> len$ = arr$.length;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">for</span>(<span class="keyword">int</span> i$ = <span class="number">0</span>; i$ &lt; len$; ++i$) &#123;</span><br><span class="line">               String tmp = arr$[i$];</span><br><span class="line">               tmp = <span class="keyword">this</span>.getKey(anno, tmp, CacheScope.application, parameterTypes, arguments);</span><br><span class="line">               <span class="keyword">this</span>.cacheAPI.removeByPre(tmp);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> invocation.proceed();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+      <div>
+        
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本稿が終わる<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="tEngSHe789 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    tEngSHe789
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/" title="开源项目Cloud-Admin分析与学习">https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
+          
+            <a href="/tags/源码/" rel="tag"><i class="fa fa-tag"></i> 源码</a>
+          
+            <a href="/tags/学好分布式架构/" rel="tag"><i class="fa fa-tag"></i> 学好分布式架构</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/08/微服务核心架构梳理/" rel="next" title="微服务核心架构梳理">
+                <i class="fa fa-chevron-left"></i> 微服务核心架构梳理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/12/冷冷Pig开源项目学习/" rel="prev" title="看Pig开源项目的云踩坑记">
+                看Pig开源项目的云踩坑记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="tEngSHe789">
+            
+              <p class="site-author-name" itemprop="name">tEngSHe789</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/tengshe789" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:randyvan007@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/101453729765094892757" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/tengshe789" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/tengshe789" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://steamcommunity.com/id/tengshe789" target="_blank" title="Steam">
+                      
+                        <i class="fa fa-fw fa-steam"></i>Steam</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/9930788/tengshe-789" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://dribbble.com/tengshe789" target="_blank" title="dribbble">
+                      
+                        <i class="fa fa-fw fa-dribbble"></i>dribbble</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/ha.7787" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/5649075808" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/970176296" target="_blank" title="QQZone">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQZone</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://music.163.com/#/user/home?id=73274594" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b4c1dd0e51d45194558166b" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://segmentfault.com/u/tengshe789" target="_blank" title="思否">
+                      
+                        <i class="fa fa-fw fa-scribd"></i>思否</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#提示"><span class="nav-number">1.</span> <span class="nav-text">提示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目录结构"><span class="nav-number">1.1.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构"><span class="nav-number">1.2.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目的运行步骤"><span class="nav-number">1.3.</span> <span class="nav-text">项目的运行步骤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Admin模块"><span class="nav-number">2.</span> <span class="nav-text">Admin模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库设计"><span class="nav-number">2.1.</span> <span class="nav-text">数据库设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务逻辑"><span class="nav-number">2.2.</span> <span class="nav-text">业务逻辑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存中心"><span class="nav-number">3.</span> <span class="nav-text">缓存中心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目录结构-1"><span class="nav-number">3.1.</span> <span class="nav-text">目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#入口"><span class="nav-number">3.1.1.</span> <span class="nav-text">入口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存实体"><span class="nav-number">3.2.</span> <span class="nav-text">缓存实体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置类"><span class="nav-number">3.3.</span> <span class="nav-text">配置类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RedisConfig"><span class="nav-number">3.3.1.</span> <span class="nav-text">RedisConfig</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CacheWebConfig"><span class="nav-number">3.3.2.</span> <span class="nav-text">CacheWebConfig</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用缓存"><span class="nav-number">3.4.</span> <span class="nav-text">使用缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RedisServiceImpl和CacheRedis"><span class="nav-number">3.4.1.</span> <span class="nav-text">RedisServiceImpl和CacheRedis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#切面加入缓存"><span class="nav-number">3.4.2.</span> <span class="nav-text">切面加入缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#核心方法"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">核心方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#取得key"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">取得key</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#key生成器"><span class="nav-number">3.4.2.3.</span> <span class="nav-text">key生成器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#key解析"><span class="nav-number">3.4.2.4.</span> <span class="nav-text">key解析</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#切面清除缓存"><span class="nav-number">3.4.3.</span> <span class="nav-text">切面清除缓存</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+      
+            <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+            <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+            <div class="widget-wrap">
+            <h3 class="widget-title">Tag Cloud</h3>
+            <div id="myCanvasContainer" class="widget tagcloud">
+                <canvas width="250" height="250" id="resCanvas" style="width=100%">
+                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows10/">Windows10</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/">k8s</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/军事/">军事</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分享/">分享</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/初/">初</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/吐槽/">吐槽</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学好分布式架构/">学好分布式架构</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a><span class="tag-list-count">27</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构与算法/">数据结构与算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/硬件/">硬件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/窍门/">窍门</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件分享/">软件分享</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件教学/">软件教学</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/错题/">错题</a><span class="tag-list-count">1</span></li></ul>
+                </canvas>
+            </div>
+            </div>
+      
+
+      
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-7659349864173199",
+            enable_page_level_ads: true
+            });
+            </script>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tEngSHe789</span>
+
+  
+</div>
+
+
+  <!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div> -->
+
+
+
+
+
+
+
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("01/1/2018 0:00:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-nipsilon"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"tagMode":true,"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=1.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=1.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=1.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=1.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=1.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=1.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=1.0.0"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://tengshe789.github.io/2018/12/10/开源项目Cloud-Admin分析与学习/';
+          this.page.identifier = '2018/12/10/开源项目Cloud-Admin分析与学习/';
+          this.page.title = '开源项目Cloud-Admin分析与学习';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'LNoutjtqdzTwP7Ui74LV5Dw1-gzGzoHsz',
+        appKey: 'rO9bQ0F0wlhqulsUoNy80KPb',
+        placeholder: '来说两句吧~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("LNoutjtqdzTwP7Ui74LV5Dw1-gzGzoHsz", "rO9bQ0F0wlhqulsUoNy80KPb");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=1.0.0"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=1.0.0"></script>
+
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-nipsilon"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"tagMode":true,"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script>
+</body>
+</html>
+<!-- 页面点击小红心 --> 
+<script type="text/javascript" src="/js/src/love.js"></script>

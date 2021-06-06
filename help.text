@@ -1,0 +1,2 @@
+﻿npm install -save hexo-helper-live2d
+npm install hexo-abbrlink --save

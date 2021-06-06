@@ -1,0 +1,2219 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="A1lh6qh2KG4qHp1egv4rR8POayZtKMsUVAbq3sk2XOc">
+
+
+
+  <meta name="msvalidate.01" content="0EF0AB564911357C367CABC34BA94C40">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=1.0.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=1.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=1.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="技术,学好分布式架构,网络,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="tEngSHe789の小站" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="我为什么不断的更新博客呢？这是一次很好的提升机会。  平时解决问题的时候可能考虑进度问题没有更深刻地去理解，但是在写博客的时候，你会不知不觉中对一些内容进行思考，并有可能和评论者一起深入，这些都是难得的机会。  可能有人会问我，我为什么不断的更新博客呢？ 我觉得吧，这是一次很好的提升机会。  平时解决问题的时候可能考虑进度问题没有更深刻地去理解，但是在写博客的时候，我会不知不觉中对一些内容进行思考">
+<meta name="keywords" content="技术,学好分布式架构,网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学好分布式架构=2=-通信协议HTTP">
+<meta property="og:url" content="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/index.html">
+<meta property="og:site_name" content="tEngSHe789の小站">
+<meta property="og:description" content="我为什么不断的更新博客呢？这是一次很好的提升机会。  平时解决问题的时候可能考虑进度问题没有更深刻地去理解，但是在写博客的时候，你会不知不觉中对一些内容进行思考，并有可能和评论者一起深入，这些都是难得的机会。  可能有人会问我，我为什么不断的更新博客呢？ 我觉得吧，这是一次很好的提升机会。  平时解决问题的时候可能考虑进度问题没有更深刻地去理解，但是在写博客的时候，我会不知不觉中对一些内容进行思考">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/0.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/1.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/2.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/3.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/4.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/5.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/6.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/7.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/8.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/9.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/10.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/11.png">
+<meta property="og:image" content="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/12.png">
+<meta property="og:updated_time" content="2019-11-20T13:39:41.190Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学好分布式架构=2=-通信协议HTTP">
+<meta name="twitter:description" content="我为什么不断的更新博客呢？这是一次很好的提升机会。  平时解决问题的时候可能考虑进度问题没有更深刻地去理解，但是在写博客的时候，你会不知不觉中对一些内容进行思考，并有可能和评论者一起深入，这些都是难得的机会。  可能有人会问我，我为什么不断的更新博客呢？ 我觉得吧，这是一次很好的提升机会。  平时解决问题的时候可能考虑进度问题没有更深刻地去理解，但是在写博客的时候，我会不知不觉中对一些内容进行思考">
+<meta name="twitter:image" content="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '1.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/">
+
+
+<!-- 谷歌AdSense -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+<!-- 心智天气 -->
+<script>(function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.seniverse.com/widget/chameleon.js"))</script>
+<script>tpwidget("init", {
+    "flavor": "bubble",
+    "location": "WWMT5Q64CR3G",
+    "geolocation": "enabled",
+    "position": "bottom-right",
+    "margin": "10px 10px",
+    "language": "zh-chs",
+    "unit": "c",
+    "theme": "chameleon",
+    "uid": "UFA58EE03C",
+    "hash": "f8aaef53e1c80162af9fcce01022efec"
+});
+tpwidget("show");</script>
+
+  <title>学好分布式架构=2=-通信协议HTTP | tEngSHe789の小站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tEngSHe789の小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">随性而行，不行拉倒</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tEngSHe789">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tEngSHe789の小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">学好分布式架构=2=-通信协议HTTP</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-16T15:11:39+08:00">
+                2018-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/16/分享一下我对通信协议HTTP的理解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/16/分享一下我对通信协议HTTP的理解/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/08/16/分享一下我对通信协议HTTP的理解/" class="leancloud_visitors" data-flag-title="学好分布式架构=2=-通信协议HTTP">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5,568
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  20
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我为什么不断的更新博客呢？这是一次很好的提升机会。  平时解决问题的时候可能考虑进度问题没有更深刻地去理解，但是在写博客的时候，你会不知不觉中对一些内容进行思考，并有可能和评论者一起深入，这些都是难得的机会。 </p>
+<p>可能有人会问我，我为什么不断的更新博客呢？</p>
+<p>我觉得吧，<strong>这是一次很好的提升机会</strong>。  平时解决问题的时候可能考虑进度问题没有更深刻地去理解，但是在写博客的时候，我会不知不觉中对一些内容进行思考，可以更深入的理解问题。在学习的过程中，不断的总结，不断的思考，不断记忆，慢慢知识就巩固了。</p>
+<p>我是一个比较慢热的人，希望我可以用这个方式不断提高自己~</p>
+<p>共同加油！</p>
+<p>想要解锁更多新姿势？请访问<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">我的博客</a></p>
+<h2 id="HTTP协议是什么？"><a href="#HTTP协议是什么？" class="headerlink" title="HTTP协议是什么？"></a>HTTP协议是什么？</h2><p>HTTP协议（HyperText Transfer Protocol，超文本传输协议）:是客户端浏览器或其他程序与Web服务器之间的应用层通信协议 ，是基于请求/响应范式的。</p>
+<p>一个客户机与服务器建立连接后，发送一个请求给服务器，请求方式的格式为，统一资源标识符、协议版本号，后边是MIME信息包括请求修饰符、客户机信息和可能的内容。</p>
+<p>服务器接到请求后，给予相应的响应信息，其格式为一个状态行包括信息的协议版本号、一个成功或错误的代码，后边是MIME信息包括服务器信息、实体信息和可能的内容。</p>
+<ol>
+<li><p>它在客户端和服务器端请求和相应</p>
+<p>RT</p>
+</li>
+</ol>
+<p><img src="/2018/08/16/分享一下我对通信协议HTTP的理解/0.png" alt="img"></p>
+<ol start="2">
+<li>传输资源</li>
+</ol>
+<p>通过html传输 ：文本、word、avi电影、其他资源</p>
+<ol start="3">
+<li>传输的媒体类型</li>
+</ol>
+<p>服务端向浏览器传输MIME类型的文件，浏览器拿到MIME类型的文件，就可以解析了 。  譬如text/html、 image/jpeg 、application/xml，json格式，都属于MIME类型</p>
+<ol start="4">
+<li>URI和URL</li>
+</ol>
+<p>要了解http的传输，首先要知道传输的对象是什么。</p>
+<p>URI:web服务器中某个资源的名字。  譬如index.html</p>
+<p>URL:网络资源描述 </p>
+<p>举个栗子：</p>
+<pre><code>( http://)[resume.tengshe789.tech][:80]/java/index.html[?query-string] #location
+</code></pre><p>这时个典型的url，url里面是什么意思呢？</p>
+<p>  schema(协议): http/https/ftp.</p>
+<p>  host: web服务器的ip地址或者域名</p>
+<p>  port: 服务端端口， http默认访问的端口是80</p>
+<p>  path: 资源访问路径#location</p>
+<p>  query-string: 查询参数[?query-string]</p>
+<ol start="5">
+<li>方法</li>
+</ol>
+<p>每个请求都会携带GET/PUT/DELETE/POST/HEAD这样的一个方法，服务器拿到方法就知道自己该做什么了。</p>
+<p>那java中有doGet()doPost()方法，有什么区别呢？</p>
+<p>doGet：GET方法会把名值对追加在请求的URL后面。因为URL对字符数目有限制，进而限制了用在客户端请求的参数值的数目。并且请求中的参数值是可见的，因此，敏感信息不能用这种方式传递。 </p>
+<p>doPOST：POST方法通过把请求参数值放在请求体中来克服GET方法的限制，因此，可以发送的参数的数目是没有限制的。最后，通过POST请求传递的敏感信息对外部客户端是不可见的。 </p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>GET</th>
+<th>POST</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>缓存</td>
+<td>能被缓存</td>
+<td>不能缓存</td>
+</tr>
+<tr>
+<td>编码类型</td>
+<td>application/x-www-form-urlencoded</td>
+<td>application/x-www-form-urlencoded 或 multipart/form-data。为二进制数据使用多重编码。</td>
+</tr>
+<tr>
+<td>对数据长度的限制</td>
+<td>是的。当发送数据时，GET 方法向 URL 添加数据；URL 的长度是受限制的（URL 的最大长度是 2048 个字符）</td>
+<td>无限制。</td>
+</tr>
+<tr>
+<td>对数据类型的限制</td>
+<td>只允许 ASCII 字符</td>
+<td>没有限制。也允许二进制数据。</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>与 POST 相比，GET 的安全性较差，因为所发送的数据是 URL 的一部分。在发送密码或其他敏感信息时绝不要使用 GET</td>
+<td>POST 比 GET 更安全，因为参数不会被保存在浏览器历史或 web 服务器日志中。</td>
+</tr>
+<tr>
+<td>可见性</td>
+<td>数据在 URL 中对所有人都是可见的。</td>
+<td>数据不会显示在 URL 中。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="报文"><a href="#报文" class="headerlink" title="报文"></a>报文</h3><p>http交换与传输的数据单元是报文。报文由从客户机到服务器的请求和从服务器到客户机的响应构成。</p>
+<p>应答报文格式如下：</p>
+<p>状态行 － 通用信息头 － 响应头 － 实体头 － 报文主体</p>
+<p>状态码元由3位数字组成，表示请求是否被理解或被满足。原因分析是对原文的状态码作简短的描述，状态码用来支持自动操作，而原因分析用来供用户使用。客户机无需用来检查或显示语法。有关通用信息头，响应头和实体头方面的具体内容可以参照相关文件。</p>
+<h4 id="request"><a href="#request" class="headerlink" title="request"></a>request</h4><p>request报文格式如下：</p>
+<p>请求行 － 通用信息头 － 请求头 － 实体头 － 报文主体</p>
+<p>request消息结构包含三部分： （起始行、首部字段、主体） </p>
+<p>下面抓包验证，抓包使用的是<code>Charles</code>这个软件。</p>
+<p><img src="/2018/08/16/分享一下我对通信协议HTTP的理解/1.png" alt="img"></p>
+<p><img src="/2018/08/16/分享一下我对通信协议HTTP的理解/2.png" alt="img"></p>
+<p>如图所示，起始行： METHOD /path / http/version-number</p>
+<p>首部字段： 头信息Header-Name:value</p>
+<p>主体 返回内容optional request body</p>
+<p>请求行以方法字段开始，后面分别是 URL 字段和 HTTP 协议版本字段，并以 CRLF 结尾。SP 是分隔符。除了在最后的 CRLF 序列中 CF 和 LF 是必需的之外，其他都可以不要。有关通用信息头，请求头和实体头方面的具体内容可以参照相关文件。</p>
+<h4 id="response"><a href="#response" class="headerlink" title="response"></a>response</h4><p>response报文格式如下：</p>
+<p>状态行 － 通用信息头 － 响应头 － 实体头 － 报文主体</p>
+<p>第一部分 包括 协议版本http/version-number   状态status code message</p>
+<p>第二部分 头信息header-name:value</p>
+<p>第三部分 body</p>
+<p><img src="/2018/08/16/分享一下我对通信协议HTTP的理解/3.png" alt="img。"></p>
+<p>状态码元由3位数字组成，表示请求是否被理解或被满足。原因分析是对原文的状态码作简短的描述，状态码用来支持自动操作，而原因分析用来供用户使用。客户机无需用来检查或显示语法。有关通用信息头，响应头和实体头方面的具体内容可以参照相关文件。</p>
+<h4 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h4><p>http/1.1版本的协议里面定义了五种类型的状态码：</p>
+<p>1XX    提示信息</p>
+<p>2XX    成功</p>
+<p>3XX    重定向</p>
+<p>4XX    客户端错误</p>
+<p>5XX    服务器端的错误 </p>
+<table>
+<thead>
+<tr>
+<th>消息</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100 Continue</td>
+<td>服务器仅接收到部分请求，但是一旦服务器并没有拒绝该请求，客户端应该继续发送其余的请求。</td>
+</tr>
+<tr>
+<td>101 Switching Protocols</td>
+<td>服务器转换协议：服务器将遵从客户的请求转换到另外一种协议。</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>消息</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200 OK</td>
+<td>请求成功（其后是对GET和POST请求的应答文档。）</td>
+</tr>
+<tr>
+<td>201 Created</td>
+<td>请求被创建完成，同时新的资源被创建。</td>
+</tr>
+<tr>
+<td>202 Accepted</td>
+<td>供处理的请求已被接受，但是处理未完成。</td>
+</tr>
+<tr>
+<td>203 Non-authoritative Information</td>
+<td>文档已经正常地返回，但一些应答头可能不正确，因为使用的是文档的拷贝。</td>
+</tr>
+<tr>
+<td>204 No Content</td>
+<td>没有新文档。浏览器应该继续显示原来的文档。如果用户定期地刷新页面，而Servlet可以确定用户文档足够新，这个状态代码是很有用的。</td>
+</tr>
+<tr>
+<td>205 Reset Content</td>
+<td>没有新文档。但浏览器应该重置它所显示的内容。用来强制浏览器清除表单输入内容。</td>
+</tr>
+<tr>
+<td>206 Partial Content</td>
+<td>客户发送了一个带有Range头的GET请求，服务器完成了它。</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>消息</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>300 Multiple Choices</td>
+<td>多重选择。链接列表。用户可以选择某链接到达目的地。最多允许五个地址。</td>
+</tr>
+<tr>
+<td>301 Moved Permanently</td>
+<td>所请求的页面已经转移至新的url。</td>
+</tr>
+<tr>
+<td>302 Found</td>
+<td>所请求的页面已经临时转移至新的url。</td>
+</tr>
+<tr>
+<td>303 See Other</td>
+<td>所请求的页面可在别的url下被找到。</td>
+</tr>
+<tr>
+<td>304 Not Modified</td>
+<td>未按预期修改文档。客户端有缓冲的文档并发出了一个条件性的请求（一般是提供If-Modified-Since头表示客户只想比指定日期更新的文档）。服务器告诉客户，原来缓冲的文档还可以继续使用。</td>
+</tr>
+<tr>
+<td>305 Use Proxy</td>
+<td>客户请求的文档应该通过Location头所指明的代理服务器提取。</td>
+</tr>
+<tr>
+<td>306 <em>Unused</em></td>
+<td>此代码被用于前一版本。目前已不再使用，但是代码依然被保留。</td>
+</tr>
+<tr>
+<td>307 Temporary Redirect</td>
+<td>被请求的页面已经临时移至新的url。</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>消息</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>400 Bad Request</td>
+<td>服务器未能理解请求。</td>
+</tr>
+<tr>
+<td>401 Unauthorized</td>
+<td>被请求的页面需要用户名和密码。</td>
+</tr>
+<tr>
+<td>401.1</td>
+<td>登录失败。</td>
+</tr>
+<tr>
+<td>401.2</td>
+<td>服务器配置导致登录失败。</td>
+</tr>
+<tr>
+<td>401.3</td>
+<td>由于 ACL 对资源的限制而未获得授权。</td>
+</tr>
+<tr>
+<td>401.4</td>
+<td>筛选器授权失败。</td>
+</tr>
+<tr>
+<td>401.5</td>
+<td>ISAPI/CGI 应用程序授权失败。</td>
+</tr>
+<tr>
+<td>401.7</td>
+<td>访问被 Web 服务器上的 URL 授权策略拒绝。这个错误代码为 IIS 6.0 所专用。</td>
+</tr>
+<tr>
+<td>402 Payment Required</td>
+<td>此代码尚无法使用。</td>
+</tr>
+<tr>
+<td>403 Forbidden</td>
+<td>对被请求页面的访问被禁止。</td>
+</tr>
+<tr>
+<td>403.1</td>
+<td>执行访问被禁止。</td>
+</tr>
+<tr>
+<td>403.2</td>
+<td>读访问被禁止。</td>
+</tr>
+<tr>
+<td>403.3</td>
+<td>写访问被禁止。</td>
+</tr>
+<tr>
+<td>403.4</td>
+<td>要求 SSL。</td>
+</tr>
+<tr>
+<td>403.5</td>
+<td>要求 SSL 128。</td>
+</tr>
+<tr>
+<td>403.6</td>
+<td>IP 地址被拒绝。</td>
+</tr>
+<tr>
+<td>403.7</td>
+<td>要求客户端证书。</td>
+</tr>
+<tr>
+<td>403.8</td>
+<td>站点访问被拒绝。</td>
+</tr>
+<tr>
+<td>403.9</td>
+<td>用户数过多。</td>
+</tr>
+<tr>
+<td>403.10</td>
+<td>配置无效。</td>
+</tr>
+<tr>
+<td>403.11</td>
+<td>密码更改。</td>
+</tr>
+<tr>
+<td>403.12</td>
+<td>拒绝访问映射表。</td>
+</tr>
+<tr>
+<td>403.13</td>
+<td>客户端证书被吊销。</td>
+</tr>
+<tr>
+<td>403.14</td>
+<td>拒绝目录列表。</td>
+</tr>
+<tr>
+<td>403.15</td>
+<td>超出客户端访问许可。</td>
+</tr>
+<tr>
+<td>403.16</td>
+<td>客户端证书不受信任或无效。</td>
+</tr>
+<tr>
+<td>403.17</td>
+<td>客户端证书已过期或尚未生效。</td>
+</tr>
+<tr>
+<td>403.18</td>
+<td>在当前的应用程序池中不能执行所请求的 URL。这个错误代码为 IIS 6.0 所专用。</td>
+</tr>
+<tr>
+<td>403.19</td>
+<td>不能为这个应用程序池中的客户端执行 CGI。这个错误代码为 IIS 6.0 所专用。</td>
+</tr>
+<tr>
+<td>403.20</td>
+<td>Passport 登录失败。这个错误代码为 IIS 6.0 所专用。</td>
+</tr>
+<tr>
+<td>404 Not Found</td>
+<td>服务器无法找到被请求的页面。</td>
+</tr>
+<tr>
+<td>404.0</td>
+<td>（无）–没有找到文件或目录。</td>
+</tr>
+<tr>
+<td>404.1</td>
+<td>无法在所请求的端口上访问 Web 站点。</td>
+</tr>
+<tr>
+<td>404.2</td>
+<td>Web 服务扩展锁定策略阻止本请求。</td>
+</tr>
+<tr>
+<td>404.3</td>
+<td>MIME 映射策略阻止本请求。</td>
+</tr>
+<tr>
+<td>405 Method Not Allowed</td>
+<td>请求中指定的方法不被允许。</td>
+</tr>
+<tr>
+<td>406 Not Acceptable</td>
+<td>服务器生成的响应无法被客户端所接受。</td>
+</tr>
+<tr>
+<td>407 Proxy Authentication Required</td>
+<td>用户必须首先使用代理服务器进行验证，这样请求才会被处理。</td>
+</tr>
+<tr>
+<td>408 Request Timeout</td>
+<td>请求超出了服务器的等待时间。</td>
+</tr>
+<tr>
+<td>409 Conflict</td>
+<td>由于冲突，请求无法被完成。</td>
+</tr>
+<tr>
+<td>410 Gone</td>
+<td>被请求的页面不可用。</td>
+</tr>
+<tr>
+<td>411 Length Required</td>
+<td>“Content-Length” 未被定义。如果无此内容，服务器不会接受请求。</td>
+</tr>
+<tr>
+<td>412 Precondition Failed</td>
+<td>请求中的前提条件被服务器评估为失败。</td>
+</tr>
+<tr>
+<td>413 Request Entity Too Large</td>
+<td>由于所请求的实体的太大，服务器不会接受请求。</td>
+</tr>
+<tr>
+<td>414 Request-url Too Long</td>
+<td>由于url太长，服务器不会接受请求。当post请求被转换为带有很长的查询信息的get请求时，就会发生这种情况。</td>
+</tr>
+<tr>
+<td>415 Unsupported Media Type</td>
+<td>由于媒介类型不被支持，服务器不会接受请求。</td>
+</tr>
+<tr>
+<td>416 Requested Range Not Satisfiable</td>
+<td>服务器不能满足客户在请求中指定的Range头。</td>
+</tr>
+<tr>
+<td>417 Expectation Failed</td>
+<td>执行失败。</td>
+</tr>
+<tr>
+<td>423</td>
+<td>锁定的错误。</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>消息</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>500 Internal Server Error</td>
+<td>请求未完成。服务器遇到不可预知的情况。</td>
+</tr>
+<tr>
+<td>500.12</td>
+<td>应用程序正忙于在 Web 服务器上重新启动。</td>
+</tr>
+<tr>
+<td>500.13</td>
+<td>Web 服务器太忙。</td>
+</tr>
+<tr>
+<td>500.15</td>
+<td>不允许直接请求 Global.asa。</td>
+</tr>
+<tr>
+<td>500.16</td>
+<td>UNC 授权凭据不正确。这个错误代码为 IIS 6.0 所专用。</td>
+</tr>
+<tr>
+<td>500.18</td>
+<td>URL 授权存储不能打开。这个错误代码为 IIS 6.0 所专用。</td>
+</tr>
+<tr>
+<td>500.100</td>
+<td>内部 ASP 错误。</td>
+</tr>
+<tr>
+<td>501 Not Implemented</td>
+<td>请求未完成。服务器不支持所请求的功能。</td>
+</tr>
+<tr>
+<td>502 Bad Gateway</td>
+<td>请求未完成。服务器从上游服务器收到一个无效的响应。</td>
+</tr>
+<tr>
+<td>502.1</td>
+<td>CGI 应用程序超时。　·</td>
+</tr>
+<tr>
+<td>502.2</td>
+<td>CGI 应用程序出错。</td>
+</tr>
+<tr>
+<td>503 Service Unavailable</td>
+<td>请求未完成。服务器临时过载或当机。</td>
+</tr>
+<tr>
+<td>504 Gateway Timeout</td>
+<td>网关超时。</td>
+</tr>
+<tr>
+<td>505 HTTP Version Not Supported</td>
+<td>服务器不支持请求中指明的HTTP协议版本。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><p>作用有三，减少客户端请求频率，增加客户端响应速度，减少冗余数据的传输</p>
+<p>下图是谷歌浏览器调试模式界面，在header栏中清晰的显示了缓存的最大保持时间</p>
+<p> <img src="/2018/08/16/分享一下我对通信协议HTTP的理解/4.png" alt="4.png"></p>
+<h3 id="HTTP协议的特点"><a href="#HTTP协议的特点" class="headerlink" title="HTTP协议的特点"></a>HTTP协议的特点</h3><ol>
+<li>无状态（每次请求都是独立的）</li>
+</ol>
+<p>通过cookie+session的机制，完成它的无状态特点</p>
+<ol start="2">
+<li>多次请求</li>
+<li>基于TCP协议</li>
+</ol>
+<h3 id="协议版本号"><a href="#协议版本号" class="headerlink" title="协议版本号"></a>协议版本号</h3><h4 id="Http1-1和Http1-0的区别"><a href="#Http1-1和Http1-0的区别" class="headerlink" title="Http1.1和Http1.0的区别"></a>Http1.1和Http1.0的区别</h4><ol>
+<li>HTTP/1.0协议使用非持久连接,即在非持久连接下,一个tcp连接只传输一个Web对象；</li>
+<li>HTTP/1.1默认使用持久连接(然而,HTTP/1.1协议的客户机和服务器可以配置成使用非持久连接)。</li>
+</ol>
+<h4 id="HTTP2-0与HTTP1-0的区别"><a href="#HTTP2-0与HTTP1-0的区别" class="headerlink" title="HTTP2.0与HTTP1.0的区别"></a>HTTP2.0与HTTP1.0的区别</h4><ol>
+<li><p>HTTP2.0的多路复用</p>
+<p> 浏览器对同一域名下的并发连接数量有限制，一般为6个，HTTP1中的Keep-Alive用于长连接而不必重新建立连接，然而keep-alive必须等本次请求彻底完成后才能发送下一个请求，而HTTP2的请求与响应以二进制帧的形式交错进行，只需建立一次连接，即一轮三次握手，实现多路复用。</p>
+</li>
+<li><p>HTTP2.0压缩消息头</p>
+<p> HTTP1的消息头很大冗余，而HTTP2.0利用HPACK对消息头进行压缩传输，假设将常用的请求GET/index.html用1表示，POST/index.html用2表示，即是将消息头中的不同的部分分别用不用的索引进行表示，且会用哈夫曼编码压缩字符串，最后封装成frame。索引表分为动态索引和静态索引，动态索引表在客户端和服务器端共同维护，静态索引采用硬编码形式。</p>
+</li>
+<li><p>HTTP2.0服务端推送</p>
+<p> HTTP2.0中服务器会主动将资源推送给客户端，例如把js和css文件主动推送给客户端而不用客户端解析HTML后请求再响应。</p>
+</li>
+</ol>
+<h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><p>HTTP请求过程中，客户端与服务器之间没有任何身份确认的过程，数据全部明文传输，“裸奔”在互联网上，所以很容易遭到黑客的攻击劫持让系统瘫痪，当客户端发送请求很容易被黑客截获，如果黑客冒充目标服务器，则可返回任意信息给客户端，不被客户端所察觉，我们经常会听到“劫持”一词，所以使用直接使用HTTP传输是有风险的。 </p>
+<p>HTTPS协议（HyperText Transfer Protocol over Secure Socket Layer）：可以理解为HTTP+SSL/TLS，即HTTP下加入SSL层，HTTPS的安全基础是 SSL，因此加密的详细内容就需要SSL，用于安全的HTTP数据传输。  </p>
+<h3 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h3><ol>
+<li>网警公司的SSL3.0 </li>
+</ol>
+<blockquote>
+<pre><code>SSL（Secure Socket Layer，安全套接字层）：1994年为网景所研发，SSL协议位于TCP/IP协议与各种应用层协议之间，为数据通讯提供安全支持。 
+</code></pre></blockquote>
+<ol start="2">
+<li>ISOC这个组织  在SSL的基础上发布了升级版本 TLS1.2</li>
+</ol>
+<blockquote>
+<p>  TLS（Transport Layer Security，传输层安全）：其前身是SSL，它最初的几个版本（SSL 1.0、SSL 2.0、SSL 3.0）由网景公司开发，1999年从3.1 开始被IETF标准化并改名，发展至今已经有 TLS 1.0、TLS 1.1、TLS 1.2 三个版本。SSL3.0和TLS1.0由于存在安全漏洞，已经很少被使用到。目前使用最广泛的是TLS 1.1、TLS 1.2。 </p>
+</blockquote>
+<h3 id="HTTPS的工作原理"><a href="#HTTPS的工作原理" class="headerlink" title="HTTPS的工作原理"></a>HTTPS的工作原理</h3><p>假设A要给B发“我爱你”</p>
+<p><img src="/2018/08/16/分享一下我对通信协议HTTP的理解/5.png" alt="HTTPS的工作原理1"></p>
+<h4 id="对称加解密"><a href="#对称加解密" class="headerlink" title="对称加解密"></a>对称加解密</h4><p>如果使用对称加解密</p>
+<p>B有密钥，可以进行相应的解密。由于密钥是公开的，所有的客户端都可以拿到，如图：</p>
+<p><img src="/2018/08/16/分享一下我对通信协议HTTP的理解/6.png" alt="img"></p>
+<p>若，针对不同的客户端使用不同的密钥</p>
+<p><img src="/2018/08/16/分享一下我对通信协议HTTP的理解/7.png" alt="img"></p>
+<p>又会出现协商问题：由于没有公共的密钥了，服务端要给每个客户端发密钥，但协商过程是没有加密的，所以还会出现被截断的问题</p>
+<h4 id="非对称加解密"><a href="#非对称加解密" class="headerlink" title="非对称加解密"></a>非对称加解密</h4><p>非对称：公钥和私钥的概念 </p>
+<p><img src="/2018/08/16/分享一下我对通信协议HTTP的理解/8.png" alt="img"></p>
+<p>那么问题就来了： 客户端如何拿到公钥？</p>
+<p>方案：</p>
+<ol>
+<li>服务器端把公钥发送给每一个客户端</li>
+<li>服务器端把公钥放到远程服务器，客户端可以请求到</li>
+<li><p>让浏览器保存所有的公钥（不现实）</p>
+<p>结论： <strong>公钥被调包的问题按照上面的方案，永远存在</strong>。</p>
+</li>
+</ol>
+<p><img src="/2018/08/16/分享一下我对通信协议HTTP的理解/9.png" alt="img"></p>
+<h4 id="第三方机构与数字证书"><a href="#第三方机构与数字证书" class="headerlink" title="第三方机构与数字证书"></a>第三方机构与数字证书</h4><p>这时候出现了通过第三方机构，使用第三方机构的私钥对我们需要传输的公钥进行加密。</p>
+<p>数字证书是一个经证书授权中心数字签名的包含公开密钥拥有者信息以及公开密钥的文件。 </p>
+<p>数字证书里面包含的内容：</p>
+<p>公司信息、网站信息、数字证书的算法、公钥</p>
+<p>连接过程</p>
+<p><img src="/2018/08/16/分享一下我对通信协议HTTP的理解/10.png" alt="img"></p>
+<p> 如何查看公钥？浏览器有入口直接打开。<img src="/2018/08/16/分享一下我对通信协议HTTP的理解/11.png" alt="1532596718384"></p>
+<p><code>Charles</code>也可以更改添加SSL</p>
+<p><img src="/2018/08/16/分享一下我对通信协议HTTP的理解/12.png" alt="1532596877173"></p>
+<h3 id="总体流程"><a href="#总体流程" class="headerlink" title="总体流程"></a>总体流程</h3><ol>
+<li><p>客户端发起一个https请求</p>
+<p>a)    客户端支持的加密方式</p>
+<p>b)   客户端生成的随机数（第一个随机数）</p>
+</li>
+<li><p>服务端收到请求后，拿到随机数，返回</p>
+<p>a)    证书（颁发机构（CA）、证书内容本身的数字签名（使用第三方机构的私钥加密）、证书持有者的公钥、证书签名用到的hash算法）</p>
+<p>b)   生成一个随机数，返回给客户端（第二个随机数）</p>
+</li>
+<li><p>客户端拿到证书以后做验证</p>
+<p>a)    根据颁发机构找到本地的跟证书</p>
+<p>b)   根据CA得到根证书的公钥，通过公钥对数字签名解密，得到证书的内容摘要 A</p>
+<p>c)    用证书提供的算法对证书内容进行摘要，得到摘要 B</p>
+<p>d)   通过A和B的对比，也就是验证数字签名</p>
+</li>
+<li><p>验证通过以后，生成一个随机数（第三个随机数），通过证书内的公钥对这个随机数加密，发送给服务器端</p>
+</li>
+<li><p>（随机数1+2+3）通过对称加密得到一个密钥。（会话密钥）</p>
+</li>
+<li><p>通过会话密钥对内容进行对称加密传输</p>
+</li>
+</ol>
+<h3 id="HTTPS的优点"><a href="#HTTPS的优点" class="headerlink" title="HTTPS的优点"></a>HTTPS的优点</h3><p>1、SEO方面</p>
+<p>谷歌曾在2014年8月份调整搜索引擎算法，并称“比起同等HTTP网站，采用HTTPS加密的网站在搜索结果中的排名将会更高”。</p>
+<p>2、安全性</p>
+<p>尽管HTTPS并非绝对安全，掌握根证书的机构、掌握加密算法的组织同样可以进行中间人形式的攻击，但HTTPS仍是现行架构下最安全的解决方案，主要有以下几个好处：</p>
+<p>（1）使用HTTPS协议可认证用户和服务器，确保数据发送到正确的客户机和服务器；</p>
+<p>（2）HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，要比http协议安全，可防止数据在传输过程中不被窃取、改变，确保数据的完整性。</p>
+<p>（3）HTTPS是现行架构下最安全的解决方案，虽然不是绝对安全，但它大幅增加了中间人攻击的成本。</p>
+<h3 id="HTTPS的缺点"><a href="#HTTPS的缺点" class="headerlink" title="HTTPS的缺点"></a>HTTPS的缺点</h3><p>（1）SSL证书费用很高，以及其在服务器上的部署、更新维护非常繁琐</p>
+<p>（2）HTTPS降低用户访问速度（多次握手）</p>
+<p>（3）网站改用HTTPS以后，由HTTP跳转到HTTPS的方式增加了用户访问耗时（多数网站采用302跳转）</p>
+<p>（4）HTTPS涉及到的安全算法会消耗CPU资源，需要增加大量机器（https访问)</p>
+<p>（5）HTTPS协议的加密范围也比较有限，在黑客攻击、拒绝服务攻击、服务器劫持等方面几乎起不到什么作用。</p>
+<h3 id="http与https的区别"><a href="#http与https的区别" class="headerlink" title="http与https的区别"></a>http与https的区别</h3><p>HTTP的URL以 http://开头，而HTTPS的URL以https://开头。</p>
+<p>HTTP是不安全的，而HTTPS是安全的。</p>
+<p>HTTP标准端口是80 ，而HTTPS的标准端口是443。</p>
+<p>在OSI网络模型中，HTTP工作于应用层，而HTTPS工作在传输层。</p>
+<p>HTTP无需加密，而HTTPS对传输的数据进行加密。</p>
+<p>HTTP无需证书，而HTTPS需要认证证书。</p>
+<h2 id="RESTful"><a href="#RESTful" class="headerlink" title="RESTful"></a>RESTful</h2><p>REST  ：表述性状态转移</p>
+<p>RESTful是使用WEB标准来做一些准则和约束。</p>
+<h3 id="RESTful的基本概念："><a href="#RESTful的基本概念：" class="headerlink" title="RESTful的基本概念："></a>RESTful的基本概念：</h3><ol>
+<li><p>在REST中，一切的内容都被认为是一种<strong>资源</strong></p>
+</li>
+<li><p>每个资源都由URI唯一标识</p>
+</li>
+<li><p>使用统一的接口处理资源请求（POST/GET/PUT/DELETE/HEAD）</p>
+</li>
+<li><p>无状态</p>
+</li>
+</ol>
+<h3 id="资源和URI"><a href="#资源和URI" class="headerlink" title="资源和URI"></a>资源和URI</h3><ol>
+<li><p>[/]表示资源的层级关系</p>
+</li>
+<li><p>？过滤资源</p>
+</li>
+<li><p>使用_或者-让URI的可读性更好</p>
+</li>
+</ol>
+<h3 id="统一接口"><a href="#统一接口" class="headerlink" title="统一接口"></a>统一接口</h3><p> GET  获取某个资源。 幂等</p>
+<p> POST 创建一个新的资源</p>
+<p> PUT 替换某个已有的资源（更新操作） ， 幂等</p>
+<p> DELETE 删除某个资源</p>
+<p> PATCH/HEAD 更新部分资源</p>
+<h3 id="资源表述"><a href="#资源表述" class="headerlink" title="资源表述"></a>资源表述</h3><p>客户端通过HTTP获取资源</p>
+<p>MIME 类型（）</p>
+<p>accept: text/xml   html文件</p>
+<p>Content-Type告诉客户端资源的表述形式</p>
+<h3 id="资源链接"><a href="#资源链接" class="headerlink" title="资源链接"></a>资源链接</h3><p> 超媒体即应用状态引擎</p>
+<h3 id="状态转移"><a href="#状态转移" class="headerlink" title="状态转移"></a>状态转移</h3><p>服务器端不应该保存客户端状态。</p>
+<p>应用状态-  &gt;服务器端不保存应用状态</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://baike.baidu.com/item/http/243074" target="_blank" rel="noopener">百度百科</a></p>
+<p>感谢！</p>
+<p>结束 <br>此片完了~ 想要了解更多精彩新姿势？<br>请访问我的<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">个人博客</a> 本篇为原创内容，已在个人博客率先发表，随后CSDN，segmentfault，掘金，简书，开源中国同步发出。如有雷同，缘分呢兄弟。赶快加个好友~  </p>
+
+      
+    </div>
+    
+    
+    
+      <div>
+        
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本稿が終わる<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="tEngSHe789 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    tEngSHe789
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/" title="学好分布式架构=2=-通信协议HTTP">https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
+          
+            <a href="/tags/学好分布式架构/" rel="tag"><i class="fa fa-tag"></i> 学好分布式架构</a>
+          
+            <a href="/tags/网络/" rel="tag"><i class="fa fa-tag"></i> 网络</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/16/学好分布式架构-分布式事务/" rel="next" title="学好分布式架构=3=-分布式事务">
+                <i class="fa fa-chevron-left"></i> 学好分布式架构=3=-分布式事务
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/16/自动下载Bing背景/" rel="prev" title="论自动下载Bing背景的小技巧">
+                论自动下载Bing背景的小技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7659349864173199",
+    enable_page_level_ads: true
+  });
+</script>
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="tEngSHe789">
+            
+              <p class="site-author-name" itemprop="name">tEngSHe789</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/tengshe789" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:randyvan007@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/101453729765094892757" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/tengshe789" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/tengshe789" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i>Telegram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://steamcommunity.com/id/tengshe789" target="_blank" title="Steam">
+                      
+                        <i class="fa fa-fw fa-steam"></i>Steam</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/9930788/tengshe-789" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://dribbble.com/tengshe789" target="_blank" title="dribbble">
+                      
+                        <i class="fa fa-fw fa-dribbble"></i>dribbble</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/ha.7787" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/5649075808" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/970176296" target="_blank" title="QQZone">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQZone</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://music.163.com/#/user/home?id=73274594" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b4c1dd0e51d45194558166b" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://segmentfault.com/u/tengshe789" target="_blank" title="思否">
+                      
+                        <i class="fa fa-fw fa-scribd"></i>思否</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP协议是什么？"><span class="nav-number">1.</span> <span class="nav-text">HTTP协议是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#报文"><span class="nav-number">1.1.</span> <span class="nav-text">报文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#request"><span class="nav-number">1.1.1.</span> <span class="nav-text">request</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#response"><span class="nav-number">1.1.2.</span> <span class="nav-text">response</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见状态码"><span class="nav-number">1.1.3.</span> <span class="nav-text">常见状态码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存"><span class="nav-number">1.1.4.</span> <span class="nav-text">缓存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP协议的特点"><span class="nav-number">1.2.</span> <span class="nav-text">HTTP协议的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协议版本号"><span class="nav-number">1.3.</span> <span class="nav-text">协议版本号</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Http1-1和Http1-0的区别"><span class="nav-number">1.3.1.</span> <span class="nav-text">Http1.1和Http1.0的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP2-0与HTTP1-0的区别"><span class="nav-number">1.3.2.</span> <span class="nav-text">HTTP2.0与HTTP1.0的区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS"><span class="nav-number">2.</span> <span class="nav-text">HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#历史"><span class="nav-number">2.1.</span> <span class="nav-text">历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS的工作原理"><span class="nav-number">2.2.</span> <span class="nav-text">HTTPS的工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对称加解密"><span class="nav-number">2.2.1.</span> <span class="nav-text">对称加解密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非对称加解密"><span class="nav-number">2.2.2.</span> <span class="nav-text">非对称加解密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三方机构与数字证书"><span class="nav-number">2.2.3.</span> <span class="nav-text">第三方机构与数字证书</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总体流程"><span class="nav-number">2.3.</span> <span class="nav-text">总体流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS的优点"><span class="nav-number">2.4.</span> <span class="nav-text">HTTPS的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS的缺点"><span class="nav-number">2.5.</span> <span class="nav-text">HTTPS的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http与https的区别"><span class="nav-number">2.6.</span> <span class="nav-text">http与https的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RESTful"><span class="nav-number">3.</span> <span class="nav-text">RESTful</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RESTful的基本概念："><span class="nav-number">3.1.</span> <span class="nav-text">RESTful的基本概念：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源和URI"><span class="nav-number">3.2.</span> <span class="nav-text">资源和URI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统一接口"><span class="nav-number">3.3.</span> <span class="nav-text">统一接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源表述"><span class="nav-number">3.4.</span> <span class="nav-text">资源表述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源链接"><span class="nav-number">3.5.</span> <span class="nav-text">资源链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态转移"><span class="nav-number">3.6.</span> <span class="nav-text">状态转移</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+      
+            <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+            <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+            <div class="widget-wrap">
+            <h3 class="widget-title">Tag Cloud</h3>
+            <div id="myCanvasContainer" class="widget tagcloud">
+                <canvas width="250" height="250" id="resCanvas" style="width=100%">
+                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows10/">Windows10</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/">k8s</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/军事/">军事</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分享/">分享</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/初/">初</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/吐槽/">吐槽</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学好分布式架构/">学好分布式架构</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a><span class="tag-list-count">27</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构与算法/">数据结构与算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/硬件/">硬件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/窍门/">窍门</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件分享/">软件分享</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件教学/">软件教学</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/错题/">错题</a><span class="tag-list-count">1</span></li></ul>
+                </canvas>
+            </div>
+            </div>
+      
+
+      
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-7659349864173199",
+            enable_page_level_ads: true
+            });
+            </script>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tEngSHe789</span>
+
+  
+</div>
+
+
+  <!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div> -->
+
+
+
+
+
+
+
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("01/1/2018 0:00:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-nipsilon"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"tagMode":true,"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=1.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=1.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=1.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=1.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=1.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=1.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=1.0.0"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://tengshe789.github.io/2018/08/16/分享一下我对通信协议HTTP的理解/';
+          this.page.identifier = '2018/08/16/分享一下我对通信协议HTTP的理解/';
+          this.page.title = '学好分布式架构=2=-通信协议HTTP';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'LNoutjtqdzTwP7Ui74LV5Dw1-gzGzoHsz',
+        appKey: 'rO9bQ0F0wlhqulsUoNy80KPb',
+        placeholder: '来说两句吧~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("LNoutjtqdzTwP7Ui74LV5Dw1-gzGzoHsz", "rO9bQ0F0wlhqulsUoNy80KPb");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=1.0.0"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=1.0.0"></script>
+
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-nipsilon"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"tagMode":true,"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script>
+</body>
+</html>
+<!-- 页面点击小红心 --> 
+<script type="text/javascript" src="/js/src/love.js"></script>
