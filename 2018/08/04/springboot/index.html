@@ -83,7 +83,7 @@
 
 
 
-  <meta name="keywords" content="java,技术,Spring,">
+  <meta name="keywords" content="技术,java,Spring,">
 
 
 
@@ -97,7 +97,7 @@
 
 
 <meta name="description" content="最近再研究springboot的原理😋颇有收获，现在让我分享一下springboot如何使用吧~ 想要解锁更多新姿势？请访问我的博客 啥是Springboot和书上理解的不同，我认为Springboot是一个优秀的快速搭建框架，他通过maven继承方式添加依赖来整合很多第三方工具，可以避免各种麻烦的配置，有各种内嵌容器简化Web项目，还能避免依赖的干扰，它内置tomcat，jetty容器，使用的">
-<meta name="keywords" content="java,技术,Spring">
+<meta name="keywords" content="技术,java,Spring">
 <meta property="og:type" content="article">
 <meta property="og:title" content="这是一篇优雅的Springboot2.0使用手册">
 <meta property="og:url" content="https://tengshe789.github.io/2018/08/04/springboot/index.html">
@@ -112,7 +112,7 @@
 <meta property="og:image" content="https://tengshe789.github.io/2018/08/04/springboot/5.png">
 <meta property="og:image" content="https://tengshe789.github.io/2018/08/04/springboot/6.jpg">
 <meta property="og:image" content="https://tengshe789.github.io/2018/08/04/springboot/7.png">
-<meta property="og:updated_time" content="2019-11-20T13:39:40.738Z">
+<meta property="og:updated_time" content="2021-06-06T09:10:07.894Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="这是一篇优雅的Springboot2.0使用手册">
 <meta name="twitter:description" content="最近再研究springboot的原理😋颇有收获，现在让我分享一下springboot如何使用吧~ 想要解锁更多新姿势？请访问我的博客 啥是Springboot和书上理解的不同，我认为Springboot是一个优秀的快速搭建框架，他通过maven继承方式添加依赖来整合很多第三方工具，可以避免各种麻烦的配置，有各种内嵌容器简化Web项目，还能避免依赖的干扰，它内置tomcat，jetty容器，使用的">
@@ -430,7 +430,7 @@ tpwidget("show");</script>
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  12,031
+                  12,030
                 </span>
               
 
@@ -550,7 +550,6 @@ tpwidget("show");</script>
 <h4 id="后台-2"><a href="#后台-2" class="headerlink" title="后台"></a>后台</h4><p>在src/main/resources/创建一个templates文件夹,新网页后缀为*.jsp</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IndexController</span> </span>&#123;</span><br><span class="line">	<span class="meta">@RequestMapping</span>(<span class="string">"/index"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"index"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="前台-2"><a href="#前台-2" class="headerlink" title="前台"></a>前台</h3><p>略略略😝</p>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
 <h2 id="面向流编程"><a href="#面向流编程" class="headerlink" title="面向流编程"></a>面向流编程</h2><p>要了解 WebFlux ,首先了解下什么是Reactive响应式(反应式、异步、面向流)编程 ，他是一种新的编程风格，其特点是异步或并发、事件驱动、推送PUSH机制以及观察者模式的衍生。reactive应用(响应式应用)允许开发人员构建事件驱动（event-driven），可扩展性，弹性的反应系统：提供高度敏感的实时的用户体验感觉，可伸缩性和弹性的应用程序栈的支持，随时可以部署在多核和云计算架构。</p>
 <h3 id="Spring-Webflux"><a href="#Spring-Webflux" class="headerlink" title="Spring Webflux"></a>Spring Webflux</h3><p>Spring Boot Webflux 就是基于 Reactor 实现的。Spring Boot 2.0 包括一个新的 spring-webflux 模块。该模块包含对响应式 HTTP 和 WebSocket 客户端的支持，以及对 REST，HTML 和 WebSocket 交互等程序的支持。一般来说，Spring MVC 用于同步处理，Spring Webflux 用于异步处理。 </p>
 <p>Spring Boot Webflux 有两种编程模型实现，一种类似 Spring MVC 注解方式，另一种是使用其功能性端点方式。 </p>
@@ -950,7 +949,7 @@ tpwidget("show");</script>
 <p><a href="https://blog.csdn.net/github_32521685/article/details/50463895" target="_blank" rel="noopener">Spring Boot 性能优化</a></p>
 <p><a href="https://blog.csdn.net/u013970971/article/details/79468356" target="_blank" rel="noopener">WebFlux</a></p>
 <p>感谢以上大大们~！</p>
-<p>广告时间：想要了解更多精彩新姿势？请访问<a href="https://blog.tengshe789.tech/" target="_blank" rel="noopener">我的博客</a></p>
+<p>广告时间：想要了解更多精彩新姿势？请访问<a href="https://tengshe789.github.io/">我的博客</a></p>
 
       
     </div>
@@ -1018,9 +1017,9 @@ tpwidget("show");</script>
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
-          
             <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
           
             <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
           
